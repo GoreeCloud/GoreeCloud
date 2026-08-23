@@ -5,7 +5,7 @@
 
 **Privacy-first, self-hosted software for personal cloud infrastructure, productivity, knowledge management, security, communication, and digital preservation.**
 
-[Official website](https://www.goreecloud.com) · [Public repositories](https://github.com/GoreeCloud?tab=repositories)
+[Official website](https://www.goreecloud.com) · [Browse public repositories](https://github.com/GoreeCloud?tab=repositories)
 </div>
 
 ## About GoreeCloud
@@ -37,7 +37,7 @@ GoreeCloud uses shared first-party systems to keep applications cohesive without
 | **Wardveil Security by GoreeCloud** | Shared security system and integration framework for applicable controls, hardening, diagnostics, trust boundaries, and evidence-backed security experiences. |
 | **GoreeCloud Privacy Shield** | Shared privacy system and privacy-control foundation for privacy-safe defaults, data minimization, diagnostics, and applicable content/tracking protection. |
 | **Everkeep** | Resilience, recovery, preservation, portability, continuity, succession, and digital-legacy system. |
-| **GoreeCloud Identity** | Centralized identity, authentication, and single-sign-on platform while application authorization remains appropriately scoped. |
+| **[GoreeCloud Identity](https://github.com/GoreeCloud/goreecloud-identity)** | Centralized identity, authentication, and single-sign-on platform while application authorization remains appropriately scoped. |
 
 These are functional platform systems rather than decorative labels. Their names and visual identities represent implemented capabilities and governance boundaries.
 
@@ -75,6 +75,24 @@ These are functional platform systems rather than decorative labels. Their names
 - **[GoreeCloud Keyboard](https://github.com/GoreeCloud/goreecloud-keyboard)** — private Android input method with swipe typing, dictionaries, clipboard tools, and GoreeCloud workflows.
 - **[GoreeCloud Location](https://github.com/GoreeCloud/goreecloud-location)** — privacy-first multi-user location and tracking platform.
 
+### Planning, information, and service operations
+
+- **[GoreeCloud Calendar](https://github.com/GoreeCloud/goreecloud-calendar)** — GoreeCloud-controlled calendar experience built around standards-based calendar data.
+- **[GoreeCloud Feed](https://github.com/GoreeCloud/goreecloud-rss)** — private multi-user RSS experience for web, Linux desktop, and Android.
+- **[GoreeCloud Monitor](https://github.com/GoreeCloud/goreecloud-monitor)** — availability, endpoint, heartbeat, certificate, incident, and recovery monitoring.
+
+### Browser integrations and utilities
+
+- **[GoreeCloud Bookmark Browser Extension](https://github.com/GoreeCloud/goreecloud-bookmark-browser-extension)** — browser integration for saving content to GoreeCloud Bookmarks.
+- **[GoreeCloud Redirector](https://github.com/GoreeCloud/goreecloud-redirector)** — privacy-first Firefox extension for redirecting selected external-service URLs toward GoreeCloud-controlled alternatives.
+- **[GoreeCloud Source Resync](https://github.com/GoreeCloud/goreecloud-source-resync)** — Firefox extension supporting the GoreeCloud ChatGPT Project Sources resynchronization workflow.
+
+## Project status and source of truth
+
+GoreeCloud repositories exist at different lifecycle states. Some projects are active development work, some are release candidates or transitional replacements, and some have accepted Stable releases.
+
+A project's own repository, release records, project specification, and acceptance evidence remain authoritative for its current implementation, packaging, deployment, and lifecycle state. **Being listed on this profile does not by itself mean a project is released, deployed to production, or Stable.**
+
 ## Development approach
 
 GoreeCloud software may be:
@@ -92,6 +110,8 @@ Project maturity varies by repository. Individual repositories remain the source
 The **[official GoreeCloud website](https://www.goreecloud.com)** is the central public hub for platform information, project discovery, development updates, and official external links.
 
 GitHub is the current public source-control home for GoreeCloud repositories and open-source participation. GoreeCloud's longer-term source-control architecture is designed to preserve independence from any single hosting provider.
+
+Public repositories define their own license, contribution, issue-tracking, and release boundaries where applicable. For the complete current public repository set, use **[Browse public repositories](https://github.com/GoreeCloud?tab=repositories)**.
 
 ---
 

@@ -1,0 +1,77 @@
+name: Validate profile README
+
+on:
+  pull_request:
+    paths:
+      - README.md
+      - .github/workflows/profile-readme.yml
+  push:
+    branches:
+      - main
+    paths:
+      - README.md
+      - .github/workflows/profile-readme.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-profile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Validate profile structure and privacy boundaries
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -s README.md
+
+          required_headings=(
+            "# GoreeCloud"
+            "## About GoreeCloud"
+            "## Core principles"
+            "## Platform systems"
+            "## Selected public projects"
+            "## Project status and source of truth"
+            "## Development approach"
+            "## Public presence"
+          )
+
+          for heading in "${required_headings[@]}"; do
+            grep -Fqx "$heading" README.md || {
+              echo "Missing required heading: $heading" >&2
+              exit 1
+            }
+          done
+
+          required_links=(
+            "https://www.goreecloud.com"
+            "https://github.com/GoreeCloud?tab=repositories"
+            "https://github.com/GoreeCloud/glaze-ui"
+            "https://github.com/GoreeCloud/goreecloud-manager"
+            "https://github.com/GoreeCloud/goreecloud-identity"
+          )
+
+          for link in "${required_links[@]}"; do
+            grep -Fq "$link" README.md || {
+              echo "Missing required profile link: $link" >&2
+              exit 1
+            }
+          done
+
+          if grep -Eiq 'shields\.io|badge\.fury\.io|hits\.seeyoufarm\.com' README.md; then
+            echo "Third-party badge or tracking endpoint detected in public profile README." >&2
+            exit 1
+          fi
+
+          if grep -Eiq 'password|api[_ -]?key|private[_ -]?key|access[_ -]?token|secret[=:]' README.md; then
+            echo "Potential sensitive-information pattern detected in public profile README." >&2
+            exit 1
+          fi
+
+          echo "Profile README validation passed."
