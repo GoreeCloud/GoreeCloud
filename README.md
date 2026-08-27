@@ -1,5 +1,6 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/GoreeCloud/goreecloud-logo/main/official/goreecloud-logo.svg" alt="GoreeCloud" width="160">
+  <!-- Canonical branding source: GoreeCloud/goreecloud-branding-assets/official/goreecloud-logo.svg -->
+  <img src="./assets/goreecloud-logo.svg" alt="GoreeCloud" width="160">
 
 # GoreeCloud
 
@@ -92,6 +93,8 @@ These are functional platform systems rather than decorative labels. Their names
 GoreeCloud repositories exist at different lifecycle states. Some projects are active development work, some are release candidates or transitional replacements, and some have accepted Stable releases.
 
 A project's own repository, release records, project specification, and acceptance evidence remain authoritative for its current implementation, packaging, deployment, and lifecycle state. **Being listed on this profile does not by itself mean a project is released, deployed to production, or Stable.**
+
+Branding is governed separately: **`GoreeCloud/goreecloud-branding-assets` is the canonical source for GoreeCloud logos, icons, artwork, wordmarks, and approved brand derivatives.** Product-local artwork is a synchronized packaging or presentation derivative, not an independent branding source of truth.
 
 ## Development approach
 
