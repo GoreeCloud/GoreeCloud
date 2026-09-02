@@ -3,6 +3,7 @@ name: Platform conformance
 on:
   pull_request:
     paths:
+      - README.md
       - NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md
       - scripts/validate_platform_conformance.py
       - .github/workflows/platform-conformance.yml
@@ -10,6 +11,7 @@ on:
     branches:
       - main
     paths:
+      - README.md
       - NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md
       - scripts/validate_platform_conformance.py
       - .github/workflows/platform-conformance.yml
