@@ -1,0 +1,36 @@
+name: Platform conformance
+
+on:
+  pull_request:
+    paths:
+      - NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md
+      - scripts/validate_platform_conformance.py
+      - .github/workflows/platform-conformance.yml
+  push:
+    branches:
+      - main
+    paths:
+      - NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md
+      - scripts/validate_platform_conformance.py
+      - .github/workflows/platform-conformance.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: platform-conformance-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate six-system baseline
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Validate repository-local platform conformance
+        run: python3 scripts/validate_platform_conformance.py
