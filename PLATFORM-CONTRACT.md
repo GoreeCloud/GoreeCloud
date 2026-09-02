@@ -40,13 +40,13 @@ The required baseline checks are:
 
 Backup and restore are independent fields. A running or successful backup must never be interpreted as a verified restoration. When restoration is required, Stable eligibility requires `restore_status: verified` and a concrete `last_verified_restore` timestamp backed by recovery evidence.
 
-## Lifecycle vocabulary reconciliation
+## Lifecycle vocabulary
 
-The schema implements the requested platform target vocabulary:
+The schema uses the authoritative GoreeCloud lifecycle vocabulary:
 
 `Concept → Experimental → Development → Release Candidate → Stable → Deprecated → Retired`.
 
-The current authoritative Drive lifecycle standard still contains an older nine-state vocabulary. That governance mismatch is an explicit blocker to treating this repository schema as the sole lifecycle authority until the Drive standard is reconciled. Initial adopters use `Development`, which is common to both vocabularies. No application may use the mismatch to upgrade its maturity claim.
+The authoritative Drive record `Standard — Application and Service Release Lifecycle` was reconciled to this seven-state vocabulary as version v0.2. Alpha, Beta, Maintenance, and End of Life are retained there only as superseded historical labels; current lifecycle declarations must use the seven approved values and must be evidence-based rather than mechanically translated from a historical label.
 
 ## Evidence
 
