@@ -1,0 +1,54 @@
+{
+  "rules_version": "1.0",
+  "contract_schema_version": "1.0",
+  "current_glaze_ui": "2.2.0",
+  "lifecycle": [
+    "Concept",
+    "Experimental",
+    "Development",
+    "Release Candidate",
+    "Stable",
+    "Deprecated",
+    "Retired"
+  ],
+  "required_checks": [
+    "glaze-ui",
+    "goreecloud-identity",
+    "wardveil-security",
+    "privacy-shield",
+    "everkeep-recovery",
+    "mesh-registration",
+    "api-compatibility",
+    "accessibility",
+    "platform-acceptance",
+    "backup",
+    "restore",
+    "export-portability",
+    "security-validation",
+    "privacy-validation",
+    "required-documentation",
+    "required-tests",
+    "release-evidence"
+  ],
+  "implementation_evidence_kinds": [
+    "source",
+    "automated_test",
+    "integration_test",
+    "runtime",
+    "rendered",
+    "accessibility",
+    "recovery",
+    "security",
+    "privacy",
+    "release",
+    "deployment"
+  ],
+  "stable_rules": {
+    "all_mandatory_checks_must_pass": true,
+    "documentation_only_evidence_is_insufficient": true,
+    "glaze_ui_must_equal_current_stable": true,
+    "all_platform_systems_must_be_conformant_or_justified_not_applicable": true,
+    "verified_restore_required_when_restore_required": true,
+    "release_evidence_required": true
+  }
+}

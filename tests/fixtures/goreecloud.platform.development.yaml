@@ -1,0 +1,82 @@
+schema_version: "1.0"
+component:
+  id: goreecloud.platform-contract-fixture
+  product_name: GoreeCloud Platform Contract Fixture
+  kind: platform-component
+  repository: GoreeCloud/GoreeCloud
+  lifecycle: Development
+  version: "0.0"
+  supported_platforms: [source]
+  user_facing: false
+api:
+  version: null
+  endpoints: []
+glaze_ui:
+  applicable: false
+  required_version: "2.2.0"
+  implemented_version: null
+  migration_status: not_applicable
+  evidence: []
+platform_systems:
+  manager: {status: "Not Applicable — Justified", justification: "Validation fixture only.", evidence: []}
+  identity: {status: "Not Applicable — Justified", justification: "Validation fixture only.", evidence: []}
+  wardveil_security: {status: "Not Applicable — Justified", justification: "Validation fixture only.", evidence: []}
+  privacy_shield: {status: "Not Applicable — Justified", justification: "Validation fixture only.", evidence: []}
+  everkeep: {status: "Not Applicable — Justified", justification: "Validation fixture only.", evidence: []}
+  mesh: {status: "Not Applicable — Justified", justification: "Validation fixture only.", evidence: []}
+  glaze_ui: {status: "Not Applicable — Justified", justification: "Validation fixture only.", evidence: []}
+mesh:
+  registration: not_applicable
+  capabilities: []
+  dependencies: []
+  published_events: []
+  consumed_events: []
+  evidence: []
+health:
+  liveness: []
+  readiness: []
+recovery:
+  backup_required: false
+  backup_status: not_applicable
+  restore_required: false
+  restore_status: not_applicable
+  last_verified_restore: null
+  recovery_dependencies: []
+  documentation: []
+  evidence: []
+data_portability:
+  export_capability: not_applicable
+  export_formats: []
+  last_export_validation: null
+  portability_requirements: []
+  evidence: []
+external_dependencies: []
+compatibility:
+  platform_releases: []
+  api_requirements: []
+  schema_requirements: []
+  component_requirements: []
+conformance:
+  declared_state: nonconformant
+  stable_eligible: false
+  checks:
+    - {id: glaze-ui, mandatory: true, status: pending, evidence: []}
+    - {id: goreecloud-identity, mandatory: true, status: pending, evidence: []}
+    - {id: wardveil-security, mandatory: true, status: pending, evidence: []}
+    - {id: privacy-shield, mandatory: true, status: pending, evidence: []}
+    - {id: everkeep-recovery, mandatory: true, status: pending, evidence: []}
+    - {id: mesh-registration, mandatory: true, status: pending, evidence: []}
+    - {id: api-compatibility, mandatory: true, status: pending, evidence: []}
+    - {id: accessibility, mandatory: true, status: pending, evidence: []}
+    - {id: platform-acceptance, mandatory: true, status: pending, evidence: []}
+    - {id: backup, mandatory: true, status: pending, evidence: []}
+    - {id: restore, mandatory: true, status: pending, evidence: []}
+    - {id: export-portability, mandatory: true, status: pending, evidence: []}
+    - {id: security-validation, mandatory: true, status: pending, evidence: []}
+    - {id: privacy-validation, mandatory: true, status: pending, evidence: []}
+    - {id: required-documentation, mandatory: true, status: pending, evidence: []}
+    - {id: required-tests, mandatory: true, status: pending, evidence: []}
+    - {id: release-evidence, mandatory: true, status: pending, evidence: []}
+evidence:
+  acceptance: []
+  release: []

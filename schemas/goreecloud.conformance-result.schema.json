@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.goreecloud.com/platform/goreecloud.conformance-result.schema.json",
+  "title": "GoreeCloud Platform Conformance Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["result_version", "component_id", "repository", "source_revision", "evaluated_at", "contract_schema_version", "overall_result", "declared_state", "stable_eligible", "lifecycle", "requirements", "missing_mandatory_evidence"],
+  "properties": {
+    "result_version": {"const": "1.0"},
+    "component_id": {"type": "string", "minLength": 1},
+    "repository": {"type": "string", "minLength": 1},
+    "source_revision": {"type": ["string", "null"]},
+    "evaluated_at": {"type": "string", "format": "date-time"},
+    "contract_schema_version": {"const": "1.0"},
+    "overall_result": {"enum": ["conformant", "non-conformant"]},
+    "declared_state": {"enum": ["conformant", "nonconformant", "migration_required", "blocked"]},
+    "stable_eligible": {"type": "boolean"},
+    "lifecycle": {"type": "string", "minLength": 1},
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "mandatory", "declared_status", "result", "evidence"],
+        "properties": {
+          "id": {"type": "string"},
+          "mandatory": {"type": "boolean"},
+          "declared_status": {"enum": ["pass", "fail", "pending", "not_applicable"]},
+          "result": {"enum": ["pass", "fail", "not_applicable"]},
+          "evidence": {"type": "array", "items": {"type": "string"}},
+          "reason": {"type": "string"}
+        }
+      }
+    },
+    "missing_mandatory_evidence": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+  }
+}
