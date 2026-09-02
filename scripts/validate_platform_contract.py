@@ -116,6 +116,8 @@ def evaluate(contract: dict, rules: dict, source_revision: str | None) -> dict:
         refs = check["evidence"]
         items = [evidence[ref] for ref in refs]
         reason = ""
+        docs_gate = check_id == "required-documentation"
+        has_implementation_evidence = any(item["kind"] in implementation_kinds for item in items)
         if check["status"] == "not_applicable":
             result = "not_applicable" if not check["mandatory"] else "fail"
             if check["mandatory"]:
@@ -126,15 +128,15 @@ def evaluate(contract: dict, rules: dict, source_revision: str | None) -> dict:
         elif not refs:
             result = "fail"
             reason = "pass has no evidence"
-        elif check["mandatory"] and not any(item["kind"] in implementation_kinds for item in items):
+        elif check["mandatory"] and not docs_gate and not has_implementation_evidence:
             result = "fail"
-            reason = "mandatory pass is supported only by documentation evidence"
+            reason = "mandatory implementation pass is supported only by documentation evidence"
         else:
             result = "pass"
 
         if check["mandatory"] and result != "pass":
             all_mandatory_pass = False
-            if not refs or not any(item["kind"] in implementation_kinds for item in items):
+            if not refs or (not docs_gate and not has_implementation_evidence):
                 missing_evidence.append(check_id)
 
         requirements.append({
