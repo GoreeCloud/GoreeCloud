@@ -29,18 +29,19 @@ GoreeCloud is more than a homelab or a collection of self-hosted applications. I
 
 ## Platform systems
 
-GoreeCloud uses shared first-party systems to keep applications cohesive without making them unnecessarily dependent on one another.
+GoreeCloud uses shared first-party systems to keep applications and services cohesive without making them unnecessarily dependent on one another.
 
 | System | Role |
 | --- | --- |
 | **GoreeCloud Suite** | Integrated user-facing applications and services across the personal-cloud ecosystem. |
-| **[Glaze UI](https://github.com/GoreeCloud/glaze-ui)** | Shared design and interaction language, including semantic tokens, reusable interface primitives, accessibility behavior, and conformance guidance. |
-| **Wardveil Security by GoreeCloud** | Shared security system and integration framework for applicable controls, hardening, diagnostics, trust boundaries, and evidence-backed security experiences. |
-| **GoreeCloud Privacy Shield** | Shared privacy system and privacy-control foundation for privacy-safe defaults, data minimization, diagnostics, and applicable content/tracking protection. |
+| **[Glaze UI](https://github.com/GoreeCloud/goreecloud-glaze-ui)** | Shared design and interaction language, including semantic tokens, reusable interface primitives, accessibility behavior, responsive behavior, and conformance guidance. |
+| **Wardveil Security by GoreeCloud** | Shared security system and integration framework for applicable protection, hardening, diagnostics, trust boundaries, verification, response, and evidence-backed security experiences. |
+| **GoreeCloud Privacy Shield** | Shared privacy system and privacy-control foundation for consent, purpose limitation, minimization, retention, sharing, processing boundaries, privacy-safe diagnostics, and applicable content/tracking protection. |
 | **Everkeep** | Resilience, recovery, preservation, portability, continuity, succession, and digital-legacy system. |
-| **[GoreeCloud Identity](https://github.com/GoreeCloud/goreecloud-identity)** | Centralized identity, authentication, and single-sign-on platform while application authorization remains appropriately scoped. |
+| **[GoreeCloud Mesh](https://github.com/GoreeCloud/goreecloud-mesh)** | Bounded first-party capability discovery, coordination, integration, governance, and event/capability exchange where applicable. |
+| **[GoreeCloud Identity](https://github.com/GoreeCloud/goreecloud-identity)** | Central identity, account, device, credential, session, authentication, authorization, and delegated-authority foundation while application-specific authorization remains appropriately scoped. |
 
-These are functional platform systems rather than decorative labels. Their names and visual identities represent implemented capabilities and governance boundaries.
+These are functional platform systems rather than decorative labels. Application and service repositories must represent required integrations through real behavior, contracts, authority boundaries, validation, and user-visible state where applicable. A project that has not completed required integration and acceptance must not be presented as Stable or production-ready merely because it builds successfully.
 
 ## Selected public projects
 
@@ -49,7 +50,7 @@ These are functional platform systems rather than decorative labels. Their names
 - **[GoreeCloud Manager](https://github.com/GoreeCloud/goreecloud-manager)** — native administration and operations console for GoreeCloud.
 - **[GoreeCloud Terminal](https://github.com/GoreeCloud/goreecloud-terminal)** — GoreeCloud-maintained Linux terminal experience with controlled fork-to-native evolution.
 - **[GoreeCloud Search](https://github.com/GoreeCloud/goreecloud-search)** — privacy-focused, self-hosted search and metasearch gateway.
-- **[GoreeCloud Browser](https://github.com/GoreeCloud/goreecloud-browser)** — GoreeCloud-maintained Firefox/Gecko browser distribution and service-integration gateway.
+- **[GoreeCloud Browser](https://github.com/GoreeCloud/goreecloud-browser)** — GoreeCloud-maintained browser project with a controlled migration path toward the native GoreeCloud application model.
 
 ### Storage, synchronization, and knowledge
 
@@ -98,15 +99,16 @@ Branding is governed separately: **`GoreeCloud/goreecloud-branding-assets` is th
 
 ## Development approach
 
-GoreeCloud software may be:
+GoreeCloud applications and services are developed toward an original, native, GoreeCloud-owned destination.
 
-- original GoreeCloud-owned applications;
-- GoreeCloud-maintained open-source forks with controlled fork-to-native evolution; or
-- carefully selected open-source components used where maintaining a separate implementation would add unnecessary complexity.
+- New application implementations are built from the ground up under GoreeCloud ownership.
+- Existing complete-product forks or adopted implementations may remain temporarily for migration, compatibility, testing, reference, or historical purposes while native replacements are built and accepted.
+- Narrow critical foundations may remain dependencies when independent reimplementation would materially increase security, cryptographic, protocol, standards, codec, rendering, operating-system, runtime, interoperability, or maintainability risk.
+- Required Glaze UI, Wardveil Security, Privacy Shield, Everkeep, GoreeCloud Mesh, and GoreeCloud Identity integrations remain functional acceptance requirements rather than branding claims.
 
-The long-term objective is not to reproduce any commercial cloud ecosystem exactly. GoreeCloud develops or adopts software because it fulfills a verified role while strengthening privacy, ownership, interoperability, portability, maintainability, security, and recoverability.
+The long-term objective is not to reproduce any commercial cloud ecosystem exactly. GoreeCloud builds software around verified roles while strengthening privacy, ownership, interoperability, portability, maintainability, security, recoverability, and long-term independence.
 
-Project maturity varies by repository. Individual repositories remain the source of truth for their current development, release, packaging, deployment, and acceptance state.
+Project maturity varies by repository. Individual repositories and canonical GoreeCloud project records remain the source of truth for current development, release, packaging, deployment, integration evidence, and acceptance state.
 
 ## Public presence
 

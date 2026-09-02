@@ -1,0 +1,44 @@
+name: Platform conformance
+
+on:
+  pull_request:
+    paths:
+      - README.md
+      - NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md
+      - repositories.public.json
+      - scripts/validate_platform_conformance.py
+      - scripts/validate_public_repository_registry.py
+      - .github/workflows/platform-conformance.yml
+  push:
+    branches:
+      - main
+    paths:
+      - README.md
+      - NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md
+      - repositories.public.json
+      - scripts/validate_platform_conformance.py
+      - scripts/validate_public_repository_registry.py
+      - .github/workflows/platform-conformance.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: platform-conformance-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate project-wide baselines
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Validate repository-local platform conformance
+        run: python3 scripts/validate_platform_conformance.py
+      - name: Validate privacy-bounded public repository registry
+        run: python3 scripts/validate_public_repository_registry.py
