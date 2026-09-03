@@ -96,6 +96,7 @@
         "version",
         "source_revision",
         "lifecycle",
+        "compatibility_input_status",
         "dependencies",
         "api_requirements",
         "conformance"
@@ -138,6 +139,7 @@
             null
           ]
         },
+        "compatibility_input_status": {"enum": ["unknown", "declared"]},
         "dependencies": {
           "type": "array",
           "uniqueItems": true,
