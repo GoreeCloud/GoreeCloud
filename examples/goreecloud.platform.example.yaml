@@ -1,4 +1,4 @@
-schema_version: "0.1"
+schema_version: "0.2"
 
 component:
   type: application
@@ -7,7 +7,7 @@ component:
   repository: GoreeCloud/example-app
 
 lifecycle: development
-version: 0.1.0
+version: 0.2.0-dev
 
 supported_platforms:
   - web
@@ -23,38 +23,38 @@ api:
 
 platform_systems:
   manager:
-    status: planned
+    result: applicable-blocked
     version: null
     evidence: []
-    notes: Example only; no implementation claim is made.
+    notes: Example only; Manager operational visibility has not been accepted.
   privacy_shield:
-    status: partial
+    result: applicable-blocked
     version: null
     evidence:
       - docs/privacy/example-evidence.md
-    notes: Example only.
+    notes: Example repository evidence exists, but accepted Privacy Shield integration is not claimed.
   wardveil_security:
-    status: planned
+    result: applicable-blocked
     version: null
     evidence: []
-    notes: Example only.
+    notes: Example only; Wardveil Security integration has not been accepted.
   everkeep:
-    status: planned
+    result: applicable-blocked
     version: null
     evidence: []
-    notes: Example only.
+    notes: Example only; Everkeep integration and restore acceptance have not been completed.
   glaze_ui:
-    status: implemented
-    version: "2.2"
+    result: applicable-migration-required
+    version: "1.0.0"
     evidence:
-      - evidence/glaze-ui/example-acceptance.json
-    notes: Example evidence path only.
+      - evidence/glaze-ui/example-source-mapping.json
+    notes: Example source still targets an older Glaze UI line and must migrate to current Stable 1.1.0 before conformance.
   mesh:
-    status: partial
+    result: applicable-blocked
     version: null
     evidence:
       - evidence/mesh/example-registration.json
-    notes: Example only.
+    notes: Example registration metadata exists, but runtime publication and acceptance are not claimed.
     capabilities:
       - example.read
     dependencies:
@@ -64,11 +64,11 @@ platform_systems:
     consumed_events:
       - identity.session.revoked.v1
   identity:
-    status: partial
+    result: applicable-blocked
     version: null
     evidence:
       - evidence/identity/example-integration.json
-    notes: Example only.
+    notes: Example only; Identity runtime acceptance is incomplete.
 
 health:
   health_endpoint: /health
@@ -96,19 +96,31 @@ external_dependencies:
   - name: example-database
     purpose: Example persistent data store.
     required: true
+    version_constraint: ">=1.0"
 
 compatibility:
+  platform_contract: "0.2"
+  glaze_ui_required: "1.1.0"
   requires:
-    - goreecloud-platform-contract>=0.1
-    - glaze-ui>=2.2
+    - goreecloud-platform-contract==0.2
+    - glaze-ui==1.1.0
   provides:
     - example-api-v1
 
+evidence:
+  acceptance_tests: []
+  release: []
+
 conformance:
-  status: partial
+  status: nonconformant
   validated_at: null
   evidence: []
   blockers:
-    - GoreeCloud Manager integration remains planned.
-    - Wardveil Security integration remains planned.
-    - Everkeep integration remains planned.
+    - GoreeCloud Manager integration remains blocked pending accepted operational visibility.
+    - Privacy Shield integration remains blocked pending accepted runtime evidence.
+    - Wardveil Security integration remains blocked pending accepted runtime evidence.
+    - Everkeep integration remains blocked pending backup and restore acceptance.
+    - Glaze UI migration to current Stable 1.1.0 remains required.
+    - GoreeCloud Mesh runtime publication and acceptance remain blocked.
+    - GoreeCloud Identity runtime acceptance remains blocked.
+    - Required Stable acceptance-test and release evidence has not been produced for this Development example.
