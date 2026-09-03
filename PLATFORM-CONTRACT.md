@@ -95,9 +95,12 @@ The validator enforces structural requirements and limited fail-closed Stable ga
 - `examples/goreecloud.platform.example.yaml` — non-production example manifest.
 - `scripts/validate_platform_manifest.py` — semantic manifest validator.
 - `.github/workflows/platform-conformance.yml` — CI that validates the central platform baseline and example contract.
+- `.github/workflows/reusable-platform-manifest.yml` — reusable validation workflow for application and service repositories.
 
 ## Repository adoption
 
 Application and service repositories should place `goreecloud.platform.yaml` at the repository root. Rollout should preserve truthfulness: unknown or planned integrations should be declared as such rather than being upgraded to `implemented` merely to satisfy automation.
+
+Repositories may call `.github/workflows/reusable-platform-manifest.yml` from this repository to validate their manifest against the exact Platform Contract implementation co-located with the called workflow. Callers should reference the reusable workflow by an immutable commit SHA for deterministic validation; updating that SHA is an explicit contract-validator upgrade.
 
 The central contract can evolve through versioned schema changes. Breaking contract changes require a new schema version and an explicit migration path.
