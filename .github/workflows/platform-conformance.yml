@@ -72,6 +72,7 @@ jobs:
           python3 scripts/evaluate_platform_conformance.py \
             examples/goreecloud.platform.example.yaml \
             --revision "$GITHUB_SHA" \
+            --evaluator-revision "$GITHUB_SHA" \
             --evaluated-at 2026-09-03T00:00:00Z \
             --output /tmp/goreecloud.conformance-result.json
 
@@ -86,7 +87,9 @@ jobs:
           schema = json.loads(Path('schemas/goreecloud.conformance-result.schema.json').read_text())
           result = json.loads(Path('/tmp/goreecloud.conformance-result.json').read_text())
           Draft202012Validator(schema, format_checker=FormatChecker()).validate(result)
-          print('platform-conformance-result: example validated')
+          if result['evaluated_revision'] != result['evaluator_revision']:
+              raise SystemExit('self-test result revisions must match the exact central candidate')
+          print('platform-conformance-result: example provenance and schema validated')
           PY
 
       - name: Validate privacy-bounded public repository registry
