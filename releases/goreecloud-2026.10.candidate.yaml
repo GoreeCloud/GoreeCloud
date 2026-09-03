@@ -1,0 +1,228 @@
+schema_version: "1.0"
+release:
+  id: goreecloud-2026.10
+  display_name: GoreeCloud 2026.10
+  state: planning
+  versioning_model: provisional-calendar
+  versioning_note: >-
+    This identifier is a provisional release-planning target. A canonical GoreeCloud release
+    versioning standard has not yet been finalized in authoritative project governance, so this
+    manifest must not be interpreted as certification or final naming-policy approval.
+  proposed_at: "2026-09-03T01:23:00Z"
+  certified_at: null
+platform_contract:
+  schema_version: "1.0"
+  rules_version: "1.0"
+  source_revision: 207a0fa532a9ce636049233bfa31f7e60b8bbfdb
+components:
+  - id: goreecloud.manager
+    product_name: GoreeCloud Manager
+    role: platform_system
+    platform_system: manager
+    repository: GoreeCloud/goreecloud-manager
+    required: true
+    selection_status: unresolved
+    version: "0.1"
+    source_revision: f4413bc7bdcd204371c6a9c75f2c9a7fc91faf28
+    lifecycle: Development
+    compatibility_input_status: declared
+    dependencies:
+      - goreecloud.mesh
+    api_requirements:
+      - goreecloud.tasks.manager.v1 when the Tasks integration is enabled
+      - goreecloud.mesh.platform-record.v1 for Platform Overview data
+    conformance:
+      result: non-conformant
+      stable_eligible: false
+      evidence_ref: null
+      source_revision: f4413bc7bdcd204371c6a9c75f2c9a7fc91faf28
+  - id: goreecloud.privacy-shield
+    product_name: Privacy Shield
+    role: platform_system
+    platform_system: privacy_shield
+    repository: GoreeCloud/goreecloud-privacy-shield
+    required: true
+    selection_status: unresolved
+    version: null
+    source_revision: null
+    lifecycle: null
+    compatibility_input_status: unknown
+    dependencies: []
+    api_requirements: []
+    conformance:
+      result: unknown
+      stable_eligible: false
+      evidence_ref: null
+      source_revision: null
+  - id: goreecloud.wardveil-security
+    product_name: Wardveil Security
+    role: platform_system
+    platform_system: wardveil_security
+    repository: GoreeCloud/goreecloud-wardveil-security
+    required: true
+    selection_status: unresolved
+    version: null
+    source_revision: null
+    lifecycle: null
+    compatibility_input_status: unknown
+    dependencies: []
+    api_requirements: []
+    conformance:
+      result: unknown
+      stable_eligible: false
+      evidence_ref: null
+      source_revision: null
+  - id: goreecloud.everkeep
+    product_name: Everkeep
+    role: platform_system
+    platform_system: everkeep
+    repository: GoreeCloud/goreecloud-everkeep
+    required: true
+    selection_status: unresolved
+    version: null
+    source_revision: null
+    lifecycle: null
+    compatibility_input_status: unknown
+    dependencies: []
+    api_requirements: []
+    conformance:
+      result: unknown
+      stable_eligible: false
+      evidence_ref: null
+      source_revision: null
+  - id: goreecloud.glaze-ui
+    product_name: Glaze UI
+    role: platform_system
+    platform_system: glaze_ui
+    repository: GoreeCloud/goreecloud-glaze-ui
+    required: true
+    selection_status: selected
+    version: "2.2.0"
+    source_revision: 6731098b28dd0393faa878c70d989a221d714a20
+    lifecycle: Stable
+    compatibility_input_status: unknown
+    dependencies: []
+    api_requirements: []
+    conformance:
+      result: unknown
+      stable_eligible: false
+      evidence_ref: null
+      source_revision: 6731098b28dd0393faa878c70d989a221d714a20
+  - id: goreecloud.mesh
+    product_name: GoreeCloud Mesh
+    role: platform_system
+    platform_system: mesh
+    repository: GoreeCloud/goreecloud-mesh
+    required: true
+    selection_status: unresolved
+    version: null
+    source_revision: 2724a11e35e9967e50bb1f0c0a0da8156b305fa3
+    lifecycle: null
+    compatibility_input_status: unknown
+    dependencies: []
+    api_requirements: []
+    conformance:
+      result: unknown
+      stable_eligible: false
+      evidence_ref: null
+      source_revision: 2724a11e35e9967e50bb1f0c0a0da8156b305fa3
+  - id: goreecloud.identity
+    product_name: GoreeCloud Identity
+    role: platform_system
+    platform_system: identity
+    repository: GoreeCloud/goreecloud-identity
+    required: true
+    selection_status: unresolved
+    version: null
+    source_revision: null
+    lifecycle: null
+    compatibility_input_status: unknown
+    dependencies: []
+    api_requirements: []
+    conformance:
+      result: unknown
+      stable_eligible: false
+      evidence_ref: null
+      source_revision: null
+  - id: goreecloud.website
+    product_name: GoreeCloud Website
+    role: core_application
+    platform_system: null
+    repository: GoreeCloud/goreecloud-website
+    required: true
+    selection_status: unresolved
+    version: "5.24.0"
+    source_revision: 7956c2d711a1d248e9dd95fb8e909562e5689a92
+    lifecycle: Development
+    compatibility_input_status: declared
+    dependencies: []
+    api_requirements: []
+    conformance:
+      result: non-conformant
+      stable_eligible: false
+      evidence_ref: null
+      source_revision: 7956c2d711a1d248e9dd95fb8e909562e5689a92
+  - id: goreecloud.tasks
+    product_name: GoreeCloud Tasks
+    role: core_application
+    platform_system: null
+    repository: GoreeCloud/goreecloud-tasks
+    required: true
+    selection_status: unresolved
+    version: "0.1"
+    source_revision: 45edd24571438da2f85b3f4acbf74438e63a3ada
+    lifecycle: Development
+    compatibility_input_status: declared
+    dependencies:
+      - goreecloud.mesh
+    api_requirements:
+      - goreecloud.tasks.manager.v1 for Manager operational visibility
+    conformance:
+      result: non-conformant
+      stable_eligible: false
+      evidence_ref: null
+      source_revision: 45edd24571438da2f85b3f4acbf74438e63a3ada
+compatibility:
+  matrix_state: incomplete
+  relationships:
+    - consumer: goreecloud.manager
+      provider: goreecloud.mesh
+      requirement: Authenticated read-only Mesh Platform Registry v1 for Manager Platform Overview
+      status: pending
+      evidence: []
+      justification: Source integrations exist on stacked draft pull requests, but production Identity credentials, network acceptance, merged revisions, and release-level interoperability evidence are not established.
+    - consumer: goreecloud.manager
+      provider: goreecloud.tasks
+      requirement: goreecloud.tasks.manager.v1 read-only operational visibility when enabled
+      status: pending
+      evidence: []
+      justification: Repository-level integration tests exist, but a coordinated release-level compatibility result has not been produced.
+    - consumer: goreecloud.tasks
+      provider: goreecloud.mesh
+      requirement: Canonical Mesh platform registry registration and evidence representation
+      status: pending
+      evidence: []
+      justification: Tasks declares the Mesh dependency, but accepted registration and release compatibility evidence remain outstanding.
+release_gates:
+  - {id: successful-ci, mandatory: true, status: pending, evidence: []}
+  - {id: platform-contract, mandatory: true, status: pending, evidence: []}
+  - {id: security-evidence, mandatory: true, status: pending, evidence: []}
+  - {id: privacy-evidence, mandatory: true, status: pending, evidence: []}
+  - {id: recovery-evidence, mandatory: true, status: pending, evidence: []}
+  - {id: glaze-ui-acceptance, mandatory: true, status: pending, evidence: []}
+  - {id: api-compatibility, mandatory: true, status: pending, evidence: []}
+  - {id: dependency-compatibility, mandatory: true, status: pending, evidence: []}
+  - {id: rollback-documentation, mandatory: true, status: pending, evidence: []}
+  - {id: release-notes, mandatory: true, status: pending, evidence: []}
+  - {id: upgrade-documentation, mandatory: true, status: pending, evidence: []}
+evidence: []
+certification:
+  declared_result: blocked
+  compatible: false
+  blockers:
+    - canonical-release-versioning-standard-not-finalized
+    - required-component-selection-incomplete
+    - required-platform-system-conformance-evidence-incomplete
+    - release-level-security-privacy-recovery-evidence-incomplete
+    - api-and-dependency-compatibility-not-verified
+    - release-rollback-notes-and-upgrade-evidence-incomplete
