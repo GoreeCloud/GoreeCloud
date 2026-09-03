@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   validate-platform-manifest:
-    name: Validate GoreeCloud Platform Contract manifest
+    name: Validate GoreeCloud Platform Contract and conformance
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
@@ -43,8 +43,38 @@ jobs:
           fi
           test -f "$MANIFEST_PATH"
 
-      - name: Install manifest validator dependency
-        run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.2
+      - name: Install contract validator dependencies
+        run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.2 jsonschema==4.25.1
 
       - name: Validate GoreeCloud Platform Contract manifest
         run: python3 .goreecloud-platform-contract/scripts/validate_platform_manifest.py "$MANIFEST_PATH"
+
+      - name: Compute platform conformance result
+        run: |
+          python3 .goreecloud-platform-contract/scripts/evaluate_platform_conformance.py \
+            "$MANIFEST_PATH" \
+            --revision "$GITHUB_SHA" \
+            --output goreecloud.conformance-result.json
+
+      - name: Validate computed conformance result schema
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator, FormatChecker
+
+          schema = json.loads(Path('.goreecloud-platform-contract/schemas/goreecloud.conformance-result.schema.json').read_text())
+          result = json.loads(Path('goreecloud.conformance-result.json').read_text())
+          Draft202012Validator(schema, format_checker=FormatChecker()).validate(result)
+          print('platform-conformance-result: schema validated')
+          PY
+
+      - name: Upload platform conformance evidence
+        if: always() && hashFiles('goreecloud.conformance-result.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: goreecloud-platform-conformance-${{ github.sha }}
+          path: goreecloud.conformance-result.json
+          if-no-files-found: error
+          retention-days: 30

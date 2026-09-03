@@ -9,10 +9,13 @@ on:
       - repositories.public.json
       - examples/goreecloud.platform.example.yaml
       - schemas/goreecloud.platform.schema.json
+      - schemas/goreecloud.conformance-result.schema.json
       - scripts/validate_platform_conformance.py
       - scripts/validate_platform_manifest.py
+      - scripts/evaluate_platform_conformance.py
       - scripts/validate_public_repository_registry.py
       - .github/workflows/platform-conformance.yml
+      - .github/workflows/reusable-platform-manifest.yml
   push:
     branches:
       - main
@@ -23,10 +26,13 @@ on:
       - repositories.public.json
       - examples/goreecloud.platform.example.yaml
       - schemas/goreecloud.platform.schema.json
+      - schemas/goreecloud.conformance-result.schema.json
       - scripts/validate_platform_conformance.py
       - scripts/validate_platform_manifest.py
+      - scripts/evaluate_platform_conformance.py
       - scripts/validate_public_repository_registry.py
       - .github/workflows/platform-conformance.yml
+      - .github/workflows/reusable-platform-manifest.yml
   workflow_dispatch:
 
 permissions:
@@ -47,17 +53,41 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install manifest validator dependency
-        run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.2
+      - name: Install platform contract dependencies
+        run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.2 jsonschema==4.25.1
 
       - name: Validate repository-local platform conformance
         run: python3 scripts/validate_platform_conformance.py
 
       - name: Validate Platform Contract schema syntax
-        run: python3 -m json.tool schemas/goreecloud.platform.schema.json >/dev/null
+        run: |
+          python3 -m json.tool schemas/goreecloud.platform.schema.json >/dev/null
+          python3 -m json.tool schemas/goreecloud.conformance-result.schema.json >/dev/null
 
       - name: Validate Platform Contract example manifest
         run: python3 scripts/validate_platform_manifest.py examples/goreecloud.platform.example.yaml
+
+      - name: Compute example conformance result
+        run: |
+          python3 scripts/evaluate_platform_conformance.py \
+            examples/goreecloud.platform.example.yaml \
+            --revision "$GITHUB_SHA" \
+            --evaluated-at 2026-09-03T00:00:00Z \
+            --output /tmp/goreecloud.conformance-result.json
+
+      - name: Validate example conformance result schema
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator, FormatChecker
+
+          schema = json.loads(Path('schemas/goreecloud.conformance-result.schema.json').read_text())
+          result = json.loads(Path('/tmp/goreecloud.conformance-result.json').read_text())
+          Draft202012Validator(schema, format_checker=FormatChecker()).validate(result)
+          print('platform-conformance-result: example validated')
+          PY
 
       - name: Validate privacy-bounded public repository registry
         run: python3 scripts/validate_public_repository_registry.py

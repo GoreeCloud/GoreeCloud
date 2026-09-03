@@ -17,42 +17,95 @@
     "continuity",
     "external_dependencies",
     "compatibility",
+    "evidence",
     "conformance"
   ],
   "properties": {
-    "schema_version": { "const": "0.1" },
+    "schema_version": {
+      "const": "0.2"
+    },
     "component": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["type", "id", "product_name", "repository"],
+      "required": [
+        "type",
+        "id",
+        "product_name",
+        "repository"
+      ],
       "properties": {
-        "type": { "enum": ["application", "service"] },
-        "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
-        "product_name": { "type": "string", "minLength": 1 },
-        "repository": { "type": "string", "pattern": "^GoreeCloud/[A-Za-z0-9._-]+$" }
+        "type": {
+          "enum": [
+            "application",
+            "service"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "product_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repository": {
+          "type": "string",
+          "pattern": "^GoreeCloud/[A-Za-z0-9._-]+$"
+        }
       }
     },
     "lifecycle": {
-      "enum": ["concept", "experimental", "development", "release-candidate", "stable", "deprecated", "retired"]
+      "enum": [
+        "concept",
+        "experimental",
+        "development",
+        "release-candidate",
+        "stable",
+        "deprecated",
+        "retired"
+      ]
     },
-    "version": { "type": "string", "minLength": 1 },
-    "supported_platforms": { "$ref": "#/$defs/stringList" },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "supported_platforms": {
+      "$ref": "#/$defs/nonEmptyStringList"
+    },
     "api": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["versions", "endpoints"],
+      "required": [
+        "versions",
+        "endpoints"
+      ],
       "properties": {
-        "versions": { "$ref": "#/$defs/stringList" },
+        "versions": {
+          "$ref": "#/$defs/stringList"
+        },
         "endpoints": {
           "type": "array",
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["name", "url", "purpose"],
+            "required": [
+              "name",
+              "url",
+              "purpose"
+            ],
             "properties": {
-              "name": { "type": "string", "minLength": 1 },
-              "url": { "type": "string", "minLength": 1 },
-              "purpose": { "type": "string", "minLength": 1 }
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "url": {
+                "type": "string",
+                "minLength": 1
+              },
+              "purpose": {
+                "type": "string",
+                "minLength": 1
+              }
             }
           }
         }
@@ -61,35 +114,83 @@
     "platform_systems": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["manager", "privacy_shield", "wardveil_security", "everkeep", "glaze_ui", "mesh", "identity"],
+      "required": [
+        "manager",
+        "privacy_shield",
+        "wardveil_security",
+        "everkeep",
+        "glaze_ui",
+        "mesh",
+        "identity"
+      ],
       "properties": {
-        "manager": { "$ref": "#/$defs/integration" },
-        "privacy_shield": { "$ref": "#/$defs/integration" },
-        "wardveil_security": { "$ref": "#/$defs/integration" },
-        "everkeep": { "$ref": "#/$defs/integration" },
-        "glaze_ui": { "$ref": "#/$defs/integration" },
-        "mesh": { "$ref": "#/$defs/meshIntegration" },
-        "identity": { "$ref": "#/$defs/integration" }
+        "manager": {
+          "$ref": "#/$defs/integration"
+        },
+        "privacy_shield": {
+          "$ref": "#/$defs/integration"
+        },
+        "wardveil_security": {
+          "$ref": "#/$defs/integration"
+        },
+        "everkeep": {
+          "$ref": "#/$defs/integration"
+        },
+        "glaze_ui": {
+          "$ref": "#/$defs/integration"
+        },
+        "mesh": {
+          "$ref": "#/$defs/meshIntegration"
+        },
+        "identity": {
+          "$ref": "#/$defs/integration"
+        }
       }
     },
     "health": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["health_endpoint", "readiness_endpoint"],
+      "required": [
+        "health_endpoint",
+        "readiness_endpoint"
+      ],
       "properties": {
-        "health_endpoint": { "type": ["string", "null"] },
-        "readiness_endpoint": { "type": ["string", "null"] }
+        "health_endpoint": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "readiness_endpoint": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     },
     "continuity": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["backup", "restore", "export", "portability"],
+      "required": [
+        "backup",
+        "restore",
+        "export",
+        "portability"
+      ],
       "properties": {
-        "backup": { "$ref": "#/$defs/continuityRequirement" },
-        "restore": { "$ref": "#/$defs/continuityRequirement" },
-        "export": { "$ref": "#/$defs/continuityRequirement" },
-        "portability": { "$ref": "#/$defs/continuityRequirement" }
+        "backup": {
+          "$ref": "#/$defs/continuityRequirement"
+        },
+        "restore": {
+          "$ref": "#/$defs/continuityRequirement"
+        },
+        "export": {
+          "$ref": "#/$defs/continuityRequirement"
+        },
+        "portability": {
+          "$ref": "#/$defs/continuityRequirement"
+        }
       }
     },
     "external_dependencies": {
@@ -97,32 +198,112 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["name", "purpose", "required"],
+        "required": [
+          "name",
+          "purpose",
+          "required"
+        ],
         "properties": {
-          "name": { "type": "string", "minLength": 1 },
-          "purpose": { "type": "string", "minLength": 1 },
-          "required": { "type": "boolean" }
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "version_constraint": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          }
         }
       }
     },
     "compatibility": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["requires", "provides"],
+      "required": [
+        "platform_contract",
+        "glaze_ui_required",
+        "requires",
+        "provides"
+      ],
       "properties": {
-        "requires": { "$ref": "#/$defs/stringList" },
-        "provides": { "$ref": "#/$defs/stringList" }
+        "platform_contract": {
+          "const": "0.2"
+        },
+        "glaze_ui_required": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "requires": {
+          "$ref": "#/$defs/stringList"
+        },
+        "provides": {
+          "$ref": "#/$defs/stringList"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "acceptance_tests",
+        "release"
+      ],
+      "properties": {
+        "acceptance_tests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/acceptanceEvidence"
+          }
+        },
+        "release": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/releaseEvidence"
+          }
+        }
       }
     },
     "conformance": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["status", "validated_at", "evidence", "blockers"],
+      "required": [
+        "status",
+        "validated_at",
+        "evidence",
+        "blockers"
+      ],
       "properties": {
-        "status": { "enum": ["conformant", "partial", "nonconformant", "unverified"] },
-        "validated_at": { "type": ["string", "null"], "format": "date-time" },
-        "evidence": { "$ref": "#/$defs/stringList" },
-        "blockers": { "$ref": "#/$defs/stringList" }
+        "status": {
+          "enum": [
+            "conformant",
+            "nonconformant",
+            "unverified"
+          ]
+        },
+        "validated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "evidence": {
+          "$ref": "#/$defs/stringList"
+        },
+        "blockers": {
+          "$ref": "#/$defs/stringList"
+        }
       }
     }
   },
@@ -130,44 +311,241 @@
     "stringList": {
       "type": "array",
       "uniqueItems": true,
-      "items": { "type": "string", "minLength": 1 }
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     },
-    "integrationStatus": {
-      "enum": ["implemented", "partial", "planned", "not-applicable", "unknown"]
+    "nonEmptyStringList": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "platformResult": {
+      "enum": [
+        "applicable-conformant",
+        "applicable-migration-required",
+        "applicable-blocked",
+        "applicable-nonconformant",
+        "not-applicable-justified"
+      ]
     },
     "integration": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["status", "version", "evidence", "notes"],
+      "required": [
+        "result",
+        "version",
+        "evidence",
+        "notes"
+      ],
       "properties": {
-        "status": { "$ref": "#/$defs/integrationStatus" },
-        "version": { "type": ["string", "null"] },
-        "evidence": { "$ref": "#/$defs/stringList" },
-        "notes": { "type": ["string", "null"] }
+        "result": {
+          "$ref": "#/$defs/platformResult"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {
+          "$ref": "#/$defs/stringList"
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     },
     "meshIntegration": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["status", "version", "evidence", "notes", "capabilities", "dependencies", "published_events", "consumed_events"],
+      "required": [
+        "result",
+        "version",
+        "evidence",
+        "notes",
+        "capabilities",
+        "dependencies",
+        "published_events",
+        "consumed_events"
+      ],
       "properties": {
-        "status": { "$ref": "#/$defs/integrationStatus" },
-        "version": { "type": ["string", "null"] },
-        "evidence": { "$ref": "#/$defs/stringList" },
-        "notes": { "type": ["string", "null"] },
-        "capabilities": { "$ref": "#/$defs/stringList" },
-        "dependencies": { "$ref": "#/$defs/stringList" },
-        "published_events": { "$ref": "#/$defs/stringList" },
-        "consumed_events": { "$ref": "#/$defs/stringList" }
+        "result": {
+          "$ref": "#/$defs/platformResult"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {
+          "$ref": "#/$defs/stringList"
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "capabilities": {
+          "$ref": "#/$defs/stringList"
+        },
+        "dependencies": {
+          "$ref": "#/$defs/stringList"
+        },
+        "published_events": {
+          "$ref": "#/$defs/stringList"
+        },
+        "consumed_events": {
+          "$ref": "#/$defs/stringList"
+        }
       }
     },
     "continuityRequirement": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["required", "requirements"],
+      "required": [
+        "required",
+        "requirements"
+      ],
       "properties": {
-        "required": { "type": "boolean" },
-        "requirements": { "$ref": "#/$defs/stringList" }
+        "required": {
+          "type": "boolean"
+        },
+        "requirements": {
+          "$ref": "#/$defs/stringList"
+        }
+      }
+    },
+    "acceptanceEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "category",
+        "path",
+        "revision",
+        "result",
+        "observed_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "enum": [
+            "manager",
+            "privacy-shield",
+            "wardveil-security",
+            "everkeep",
+            "glaze-ui",
+            "mesh",
+            "identity",
+            "api",
+            "accessibility",
+            "supported-platform",
+            "backup",
+            "restore",
+            "export-portability",
+            "security",
+            "privacy",
+            "documentation",
+            "integration",
+            "migration",
+            "rollback",
+            "release"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "enum": [
+            "passed",
+            "failed",
+            "blocked",
+            "not-run"
+          ]
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "releaseEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version",
+        "revision",
+        "path",
+        "result",
+        "observed_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "enum": [
+            "candidate",
+            "published",
+            "failed",
+            "unverified"
+          ]
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "artifact_digest": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     }
   }
