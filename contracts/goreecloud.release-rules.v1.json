@@ -1,0 +1,57 @@
+{
+  "rules_version": "1.0",
+  "platform_contract_schema_version": "1.0",
+  "release_manifest_schema_version": "1.0",
+  "required_platform_systems": [
+    "manager",
+    "privacy_shield",
+    "wardveil_security",
+    "everkeep",
+    "glaze_ui",
+    "mesh",
+    "identity"
+  ],
+  "mandatory_release_gates": [
+    "successful-ci",
+    "platform-contract",
+    "security-evidence",
+    "privacy-evidence",
+    "recovery-evidence",
+    "glaze-ui-acceptance",
+    "api-compatibility",
+    "dependency-compatibility",
+    "rollback-documentation",
+    "release-notes",
+    "upgrade-documentation"
+  ],
+  "gates_allowing_not_applicable": [
+    "glaze-ui-acceptance",
+    "upgrade-documentation"
+  ],
+  "certification_requirements": {
+    "release_state": "certified",
+    "declared_result": "certified",
+    "compatible": true,
+    "compatibility_matrix_state": "verified",
+    "required_components_must_be_selected": true,
+    "selected_components_require_exact_source_revision": true,
+    "selected_components_require_version": true,
+    "selected_components_require_lifecycle": true,
+    "selected_components_require_conformant_result": true,
+    "selected_components_require_stable_eligible": true,
+    "component_conformance_revision_must_match_selection_revision": true,
+    "all_required_platform_systems_must_be_present": true,
+    "mandatory_gates_must_pass_or_be_explicitly_not_applicable_when_allowed": true,
+    "gate_evidence_must_resolve": true,
+    "compatibility_relationship_evidence_must_resolve": true,
+    "required_relationships_must_be_compatible": true,
+    "certified_at_required": true,
+    "blockers_must_be_empty": true
+  },
+  "authority_boundary": {
+    "release_manifest": "selects and records component/evidence references; it does not manufacture component conformance, security, privacy, recovery, or runtime truth",
+    "component_conformance": "remains producer/evidence-derived through the GoreeCloud Platform Contract",
+    "mesh": "may aggregate release and component state but may not strengthen producer facts",
+    "manager": "may present release state but may not certify or strengthen upstream facts"
+  }
+}
