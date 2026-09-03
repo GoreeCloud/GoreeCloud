@@ -33,12 +33,12 @@ Manifest presence is not treated as conformance evidence. A current manifest may
 
 | Adoption state | Total | Public | Private |
 | --- | ---: | ---: | ---: |
-| Current v0.2 manifest | 9 | 6 | 3 |
+| Current v0.2 manifest | 10 | 7 | 3 |
 | Legacy v0.1 manifest | 0 | 0 | 0 |
-| Missing root manifest | 53 | 53 | 0 |
+| Missing root manifest | 52 | 52 | 0 |
 | **Owned repositories** | **62** | **59** | **3** |
 
-Nine owned repositories now have a repository-root manifest on the current Platform Contract schema. No repository in the observed portfolio remains on the superseded v0.1 schema.
+Ten owned repositories now have a repository-root manifest on the current Platform Contract schema. No repository in the observed portfolio remains on the superseded v0.1 schema.
 
 ## Confirmed current-contract application/service scope
 
@@ -46,12 +46,12 @@ Role and repository-manifest evidence identify **55 repositories** as confirmed 
 
 | Confirmed application/service adoption state | Count |
 | --- | ---: |
-| Current v0.2 manifest | 9 |
+| Current v0.2 manifest | 10 |
 | Legacy v0.1 manifest requiring migration | 0 |
-| Missing root manifest | 46 |
+| Missing root manifest | 45 |
 | **Confirmed application/service repositories** | **55** |
 
-Accordingly, **46 of 55 confirmed application/service repositories still require initial Platform Contract adoption work**, all of them public under the observed inventory. Current manifest adoption does not automatically establish Platform conformance; each declaration retains its repository-specific lifecycle, result, blockers, and evidence state.
+Accordingly, **45 of 55 confirmed application/service repositories still require initial Platform Contract adoption work**, all of them public under the observed inventory. Current manifest adoption does not automatically establish Platform conformance; each declaration retains its repository-specific lifecycle, result, blockers, and evidence state.
 
 ## Current v0.2 repositories
 
@@ -61,12 +61,13 @@ The following public repositories have a current v0.2 manifest on their verified
 2. `GoreeCloud/goreecloud-identity`
 3. `GoreeCloud/goreecloud-manager`
 4. `GoreeCloud/goreecloud-mesh`
-5. `GoreeCloud/goreecloud-tasks`
-6. `GoreeCloud/goreecloud-website`
+5. `GoreeCloud/goreecloud-metrics`
+6. `GoreeCloud/goreecloud-tasks`
+7. `GoreeCloud/goreecloud-website`
 
 Three additional private application/service repositories have current v0.2 manifests. Their identities are intentionally not centralized in this public inventory.
 
-All nine current manifests retain Development/non-Stable boundaries appropriate to their repository evidence. Current manifest adoption must not be interpreted as Stable qualification, production approval, or complete integration with all seven Integral Platform Systems.
+All ten current manifests retain Development/non-Stable boundaries appropriate to their repository evidence. Current manifest adoption must not be interpreted as Stable qualification, production approval, or complete integration with all seven Integral Platform Systems.
 
 ### `GoreeCloud/goreecloud-containers`
 
@@ -123,9 +124,19 @@ The two additional private adoptions are recorded only in aggregate in this publ
 
 None of these three adoptions adds acceptance-test or release evidence merely because a v0.2 declaration exists. They remain non-Stable and nonconformant at the Platform Contract level.
 
+## September 3 Metrics adoption checkpoint
+
+`GoreeCloud/goreecloud-metrics` now has a v0.2 manifest on its authoritative default branch at source version `0.1.0-dev.2`.
+
+The declaration records Metrics as a Development application. Privacy Shield and Wardveil Security are migration-required because application-local minimization, retention, credential, transport, and validation groundwork exists without accepted platform integration. Manager, Everkeep, Glaze UI, GoreeCloud Mesh, and GoreeCloud Identity remain blocked. The manifest contains no acceptance-test or release evidence and declares overall conformance `nonconformant`.
+
+The Metrics adoption candidate passed both its existing exact-head source-validation workflow and the pinned central Platform Contract workflow before merge. Repository documentation that had described the shared Platform Contract as unfinished was reconciled to the now-current central v0.2 contract without broadening runtime capability claims.
+
+This checkpoint establishes machine-readable Platform Contract participation only. Metrics remains Development source and is not thereby Stable, production-ready, production-deployed, or accepted for any unfinished Integral Platform System relationship.
+
 ## Confirmed public application/service repositories missing a manifest
 
-The following **46 public repositories** are confirmed application/service repositories and have no repository-root `goreecloud.platform.yaml` on their verified default branch:
+The following **45 public repositories** are confirmed application/service repositories and have no repository-root `goreecloud.platform.yaml` on their verified default branch:
 
 1. `GoreeCloud/goreecloud-ai`
 2. `GoreeCloud/goreecloud-app-store`
@@ -154,25 +165,24 @@ The following **46 public repositories** are confirmed application/service repos
 25. `GoreeCloud/goreecloud-maps`
 26. `GoreeCloud/goreecloud-memos`
 27. `GoreeCloud/goreecloud-messenger`
-28. `GoreeCloud/goreecloud-metrics`
-29. `GoreeCloud/goreecloud-monitor`
-30. `GoreeCloud/goreecloud-music`
-31. `GoreeCloud/goreecloud-network`
-32. `GoreeCloud/goreecloud-network-android`
-33. `GoreeCloud/goreecloud-network-dashboard`
-34. `GoreeCloud/goreecloud-notes`
-35. `GoreeCloud/goreecloud-notify`
-36. `GoreeCloud/goreecloud-photos`
-37. `GoreeCloud/goreecloud-quill`
-38. `GoreeCloud/goreecloud-redirector`
-39. `GoreeCloud/goreecloud-rss`
-40. `GoreeCloud/goreecloud-search`
-41. `GoreeCloud/goreecloud-source-resync`
-42. `GoreeCloud/goreecloud-sync`
-43. `GoreeCloud/goreecloud-terminal`
-44. `GoreeCloud/goreecloud-vault-server`
-45. `GoreeCloud/goreecloud-video`
-46. `GoreeCloud/goreecloud-waypoint`
+28. `GoreeCloud/goreecloud-monitor`
+29. `GoreeCloud/goreecloud-music`
+30. `GoreeCloud/goreecloud-network`
+31. `GoreeCloud/goreecloud-network-android`
+32. `GoreeCloud/goreecloud-network-dashboard`
+33. `GoreeCloud/goreecloud-notes`
+34. `GoreeCloud/goreecloud-notify`
+35. `GoreeCloud/goreecloud-photos`
+36. `GoreeCloud/goreecloud-quill`
+37. `GoreeCloud/goreecloud-redirector`
+38. `GoreeCloud/goreecloud-rss`
+39. `GoreeCloud/goreecloud-search`
+40. `GoreeCloud/goreecloud-source-resync`
+41. `GoreeCloud/goreecloud-sync`
+42. `GoreeCloud/goreecloud-terminal`
+43. `GoreeCloud/goreecloud-vault-server`
+44. `GoreeCloud/goreecloud-video`
+45. `GoreeCloud/goreecloud-waypoint`
 
 No private confirmed application/service repository remains without a current root manifest under the observed inventory. Private repository identities remain intentionally omitted from this public record.
 
@@ -217,7 +227,7 @@ These discrepancies are documentation/source-integrity findings. They do not alt
 The current rollout should proceed without manufacturing positive states:
 
 1. **Completed:** migrate the five legacy v0.1 manifests to v0.2 using current evidence and the governed five-result Platform System vocabulary.
-2. Add truthful v0.2 manifests to the **46 confirmed in-scope repositories** that currently lack one. Under the observed inventory, all remaining initial-adoption repositories are public; private identities remain omitted regardless of future state changes.
+2. Add truthful v0.2 manifests to the **45 confirmed in-scope repositories** that currently lack one. Under the observed inventory, all remaining initial-adoption repositories are public; private identities remain omitted regardless of future state changes.
 3. Resolve the component-model decision for the **2 scope/model-review repositories** before enforcing v0.2 adoption there.
 4. For every new manifest, evaluate all seven Integral Platform Systems and preserve blocked, migration-required, nonconformant, or justified-not-applicable states when that is the supported truth.
 5. Add repository CI that calls the central reusable Platform Contract workflow by immutable commit SHA where practical.
