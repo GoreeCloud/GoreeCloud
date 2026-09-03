@@ -1,6 +1,6 @@
 {
   "schema": "goreecloud-public-repository-registry/v1",
-  "observedAt": "2026-09-02",
+  "observedAt": "2026-09-03",
   "authority": {
     "source": "GitHub repository metadata",
     "owner": "GoreeCloud",
@@ -42,7 +42,10 @@
     "GoreeCloud/goreecloud-calendar",
     "GoreeCloud/goreecloud-changelogs",
     "GoreeCloud/goreecloud-code",
+    "GoreeCloud/goreecloud-concepts",
     "GoreeCloud/goreecloud-contacts",
+    "GoreeCloud/goreecloud-containers",
+    "GoreeCloud/goreecloud-dav",
     "GoreeCloud/goreecloud-dns",
     "GoreeCloud/goreecloud-documents",
     "GoreeCloud/goreecloud-drive",
@@ -63,6 +66,7 @@
     "GoreeCloud/goreecloud-memos",
     "GoreeCloud/goreecloud-mesh",
     "GoreeCloud/goreecloud-messenger",
+    "GoreeCloud/goreecloud-metrics",
     "GoreeCloud/goreecloud-monitor",
     "GoreeCloud/goreecloud-music",
     "GoreeCloud/goreecloud-network",
