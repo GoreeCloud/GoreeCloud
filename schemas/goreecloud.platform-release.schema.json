@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.goreecloud.com/platform/goreecloud.platform-release.schema.json",
+  "title": "GoreeCloud Platform Release Manifest",
+  "description": "Machine-readable compatibility and evidence manifest for a coordinated GoreeCloud platform release. Schema validity does not establish certification.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "release",
+    "platform_contract",
+    "components",
+    "compatibility",
+    "release_gates",
+    "evidence",
+    "certification"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "display_name", "state", "versioning_model", "proposed_at", "certified_at"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,63}$"},
+        "display_name": {"type": "string", "minLength": 1, "maxLength": 128},
+        "state": {"enum": ["planning", "candidate", "certified", "deprecated", "retired"]},
+        "versioning_model": {"enum": ["provisional-calendar", "calendar", "semantic", "other"]},
+        "versioning_note": {"type": ["string", "null"], "maxLength": 1024},
+        "proposed_at": {"type": "string", "format": "date-time"},
+        "certified_at": {"type": ["string", "null"], "format": "date-time"}
+      }
+    },
+    "platform_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "rules_version", "source_revision"],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "rules_version": {"const": "1.0"},
+        "source_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "components": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/component"}
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["matrix_state", "relationships"],
+      "properties": {
+        "matrix_state": {"enum": ["incomplete", "candidate", "verified"]},
+        "relationships": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/relationship"}
+        }
+      }
+    },
+    "release_gates": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/gate"}
+    },
+    "evidence": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/evidence"}
+    },
+    "certification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["declared_result", "compatible", "blockers"],
+      "properties": {
+        "declared_result": {"enum": ["not_evaluated", "blocked", "candidate", "certified"]},
+        "compatible": {"type": "boolean"},
+        "blockers": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "product_name",
+        "role",
+        "platform_system",
+        "repository",
+        "required",
+        "selection_status",
+        "version",
+        "source_revision",
+        "lifecycle",
+        "compatibility_input_status",
+        "dependencies",
+        "api_requirements",
+        "conformance"
+      ],
+      "properties": {
+        "id": {"type": "string", "minLength": 1, "maxLength": 128},
+        "product_name": {"type": "string", "minLength": 1, "maxLength": 128},
+        "role": {"enum": ["platform_system", "core_application", "application", "service"]},
+        "platform_system": {
+          "type": ["string", "null"],
+          "enum": [
+            "manager",
+            "privacy_shield",
+            "wardveil_security",
+            "everkeep",
+            "glaze_ui",
+            "mesh",
+            "identity",
+            null
+          ]
+        },
+        "repository": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"},
+        "required": {"type": "boolean"},
+        "selection_status": {"enum": ["unresolved", "selected", "excluded"]},
+        "version": {"type": ["string", "null"], "minLength": 1},
+        "source_revision": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "lifecycle": {
+          "type": ["string", "null"],
+          "enum": [
+            "Concept",
+            "Experimental",
+            "Development",
+            "Release Candidate",
+            "Stable",
+            "Deprecated",
+            "Retired",
+            null
+          ]
+        },
+        "compatibility_input_status": {"enum": ["unknown", "declared"]},
+        "dependencies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "maxLength": 128}
+        },
+        "api_requirements": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "maxLength": 512}
+        },
+        "conformance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["result", "stable_eligible", "evidence_ref", "source_revision"],
+          "properties": {
+            "result": {"enum": ["unknown", "non-conformant", "conformant"]},
+            "stable_eligible": {"type": "boolean"},
+            "evidence_ref": {"type": ["string", "null"]},
+            "source_revision": {
+              "type": ["string", "null"],
+              "pattern": "^[0-9a-f]{40}$"
+            }
+          }
+        }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["consumer", "provider", "requirement", "status", "evidence"],
+      "properties": {
+        "consumer": {"type": "string", "minLength": 1},
+        "provider": {"type": "string", "minLength": 1},
+        "requirement": {"type": "string", "minLength": 1, "maxLength": 1024},
+        "status": {"enum": ["unknown", "pending", "compatible", "incompatible", "not_applicable"]},
+        "evidence": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "justification": {"type": ["string", "null"], "maxLength": 1024}
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "mandatory", "status", "evidence"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,63}$"},
+        "mandatory": {"type": "boolean"},
+        "status": {"enum": ["pending", "pass", "fail", "not_applicable"]},
+        "evidence": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "justification": {"type": ["string", "null"], "maxLength": 1024}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "location", "revision", "observed_at", "producer", "description"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{1,127}$"},
+        "kind": {
+          "enum": [
+            "conformance_result",
+            "ci_run",
+            "security",
+            "privacy",
+            "recovery",
+            "glaze_acceptance",
+            "api_compatibility",
+            "dependency_compatibility",
+            "rollback_documentation",
+            "release_notes",
+            "upgrade_documentation",
+            "integration_test",
+            "documentation",
+            "other"
+          ]
+        },
+        "location": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "revision": {"type": ["string", "null"], "maxLength": 128},
+        "observed_at": {"type": ["string", "null"], "format": "date-time"},
+        "producer": {"type": "string", "minLength": 1, "maxLength": 256},
+        "description": {"type": "string", "minLength": 1, "maxLength": 2048}
+      }
+    }
+  }
+}
