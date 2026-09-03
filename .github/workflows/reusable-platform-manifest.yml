@@ -54,6 +54,7 @@ jobs:
           python3 .goreecloud-platform-contract/scripts/evaluate_platform_conformance.py \
             "$MANIFEST_PATH" \
             --revision "$GITHUB_SHA" \
+            --evaluator-revision "${{ job.workflow_sha }}" \
             --output goreecloud.conformance-result.json
 
       - name: Validate computed conformance result schema

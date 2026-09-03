@@ -8,11 +8,14 @@ from datetime import datetime, timezone
 import importlib.util
 import json
 from pathlib import Path
+import re
 import sys
 from typing import Any
 
 HERE = Path(__file__).resolve().parent
 VALIDATOR_PATH = HERE / "validate_platform_manifest.py"
+FULL_GIT_REVISION = re.compile(r"^[0-9a-f]{40}$")
+EVALUATOR_REPOSITORY = "GoreeCloud/GoreeCloud"
 
 spec = importlib.util.spec_from_file_location("goreecloud_platform_validator", VALIDATOR_PATH)
 if spec is None or spec.loader is None:
@@ -56,7 +59,23 @@ STABLE_ACCEPTANCE_CATEGORIES = {
 }
 
 
-def evaluate(manifest: dict[str, Any], *, revision: str, evaluated_at: str) -> dict[str, Any]:
+def require_git_revision(value: str, label: str) -> str:
+    if not FULL_GIT_REVISION.fullmatch(value):
+        raise validator.ValidationError(
+            f"{label} must be an exact 40-character lowercase Git revision"
+        )
+    return value
+
+
+def evaluate(
+    manifest: dict[str, Any],
+    *,
+    revision: str,
+    evaluator_revision: str,
+    evaluated_at: str,
+) -> dict[str, Any]:
+    revision = require_git_revision(revision, "evaluated revision")
+    evaluator_revision = require_git_revision(evaluator_revision, "evaluator revision")
     lifecycle = manifest["lifecycle"]
     systems = manifest["platform_systems"]
     acceptance = manifest["evidence"]["acceptance_tests"]
@@ -176,11 +195,13 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluated_at: str) -> d
         computed = "nonconformant"
 
     return {
-        "schema_version": "0.1",
+        "schema_version": "0.2",
         "component": manifest["component"]["id"],
         "repository": manifest["component"]["repository"],
         "manifest_schema_version": manifest["schema_version"],
         "evaluated_revision": revision,
+        "evaluator_repository": EVALUATOR_REPOSITORY,
+        "evaluator_revision": evaluator_revision,
         "evaluated_at": evaluated_at,
         "lifecycle": lifecycle,
         "declared_conformance": declared["status"],
@@ -205,18 +226,26 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("manifest", type=Path)
     parser.add_argument("--revision", required=True)
+    parser.add_argument("--evaluator-revision", required=True)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--evaluated-at")
     args = parser.parse_args()
 
     try:
         manifest = validator.validate_manifest(args.manifest)
+        result = evaluate(
+            manifest,
+            revision=args.revision,
+            evaluator_revision=args.evaluator_revision,
+            evaluated_at=(
+                args.evaluated_at
+                or datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+            ),
+        )
     except validator.ValidationError as exc:
         print(f"platform-conformance: {exc}", file=sys.stderr)
         return 1
 
-    evaluated_at = args.evaluated_at or datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
-    result = evaluate(manifest, revision=args.revision, evaluated_at=evaluated_at)
     rendered = json.dumps(result, indent=2, sort_keys=False) + "\n"
 
     if args.output:

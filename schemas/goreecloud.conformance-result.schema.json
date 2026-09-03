@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://goreecloud.com/schemas/goreecloud.conformance-result.schema.json",
   "title": "GoreeCloud Platform Conformance Result",
-  "description": "Computed repository platform-conformance result. Aggregators may present this result but do not acquire authority over producer-owned facts.",
+  "description": "Computed repository platform-conformance result bound to the exact repository and evaluator revisions. Aggregators may present this result but do not acquire authority over producer-owned facts.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -11,6 +11,8 @@
     "repository",
     "manifest_schema_version",
     "evaluated_revision",
+    "evaluator_repository",
+    "evaluator_revision",
     "evaluated_at",
     "lifecycle",
     "declared_conformance",
@@ -22,7 +24,7 @@
   ],
   "properties": {
     "schema_version": {
-      "const": "0.1"
+      "const": "0.2"
     },
     "component": {
       "type": "string",
@@ -37,7 +39,14 @@
     },
     "evaluated_revision": {
       "type": "string",
-      "minLength": 1
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "evaluator_repository": {
+      "const": "GoreeCloud/GoreeCloud"
+    },
+    "evaluator_revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
     },
     "evaluated_at": {
       "type": "string",
