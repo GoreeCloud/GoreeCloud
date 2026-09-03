@@ -103,6 +103,12 @@ def semantic_validate(manifest: dict[str, Any], rules: dict[str, Any]) -> dict[s
             )
         if component["selection_status"] == "excluded":
             require(not component["required"], f"required component {component['id']} cannot be excluded")
+        for dependency in component["dependencies"]:
+            require(
+                dependency in component_map,
+                f"component {component['id']} declares dependency outside the release matrix: {dependency}",
+            )
+            require(dependency != component["id"], f"component {component['id']} cannot depend on itself")
 
     evidence_ids = [item["id"] for item in evidence]
     require(len(evidence_ids) == len(set(evidence_ids)), "evidence identifiers must be unique")
@@ -126,12 +132,14 @@ def semantic_validate(manifest: dict[str, Any], rules: dict[str, Any]) -> dict[s
             require(bool(gate.get("justification")), f"not-applicable gate {gate['id']} requires justification")
 
     relationship_keys: set[tuple[str, str, str]] = set()
+    relationship_pairs: dict[tuple[str, str], list[dict[str, Any]]] = {}
     for relationship in compatibility["relationships"]:
         key = (relationship["consumer"], relationship["provider"], relationship["requirement"])
         require(key not in relationship_keys, f"duplicate compatibility relationship: {key}")
         relationship_keys.add(key)
         require(relationship["consumer"] in component_map, f"relationship consumer is not in release components: {relationship['consumer']}")
         require(relationship["provider"] in component_map, f"relationship provider is not in release components: {relationship['provider']}")
+        relationship_pairs.setdefault((relationship["consumer"], relationship["provider"]), []).append(relationship)
         for evidence_id in relationship["evidence"]:
             require(evidence_id in evidence_map, f"compatibility relationship references unknown evidence {evidence_id}")
         if relationship["status"] == "compatible":
@@ -194,6 +202,22 @@ def semantic_validate(manifest: dict[str, Any], rules: dict[str, Any]) -> dict[s
                 conformance["source_revision"] == component["source_revision"],
                 f"selected required component {component['id']} conformance evidence is not revision-bound",
             )
+
+            for dependency in component["dependencies"]:
+                provider = component_map[dependency]
+                require(
+                    provider["selection_status"] == "selected",
+                    f"selected required component {component['id']} depends on unselected component {dependency}",
+                )
+                pair = relationship_pairs.get((component["id"], dependency), [])
+                require(
+                    pair,
+                    f"selected dependency has no compatibility relationship: {component['id']} -> {dependency}",
+                )
+                require(
+                    any(item["status"] == "compatible" and item["evidence"] for item in pair),
+                    f"selected dependency is not evidence-backed compatible: {component['id']} -> {dependency}",
+                )
 
         for gate_id in rules["mandatory_release_gates"]:
             gate = gate_map[gate_id]
