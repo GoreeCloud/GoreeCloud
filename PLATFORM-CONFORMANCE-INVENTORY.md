@@ -42,16 +42,16 @@ Only **1 of 62** owned repositories currently has a root manifest on the current
 
 ## Confirmed current-contract application/service scope
 
-Role review identifies **54 repositories** as confirmed application or service repositories under the current v0.2 component model: **51 public** and **3 private**.
+Role and repository-manifest evidence identify **55 repositories** as confirmed application or service repositories under the current v0.2 component model: **52 public** and **3 private**.
 
 | Confirmed application/service adoption state | Count |
 | --- | ---: |
 | Current v0.2 manifest | 1 |
-| Legacy v0.1 manifest requiring migration | 4 |
+| Legacy v0.1 manifest requiring migration | 5 |
 | Missing root manifest | 49 |
-| **Confirmed application/service repositories** | **54** |
+| **Confirmed application/service repositories** | **55** |
 
-Accordingly, **53 of 54 confirmed application/service repositories require Platform Contract adoption or migration work**. The sole current-v0.2 repository is not automatically conformant; its current declaration is evaluated separately below.
+Accordingly, **54 of 55 confirmed application/service repositories require Platform Contract adoption or migration work**. The sole current-v0.2 repository is not automatically conformant; its current declaration is evaluated separately below.
 
 ## Current v0.2 repository
 
@@ -90,7 +90,7 @@ Private legacy-manifest identities remain intentionally undisclosed in this publ
 
 Contract v0.2 replaces the v0.1 integration vocabulary and evidence model. These manifests must be migrated conservatively; prior `partial`, `planned`, `unknown`, or unqualified `not-applicable` states must not be upgraded to current positive conformance without current evidence.
 
-`GoreeCloud/goreecloud-website` is additionally listed under **Scope/model review** because the repository identifies itself as a static public website while the current v0.2 schema accepts only `application` and `service` component types. Its existing v0.1 manifest does not resolve that current-schema modeling question.
+`GoreeCloud/goreecloud-website` already declares itself as an `application` in its v0.1 manifest, so it remains in confirmed application scope for migration unless later authoritative repository evidence deliberately changes that component classification.
 
 ## Confirmed public application/service repositories missing a manifest
 
@@ -153,8 +153,7 @@ These repositories require an explicit current-contract modeling decision rather
 | Repository | Root manifest | Review reason |
 | --- | --- | --- |
 | `GoreeCloud/goreecloud-firefox-extensions` | Missing | Canonical monorepository containing multiple independently identified Firefox extension applications and release boundaries; current v0.2 schema models one `application` or `service` component per manifest. |
-| `GoreeCloud/goreecloud-suite` | Missing | Repository role is the public Suite website/application-service directory; current schema does not define a `website` or portfolio component type. |
-| `GoreeCloud/goreecloud-website` | Legacy v0.1 | Canonical static public website repository with multiple website destinations; current schema accepts only `application` and `service`, so v0.2 migration requires a deliberate component-model decision. |
+| `GoreeCloud/goreecloud-suite` | Missing | Repository owns the public Suite website/application-service directory, but no existing manifest establishes whether the repository itself should be modeled as one `application`, one `service`, or whether the contract needs an explicit portfolio/website model. |
 
 Until that modeling decision is made, these repositories must not be marked `Not Applicable` merely to avoid implementation, and they must not invent local schema extensions that conflict with the central contract.
 
@@ -187,9 +186,9 @@ These discrepancies are recorded as documentation/source-integrity findings. The
 
 The current rollout should proceed without manufacturing positive states:
 
-1. Migrate the **4 confirmed in-scope legacy v0.1 manifests** to v0.2 using current evidence and the governed five-result Platform System vocabulary.
+1. Migrate the **5 confirmed in-scope legacy v0.1 manifests** to v0.2 using current evidence and the governed five-result Platform System vocabulary.
 2. Add truthful v0.2 manifests to the **49 confirmed in-scope repositories** that currently lack one, including the 2 private repositories without exposing private identities in public central records.
-3. Resolve the component-model decision for the **3 scope/model-review repositories** before enforcing v0.2 adoption there.
+3. Resolve the component-model decision for the **2 scope/model-review repositories** before enforcing v0.2 adoption there.
 4. For every new or migrated manifest, evaluate all seven Integral Platform Systems and preserve blocked, migration-required, nonconformant, or justified-not-applicable states when that is the supported truth.
 5. Add or update repository CI to call the central reusable Platform Contract workflow by immutable commit SHA where practical.
 6. Do not represent a repository as Stable or Platform-conformant unless required implementation and acceptance evidence independently supports that claim.
