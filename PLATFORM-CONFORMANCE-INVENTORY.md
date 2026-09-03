@@ -33,12 +33,12 @@ Manifest presence is not treated as conformance evidence. A current manifest may
 
 | Adoption state | Total | Public | Private |
 | --- | ---: | ---: | ---: |
-| Current v0.2 manifest | 8 | 6 | 2 |
+| Current v0.2 manifest | 9 | 6 | 3 |
 | Legacy v0.1 manifest | 0 | 0 | 0 |
-| Missing root manifest | 54 | 53 | 1 |
+| Missing root manifest | 53 | 53 | 0 |
 | **Owned repositories** | **62** | **59** | **3** |
 
-Eight owned repositories now have a repository-root manifest on the current Platform Contract schema. No repository in the observed portfolio remains on the superseded v0.1 schema.
+Nine owned repositories now have a repository-root manifest on the current Platform Contract schema. No repository in the observed portfolio remains on the superseded v0.1 schema.
 
 ## Confirmed current-contract application/service scope
 
@@ -46,12 +46,12 @@ Role and repository-manifest evidence identify **55 repositories** as confirmed 
 
 | Confirmed application/service adoption state | Count |
 | --- | ---: |
-| Current v0.2 manifest | 8 |
+| Current v0.2 manifest | 9 |
 | Legacy v0.1 manifest requiring migration | 0 |
-| Missing root manifest | 47 |
+| Missing root manifest | 46 |
 | **Confirmed application/service repositories** | **55** |
 
-Accordingly, **47 of 55 confirmed application/service repositories still require initial Platform Contract adoption work**: 46 public and 1 private. Current manifest adoption does not automatically establish Platform conformance; each declaration retains its repository-specific lifecycle, result, blockers, and evidence state.
+Accordingly, **46 of 55 confirmed application/service repositories still require initial Platform Contract adoption work**, all of them public under the observed inventory. Current manifest adoption does not automatically establish Platform conformance; each declaration retains its repository-specific lifecycle, result, blockers, and evidence state.
 
 ## Current v0.2 repositories
 
@@ -64,9 +64,9 @@ The following public repositories have a current v0.2 manifest on their verified
 5. `GoreeCloud/goreecloud-tasks`
 6. `GoreeCloud/goreecloud-website`
 
-Two additional private application/service repositories have current v0.2 manifests. Their identities are intentionally not centralized in this public inventory.
+Three additional private application/service repositories have current v0.2 manifests. Their identities are intentionally not centralized in this public inventory.
 
-All eight current manifests retain Development/non-Stable boundaries appropriate to their repository evidence. Current manifest adoption must not be interpreted as Stable qualification, production approval, or complete integration with all seven Integral Platform Systems.
+All nine current manifests retain Development/non-Stable boundaries appropriate to their repository evidence. Current manifest adoption must not be interpreted as Stable qualification, production approval, or complete integration with all seven Integral Platform Systems.
 
 ### `GoreeCloud/goreecloud-containers`
 
@@ -115,13 +115,13 @@ This checkpoint records Platform Contract migration and validation only. It does
 
 ## September 3 initial-adoption wave checkpoint
 
-`GoreeCloud/goreecloud-identity` and one additional private Integral Platform System repository now have v0.2 declarations on their authoritative default branches.
+`GoreeCloud/goreecloud-identity` and two additional private Integral Platform System repositories now have v0.2 declarations on their authoritative default branches.
 
 `GoreeCloud/goreecloud-identity` declares itself as a Development service in active native migration. Its substantial inherited runtime remains transitional, its native Identity Center and several Integral Platform System relationships remain blocked, and its GoreeCloud Mesh relationship is migration-required rather than production-accepted. The repository's dedicated Platform Contract validation passed on the adoption revision. Broader inherited repository CI remains an independent source-quality concern and does not convert the manifest into a positive conformance claim.
 
-The additional private adoption is recorded only in aggregate in this public inventory. Its repository-local manifest remains authoritative for its lifecycle, integration states, evidence, and blockers.
+The two additional private adoptions are recorded only in aggregate in this public inventory. Their repository-local manifests remain authoritative for lifecycle, integration states, evidence, and blockers.
 
-Neither adoption adds acceptance-test or release evidence merely because a v0.2 declaration exists. Both remain non-Stable and nonconformant at the Platform Contract level.
+None of these three adoptions adds acceptance-test or release evidence merely because a v0.2 declaration exists. They remain non-Stable and nonconformant at the Platform Contract level.
 
 ## Confirmed public application/service repositories missing a manifest
 
@@ -174,7 +174,7 @@ The following **46 public repositories** are confirmed application/service repos
 45. `GoreeCloud/goreecloud-video`
 46. `GoreeCloud/goreecloud-waypoint`
 
-The private scope contributes **1 additional confirmed application/service repository with a missing root manifest**, recorded only as an aggregate to preserve the established public privacy boundary.
+No private confirmed application/service repository remains without a current root manifest under the observed inventory. Private repository identities remain intentionally omitted from this public record.
 
 ## Scope/model review
 
@@ -217,7 +217,7 @@ These discrepancies are documentation/source-integrity findings. They do not alt
 The current rollout should proceed without manufacturing positive states:
 
 1. **Completed:** migrate the five legacy v0.1 manifests to v0.2 using current evidence and the governed five-result Platform System vocabulary.
-2. Add truthful v0.2 manifests to the **47 confirmed in-scope repositories** that currently lack one, including the 1 private repository without exposing its identity in public central records.
+2. Add truthful v0.2 manifests to the **46 confirmed in-scope repositories** that currently lack one. Under the observed inventory, all remaining initial-adoption repositories are public; private identities remain omitted regardless of future state changes.
 3. Resolve the component-model decision for the **2 scope/model-review repositories** before enforcing v0.2 adoption there.
 4. For every new manifest, evaluate all seven Integral Platform Systems and preserve blocked, migration-required, nonconformant, or justified-not-applicable states when that is the supported truth.
 5. Add repository CI that calls the central reusable Platform Contract workflow by immutable commit SHA where practical.
