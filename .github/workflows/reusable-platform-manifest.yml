@@ -1,0 +1,50 @@
+name: Reusable platform manifest validation
+
+on:
+  workflow_call:
+    inputs:
+      manifest-path:
+        description: Repository-relative path to the GoreeCloud platform manifest.
+        required: false
+        type: string
+        default: goreecloud.platform.yaml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-platform-manifest:
+    name: Validate GoreeCloud Platform Contract manifest
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      MANIFEST_PATH: ${{ inputs.manifest-path }}
+    steps:
+      - name: Checkout caller repository
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Checkout exact Platform Contract implementation
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ job.workflow_repository }}
+          ref: ${{ job.workflow_sha }}
+          path: .goreecloud-platform-contract
+          persist-credentials: false
+
+      - name: Validate manifest path
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$MANIFEST_PATH" || "$MANIFEST_PATH" = /* || "$MANIFEST_PATH" == *".."* ]]; then
+            echo "Invalid repository-relative manifest path: $MANIFEST_PATH" >&2
+            exit 1
+          fi
+          test -f "$MANIFEST_PATH"
+
+      - name: Install manifest validator dependency
+        run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.2
+
+      - name: Validate GoreeCloud Platform Contract manifest
+        run: python3 .goreecloud-platform-contract/scripts/validate_platform_manifest.py "$MANIFEST_PATH"
