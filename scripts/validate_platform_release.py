@@ -194,6 +194,10 @@ def semantic_validate(manifest: dict[str, Any], rules: dict[str, Any]) -> dict[s
             require(component["version"] is not None, f"selected required component {component['id']} has no version")
             require(component["source_revision"] is not None, f"selected required component {component['id']} has no exact source revision")
             require(component["lifecycle"] is not None, f"selected required component {component['id']} has no lifecycle")
+            require(
+                component["compatibility_input_status"] == "declared",
+                f"selected required component {component['id']} does not have producer-declared compatibility inputs",
+            )
             conformance = component["conformance"]
             require(conformance["result"] == "conformant", f"selected required component {component['id']} is not conformant")
             require(conformance["stable_eligible"], f"selected required component {component['id']} is not Stable eligible")
