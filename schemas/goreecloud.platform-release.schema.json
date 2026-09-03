@@ -96,6 +96,8 @@
         "version",
         "source_revision",
         "lifecycle",
+        "dependencies",
+        "api_requirements",
         "conformance"
       ],
       "properties": {
@@ -135,6 +137,16 @@
             "Retired",
             null
           ]
+        },
+        "dependencies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "maxLength": 128}
+        },
+        "api_requirements": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "maxLength": 512}
         },
         "conformance": {
           "type": "object",
