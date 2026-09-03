@@ -1,0 +1,114 @@
+schema_version: "0.1"
+
+component:
+  type: application
+  id: example-app
+  product_name: Example GoreeCloud Application
+  repository: GoreeCloud/example-app
+
+lifecycle: development
+version: 0.1.0
+
+supported_platforms:
+  - web
+  - linux
+
+api:
+  versions:
+    - v1
+  endpoints:
+    - name: primary-api
+      url: https://example.invalid/api/v1
+      purpose: Non-production example endpoint for contract documentation.
+
+platform_systems:
+  manager:
+    status: planned
+    version: null
+    evidence: []
+    notes: Example only; no implementation claim is made.
+  privacy_shield:
+    status: partial
+    version: null
+    evidence:
+      - docs/privacy/example-evidence.md
+    notes: Example only.
+  wardveil_security:
+    status: planned
+    version: null
+    evidence: []
+    notes: Example only.
+  everkeep:
+    status: planned
+    version: null
+    evidence: []
+    notes: Example only.
+  glaze_ui:
+    status: implemented
+    version: "2.2"
+    evidence:
+      - evidence/glaze-ui/example-acceptance.json
+    notes: Example evidence path only.
+  mesh:
+    status: partial
+    version: null
+    evidence:
+      - evidence/mesh/example-registration.json
+    notes: Example only.
+    capabilities:
+      - example.read
+    dependencies:
+      - goreecloud-identity
+    published_events:
+      - example.item.updated.v1
+    consumed_events:
+      - identity.session.revoked.v1
+  identity:
+    status: partial
+    version: null
+    evidence:
+      - evidence/identity/example-integration.json
+    notes: Example only.
+
+health:
+  health_endpoint: /health
+  readiness_endpoint: /ready
+
+continuity:
+  backup:
+    required: true
+    requirements:
+      - Persist application data in an Everkeep-compatible backup scope.
+  restore:
+    required: true
+    requirements:
+      - Validate restoration into a clean environment before Stable acceptance.
+  export:
+    required: true
+    requirements:
+      - Provide a documented user-controlled export.
+  portability:
+    required: true
+    requirements:
+      - Use documented portable formats for durable user data where practical.
+
+external_dependencies:
+  - name: example-database
+    purpose: Example persistent data store.
+    required: true
+
+compatibility:
+  requires:
+    - goreecloud-platform-contract>=0.1
+    - glaze-ui>=2.2
+  provides:
+    - example-api-v1
+
+conformance:
+  status: partial
+  validated_at: null
+  evidence: []
+  blockers:
+    - GoreeCloud Manager integration remains planned.
+    - Wardveil Security integration remains planned.
+    - Everkeep integration remains planned.
