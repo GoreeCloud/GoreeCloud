@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://goreecloud.com/schemas/goreecloud.conformance-result.schema.json",
+  "title": "GoreeCloud Platform Conformance Result",
+  "description": "Computed repository platform-conformance result. Aggregators may present this result but do not acquire authority over producer-owned facts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "component",
+    "repository",
+    "manifest_schema_version",
+    "evaluated_revision",
+    "evaluated_at",
+    "lifecycle",
+    "declared_conformance",
+    "computed_conformance",
+    "stable_eligible",
+    "checks",
+    "blockers",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1"
+    },
+    "component": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "repository": {
+      "type": "string",
+      "pattern": "^GoreeCloud/[A-Za-z0-9._-]+$"
+    },
+    "manifest_schema_version": {
+      "const": "0.2"
+    },
+    "evaluated_revision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evaluated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lifecycle": {
+      "enum": [
+        "concept",
+        "experimental",
+        "development",
+        "release-candidate",
+        "stable",
+        "deprecated",
+        "retired"
+      ]
+    },
+    "declared_conformance": {
+      "enum": [
+        "conformant",
+        "nonconformant",
+        "unverified"
+      ]
+    },
+    "computed_conformance": {
+      "enum": [
+        "conformant",
+        "nonconformant",
+        "unverified"
+      ]
+    },
+    "stable_eligible": {
+      "type": "boolean"
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "category",
+          "result",
+          "evidence",
+          "message"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "category": {
+            "enum": [
+              "platform-system",
+              "compatibility",
+              "evidence",
+              "release"
+            ]
+          },
+          "result": {
+            "enum": [
+              "passed",
+              "failed"
+            ]
+          },
+          "declared_result": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "declaration_owner",
+        "aggregation_role",
+        "aggregators_may_transfer_authority",
+        "notes"
+      ],
+      "properties": {
+        "declaration_owner": {
+          "type": "string",
+          "pattern": "^GoreeCloud/[A-Za-z0-9._-]+$"
+        },
+        "aggregation_role": {
+          "const": "read-only"
+        },
+        "aggregators_may_transfer_authority": {
+          "const": false
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
