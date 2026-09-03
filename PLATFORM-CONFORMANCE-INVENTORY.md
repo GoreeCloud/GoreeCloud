@@ -33,12 +33,12 @@ Manifest presence is not treated as conformance evidence. A current manifest may
 
 | Adoption state | Total | Public | Private |
 | --- | ---: | ---: | ---: |
-| Current v0.2 manifest | 1 | 1 | 0 |
-| Legacy v0.1 manifest | 5 | 4 | 1 |
+| Current v0.2 manifest | 6 | 5 | 1 |
+| Legacy v0.1 manifest | 0 | 0 | 0 |
 | Missing root manifest | 56 | 54 | 2 |
 | **Owned repositories** | **62** | **59** | **3** |
 
-Only **1 of 62** owned repositories currently has a root manifest on the current Platform Contract schema.
+Six owned repositories now have a repository-root manifest on the current Platform Contract schema. No repository in the observed portfolio remains on the superseded v0.1 schema.
 
 ## Confirmed current-contract application/service scope
 
@@ -46,14 +46,26 @@ Role and repository-manifest evidence identify **55 repositories** as confirmed 
 
 | Confirmed application/service adoption state | Count |
 | --- | ---: |
-| Current v0.2 manifest | 1 |
-| Legacy v0.1 manifest requiring migration | 5 |
+| Current v0.2 manifest | 6 |
+| Legacy v0.1 manifest requiring migration | 0 |
 | Missing root manifest | 49 |
 | **Confirmed application/service repositories** | **55** |
 
-Accordingly, **54 of 55 confirmed application/service repositories require Platform Contract adoption or migration work**. The sole current-v0.2 repository is not automatically conformant; its current declaration is evaluated separately below.
+Accordingly, **49 of 55 confirmed application/service repositories still require initial Platform Contract adoption work**. Current manifest adoption does not automatically establish Platform conformance; each declaration retains its repository-specific lifecycle, result, blockers, and evidence state.
 
-## Current v0.2 repository
+## Current v0.2 repositories
+
+The following public repositories have a current v0.2 manifest on their verified default branch:
+
+1. `GoreeCloud/goreecloud-containers`
+2. `GoreeCloud/goreecloud-manager`
+3. `GoreeCloud/goreecloud-mesh`
+4. `GoreeCloud/goreecloud-tasks`
+5. `GoreeCloud/goreecloud-website`
+
+One additional private application/service repository has a current v0.2 manifest. Its identity is intentionally not centralized in this public inventory.
+
+All six current manifests retain Development/non-Stable boundaries appropriate to their repository evidence. Current manifest adoption must not be interpreted as Stable qualification, production approval, or complete integration with all seven Integral Platform Systems.
 
 ### `GoreeCloud/goreecloud-containers`
 
@@ -75,22 +87,30 @@ Accordingly, **54 of 55 confirmed application/service repositories require Platf
 
 This is a truthful Development-state v0.2 declaration. Its presence establishes current manifest adoption, not Platform conformance or Stable eligibility.
 
-## Legacy v0.1 repositories
+## September 3 v0.1 migration checkpoint
 
-Four public repositories and one private repository have root manifests using Platform Contract schema `0.1`.
+The five repositories that carried legacy v0.1 manifests at the initial September 3 audit have now been migrated to v0.2 on their authoritative default branches.
 
-Public legacy manifests:
+The migration work followed these constraints:
+
+- legacy `partial`, `planned`, and similar states were mapped conservatively rather than upgraded into positive current conformance;
+- genuine self-authority relationships were retained only as evidence-backed `not-applicable-justified` results;
+- required but unaccepted integrations remain `applicable-migration-required`, `applicable-blocked`, or otherwise non-positive as supported by repository evidence;
+- structured v0.2 acceptance and release evidence collections were not populated with invented evidence;
+- each migrated repository remains below Stable where required implementation or acceptance is incomplete;
+- reusable Platform Contract validation was pinned to an immutable central contract revision rather than a moving branch;
+- repository-specific validation was allowed to fail closed and was corrected where a stale v0.1 consumer validator conflicted with the v0.2 implemented-version versus required-baseline model.
+
+The four public migrations were:
 
 1. `GoreeCloud/goreecloud-manager`
 2. `GoreeCloud/goreecloud-mesh`
 3. `GoreeCloud/goreecloud-tasks`
 4. `GoreeCloud/goreecloud-website`
 
-Private legacy-manifest identities remain intentionally undisclosed in this public inventory.
+The fifth migration occurred in a private repository whose identity remains intentionally omitted from this public inventory.
 
-Contract v0.2 replaces the v0.1 integration vocabulary and evidence model. These manifests must be migrated conservatively; prior `partial`, `planned`, `unknown`, or unqualified `not-applicable` states must not be upgraded to current positive conformance without current evidence.
-
-`GoreeCloud/goreecloud-website` already declares itself as an `application` in its v0.1 manifest, so it remains in confirmed application scope for migration unless later authoritative repository evidence deliberately changes that component classification.
+This checkpoint records Platform Contract migration and validation only. It does not establish product Stable qualification, production deployment, or producer-system acceptance.
 
 ## Confirmed public application/service repositories missing a manifest
 
@@ -173,24 +193,24 @@ This classification is limited to the **current Platform Contract manifest schem
 
 ## Discrepancies discovered during the audit
 
-The audit found cross-repository statements that conflict with the current central/canonical baseline and should be corrected in separate repository-specific work rather than silently normalized here:
+The audit found cross-repository statements that conflict with the current central/canonical baseline and should be corrected through repository-specific work rather than silently normalized here:
 
 1. `GoreeCloud/goreecloud-suite` currently states that Glaze UI `2.1.0` is the current Stable design-system target.
 2. `GoreeCloud/goreecloud-website` currently states that Glaze UI `2.2.0` is the current GoreeCloud platform target and that its accepted implementation is `2.1.0`.
 3. The central Platform Contract and the canonical `GoreeCloud/goreecloud-glaze-ui` repository currently identify Glaze UI `1.1.0` as the current Stable consumer target. This inventory therefore does not treat the Suite or Website version statements as authority for portfolio-wide Platform Contract evaluation.
 4. `GoreeCloud/goreecloud-website` also contains an older repository-portfolio statement of `57 repositories — 40 public, 17 private` and describes `GoreeCloud/goreecloud-index` as private. The September 3 canonical repository inventory is `62 — 59 public, 3 private`, and current GitHub metadata identifies `GoreeCloud/goreecloud-index` as public.
 
-These discrepancies are recorded as documentation/source-integrity findings. They do not alter the authoritative September 3 repository inventory or upgrade/downgrade application conformance by themselves.
+These discrepancies are documentation/source-integrity findings. They do not alter the authoritative September 3 repository inventory or upgrade/downgrade application conformance by themselves.
 
 ## Required rollout work
 
 The current rollout should proceed without manufacturing positive states:
 
-1. Migrate the **5 confirmed in-scope legacy v0.1 manifests** to v0.2 using current evidence and the governed five-result Platform System vocabulary.
+1. **Completed:** migrate the five legacy v0.1 manifests to v0.2 using current evidence and the governed five-result Platform System vocabulary.
 2. Add truthful v0.2 manifests to the **49 confirmed in-scope repositories** that currently lack one, including the 2 private repositories without exposing private identities in public central records.
 3. Resolve the component-model decision for the **2 scope/model-review repositories** before enforcing v0.2 adoption there.
-4. For every new or migrated manifest, evaluate all seven Integral Platform Systems and preserve blocked, migration-required, nonconformant, or justified-not-applicable states when that is the supported truth.
-5. Add or update repository CI to call the central reusable Platform Contract workflow by immutable commit SHA where practical.
+4. For every new manifest, evaluate all seven Integral Platform Systems and preserve blocked, migration-required, nonconformant, or justified-not-applicable states when that is the supported truth.
+5. Add repository CI that calls the central reusable Platform Contract workflow by immutable commit SHA where practical.
 6. Do not represent a repository as Stable or Platform-conformant unless required implementation and acceptance evidence independently supports that claim.
 7. Correct the identified stale cross-repository Glaze UI and repository-inventory statements through their own authoritative repository workflows.
 
