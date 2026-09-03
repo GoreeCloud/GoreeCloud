@@ -9,10 +9,11 @@ CONFORMANCE = ROOT / "NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md"
 README = ROOT / "README.md"
 
 REQUIRED_SYSTEMS = (
-    "Glaze UI",
-    "Wardveil Security",
+    "GoreeCloud Manager",
     "Privacy Shield",
+    "Wardveil Security",
     "Everkeep",
+    "Glaze UI",
     "GoreeCloud Mesh",
     "GoreeCloud Identity",
 )
@@ -25,13 +26,14 @@ REQUIRED_CONFORMANCE_BOUNDARIES = (
     "Stable or production-ready",
     "Source acceptance",
     "production acceptance",
+    "goreecloud.platform.yaml",
 )
 
 REQUIRED_README_BOUNDARIES = (
     "applications and services cohesive",
     "original, native, GoreeCloud-owned destination",
     "Existing complete-product forks or adopted implementations may remain temporarily",
-    "Required Glaze UI, Wardveil Security, Privacy Shield, Everkeep, GoreeCloud Mesh, and GoreeCloud Identity integrations",
+    "Required GoreeCloud Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze UI, GoreeCloud Mesh, and GoreeCloud Identity integrations",
     "must not be presented as Stable or production-ready merely because it builds successfully",
 )
 
@@ -92,9 +94,12 @@ def main() -> None:
         1 for line in conformance.splitlines() if line.startswith("- **") and " — " in line
     )
     if bullet_count != len(REQUIRED_SYSTEMS):
-        fail(f"integral platform system list has {bullet_count} entries; expected 6")
+        fail(
+            f"integral platform system list has {bullet_count} entries; "
+            f"expected {len(REQUIRED_SYSTEMS)}"
+        )
 
-    print("platform-conformance: six-system native/platform baseline validated")
+    print("platform-conformance: seven-system native/platform baseline validated")
 
 
 if __name__ == "__main__":

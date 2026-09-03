@@ -29,19 +29,21 @@ GoreeCloud is more than a homelab or a collection of self-hosted applications. I
 
 ## Platform systems
 
-GoreeCloud uses shared first-party systems to keep applications and services cohesive without making them unnecessarily dependent on one another.
+GoreeCloud uses seven Integral Platform Systems to keep applications and services cohesive without making them unnecessarily dependent on one another. **GoreeCloud Suite** is the integrated user-facing product experience built across the ecosystem; it is distinct from the seven functional platform systems below.
 
-| System | Role |
+| Integral Platform System | Role |
 | --- | --- |
-| **GoreeCloud Suite** | Integrated user-facing applications and services across the personal-cloud ecosystem. |
-| **[Glaze UI](https://github.com/GoreeCloud/goreecloud-glaze-ui)** | Shared design and interaction language, including semantic tokens, reusable interface primitives, accessibility behavior, responsive behavior, and conformance guidance. |
-| **Wardveil Security by GoreeCloud** | Shared security system and integration framework for applicable protection, hardening, diagnostics, trust boundaries, verification, response, and evidence-backed security experiences. |
+| **[GoreeCloud Manager](https://github.com/GoreeCloud/goreecloud-manager)** | Bounded platform management and administration, including application and service inventory, configuration, lifecycle, operational visibility, governance implementation, and authorized control-plane workflows. |
 | **GoreeCloud Privacy Shield** | Shared privacy system and privacy-control foundation for consent, purpose limitation, minimization, retention, sharing, processing boundaries, privacy-safe diagnostics, and applicable content/tracking protection. |
+| **Wardveil Security by GoreeCloud** | Shared security system and integration framework for applicable protection, hardening, diagnostics, trust boundaries, verification, response, and evidence-backed security experiences. |
 | **Everkeep** | Resilience, recovery, preservation, portability, continuity, succession, and digital-legacy system. |
+| **[Glaze UI](https://github.com/GoreeCloud/goreecloud-glaze-ui)** | Shared design and interaction language, including semantic tokens, reusable interface primitives, accessibility behavior, responsive behavior, and conformance guidance. |
 | **[GoreeCloud Mesh](https://github.com/GoreeCloud/goreecloud-mesh)** | Bounded first-party capability discovery, coordination, integration, governance, and event/capability exchange where applicable. |
 | **[GoreeCloud Identity](https://github.com/GoreeCloud/goreecloud-identity)** | Central identity, account, device, credential, session, authentication, authorization, and delegated-authority foundation while application-specific authorization remains appropriately scoped. |
 
 These are functional platform systems rather than decorative labels. Application and service repositories must represent required integrations through real behavior, contracts, authority boundaries, validation, and user-visible state where applicable. A project that has not completed required integration and acceptance must not be presented as Stable or production-ready merely because it builds successfully.
+
+The versioned **GoreeCloud Platform Contract** provides a machine-readable declaration and validation foundation for these relationships through repository-root `goreecloud.platform.yaml` manifests. A valid manifest records declared state and evidence references; it does not independently prove that an integration is implemented, accepted, production-ready, or Stable. See [`PLATFORM-CONTRACT.md`](./PLATFORM-CONTRACT.md) for the current repository-local implementation reference.
 
 ## Selected public projects
 
@@ -104,7 +106,7 @@ GoreeCloud applications and services are developed toward an original, native, G
 - New application implementations are built from the ground up under GoreeCloud ownership.
 - Existing complete-product forks or adopted implementations may remain temporarily for migration, compatibility, testing, reference, or historical purposes while native replacements are built and accepted.
 - Narrow critical foundations may remain dependencies when independent reimplementation would materially increase security, cryptographic, protocol, standards, codec, rendering, operating-system, runtime, interoperability, or maintainability risk.
-- Required Glaze UI, Wardveil Security, Privacy Shield, Everkeep, GoreeCloud Mesh, and GoreeCloud Identity integrations remain functional acceptance requirements rather than branding claims.
+- Required GoreeCloud Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze UI, GoreeCloud Mesh, and GoreeCloud Identity integrations remain functional acceptance requirements rather than branding claims.
 
 The long-term objective is not to reproduce any commercial cloud ecosystem exactly. GoreeCloud builds software around verified roles while strengthening privacy, ownership, interoperability, portability, maintainability, security, recoverability, and long-term independence.
 

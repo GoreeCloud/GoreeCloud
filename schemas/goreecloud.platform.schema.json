@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://goreecloud.com/schemas/goreecloud.platform.schema.json",
+  "title": "GoreeCloud Platform Contract Manifest",
+  "description": "Structural schema for repository-root goreecloud.platform.yaml declarations. Validity does not by itself prove implementation, acceptance, or Stable qualification.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "component",
+    "lifecycle",
+    "version",
+    "supported_platforms",
+    "api",
+    "platform_systems",
+    "health",
+    "continuity",
+    "external_dependencies",
+    "compatibility",
+    "conformance"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "id", "product_name", "repository"],
+      "properties": {
+        "type": { "enum": ["application", "service"] },
+        "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "product_name": { "type": "string", "minLength": 1 },
+        "repository": { "type": "string", "pattern": "^GoreeCloud/[A-Za-z0-9._-]+$" }
+      }
+    },
+    "lifecycle": {
+      "enum": ["concept", "experimental", "development", "release-candidate", "stable", "deprecated", "retired"]
+    },
+    "version": { "type": "string", "minLength": 1 },
+    "supported_platforms": { "$ref": "#/$defs/stringList" },
+    "api": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["versions", "endpoints"],
+      "properties": {
+        "versions": { "$ref": "#/$defs/stringList" },
+        "endpoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "url", "purpose"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "url": { "type": "string", "minLength": 1 },
+              "purpose": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "platform_systems": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manager", "privacy_shield", "wardveil_security", "everkeep", "glaze_ui", "mesh", "identity"],
+      "properties": {
+        "manager": { "$ref": "#/$defs/integration" },
+        "privacy_shield": { "$ref": "#/$defs/integration" },
+        "wardveil_security": { "$ref": "#/$defs/integration" },
+        "everkeep": { "$ref": "#/$defs/integration" },
+        "glaze_ui": { "$ref": "#/$defs/integration" },
+        "mesh": { "$ref": "#/$defs/meshIntegration" },
+        "identity": { "$ref": "#/$defs/integration" }
+      }
+    },
+    "health": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["health_endpoint", "readiness_endpoint"],
+      "properties": {
+        "health_endpoint": { "type": ["string", "null"] },
+        "readiness_endpoint": { "type": ["string", "null"] }
+      }
+    },
+    "continuity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["backup", "restore", "export", "portability"],
+      "properties": {
+        "backup": { "$ref": "#/$defs/continuityRequirement" },
+        "restore": { "$ref": "#/$defs/continuityRequirement" },
+        "export": { "$ref": "#/$defs/continuityRequirement" },
+        "portability": { "$ref": "#/$defs/continuityRequirement" }
+      }
+    },
+    "external_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "purpose", "required"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "purpose": { "type": "string", "minLength": 1 },
+          "required": { "type": "boolean" }
+        }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requires", "provides"],
+      "properties": {
+        "requires": { "$ref": "#/$defs/stringList" },
+        "provides": { "$ref": "#/$defs/stringList" }
+      }
+    },
+    "conformance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "validated_at", "evidence", "blockers"],
+      "properties": {
+        "status": { "enum": ["conformant", "partial", "nonconformant", "unverified"] },
+        "validated_at": { "type": ["string", "null"], "format": "date-time" },
+        "evidence": { "$ref": "#/$defs/stringList" },
+        "blockers": { "$ref": "#/$defs/stringList" }
+      }
+    }
+  },
+  "$defs": {
+    "stringList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "integrationStatus": {
+      "enum": ["implemented", "partial", "planned", "not-applicable", "unknown"]
+    },
+    "integration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "version", "evidence", "notes"],
+      "properties": {
+        "status": { "$ref": "#/$defs/integrationStatus" },
+        "version": { "type": ["string", "null"] },
+        "evidence": { "$ref": "#/$defs/stringList" },
+        "notes": { "type": ["string", "null"] }
+      }
+    },
+    "meshIntegration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "version", "evidence", "notes", "capabilities", "dependencies", "published_events", "consumed_events"],
+      "properties": {
+        "status": { "$ref": "#/$defs/integrationStatus" },
+        "version": { "type": ["string", "null"] },
+        "evidence": { "$ref": "#/$defs/stringList" },
+        "notes": { "type": ["string", "null"] },
+        "capabilities": { "$ref": "#/$defs/stringList" },
+        "dependencies": { "$ref": "#/$defs/stringList" },
+        "published_events": { "$ref": "#/$defs/stringList" },
+        "consumed_events": { "$ref": "#/$defs/stringList" }
+      }
+    },
+    "continuityRequirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "requirements"],
+      "properties": {
+        "required": { "type": "boolean" },
+        "requirements": { "$ref": "#/$defs/stringList" }
+      }
+    }
+  }
+}
