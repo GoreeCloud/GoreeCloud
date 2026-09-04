@@ -47,11 +47,20 @@ jobs:
     name: Validate project-wide baselines
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      CANDIDATE_REVISION: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
     steps:
       - name: Checkout exact candidate
-        uses: actions/checkout@v5
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
+          ref: ${{ env.CANDIDATE_REVISION }}
           persist-credentials: false
+
+      - name: Verify exact candidate revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_REVISION"
 
       - name: Install platform contract dependencies
         run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.2 jsonschema==4.25.1
@@ -71,24 +80,28 @@ jobs:
         run: |
           python3 scripts/evaluate_platform_conformance.py \
             examples/goreecloud.platform.example.yaml \
-            --revision "$GITHUB_SHA" \
-            --evaluator-revision "$GITHUB_SHA" \
+            --revision "$CANDIDATE_REVISION" \
+            --evaluator-revision "$CANDIDATE_REVISION" \
             --evaluated-at 2026-09-03T00:00:00Z \
             --output /tmp/goreecloud.conformance-result.json
 
-      - name: Validate example conformance result schema
+      - name: Validate example conformance result schema and provenance
         shell: bash
         run: |
           python3 - <<'PY'
           import json
+          import os
           from pathlib import Path
           from jsonschema import Draft202012Validator, FormatChecker
 
           schema = json.loads(Path('schemas/goreecloud.conformance-result.schema.json').read_text())
           result = json.loads(Path('/tmp/goreecloud.conformance-result.json').read_text())
           Draft202012Validator(schema, format_checker=FormatChecker()).validate(result)
-          if result['evaluated_revision'] != result['evaluator_revision']:
-              raise SystemExit('self-test result revisions must match the exact central candidate')
+          expected_revision = os.environ['CANDIDATE_REVISION']
+          if result['evaluated_revision'] != expected_revision:
+              raise SystemExit('self-test evaluated revision must match the exact central candidate')
+          if result['evaluator_revision'] != expected_revision:
+              raise SystemExit('self-test evaluator revision must match the exact central candidate')
           print('platform-conformance-result: example provenance and schema validated')
           PY
 
