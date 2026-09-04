@@ -2,7 +2,7 @@
 
 ## Status
 
-- **Observed:** September 4, 2026 — September 3 portfolio baseline with September 4 verified networking-adoption update
+- **Observed:** September 4, 2026 — September 3 portfolio baseline with September 4 verified networking and Search adoption updates
 - **Repository footprint:** 62 owned repositories — 59 public, 3 private
 - **Current Platform Contract:** `0.2`
 - **Manifest filename:** `goreecloud.platform.yaml`
@@ -17,7 +17,7 @@ Private repository identities are intentionally omitted from this public invento
 
 ## Audit method
 
-The September 3, 2026 portfolio baseline checked every repository in the owned-repository inventory directly for a repository-root `goreecloud.platform.yaml` on its verified default branch. On September 4, the authoritative default branches for `GoreeCloud/goreecloud-gateway`, `GoreeCloud/goreecloud-dns`, and `GoreeCloud/goreecloud-network` were re-checked after their adoption changes merged, and the counts and lists below were updated from that verified delta. This is not represented as a fresh full-estate re-audit.
+The September 3, 2026 portfolio baseline checked every repository in the owned-repository inventory directly for a repository-root `goreecloud.platform.yaml` on its verified default branch. On September 4, the authoritative default branches for `GoreeCloud/goreecloud-gateway`, `GoreeCloud/goreecloud-dns`, `GoreeCloud/goreecloud-network`, and `GoreeCloud/goreecloud-search` were re-checked after their adoption changes merged, and the counts and lists below were updated from those verified deltas. This is not represented as a fresh full-estate re-audit.
 
 The audit distinguishes:
 
@@ -33,12 +33,12 @@ Manifest presence is not treated as conformance evidence. A current manifest may
 
 | Adoption state | Total | Public | Private |
 | --- | ---: | ---: | ---: |
-| Current v0.2 manifest | 13 | 10 | 3 |
+| Current v0.2 manifest | 14 | 11 | 3 |
 | Legacy v0.1 manifest | 0 | 0 | 0 |
-| Missing root manifest | 49 | 49 | 0 |
+| Missing root manifest | 48 | 48 | 0 |
 | **Owned repositories** | **62** | **59** | **3** |
 
-Thirteen owned repositories now have a repository-root manifest on the current Platform Contract schema. No repository in the observed portfolio remains on the superseded v0.1 schema.
+Fourteen owned repositories now have a repository-root manifest on the current Platform Contract schema. No repository in the observed portfolio remains on the superseded v0.1 schema.
 
 ## Confirmed current-contract application/service scope
 
@@ -46,12 +46,12 @@ Role and repository-manifest evidence identify **55 repositories** as confirmed 
 
 | Confirmed application/service adoption state | Count |
 | --- | ---: |
-| Current v0.2 manifest | 13 |
+| Current v0.2 manifest | 14 |
 | Legacy v0.1 manifest requiring migration | 0 |
-| Missing root manifest | 42 |
+| Missing root manifest | 41 |
 | **Confirmed application/service repositories** | **55** |
 
-Accordingly, **42 of 55 confirmed application/service repositories still require initial Platform Contract adoption work**, all of them public under the observed inventory. Current manifest adoption does not automatically establish Platform conformance; each declaration retains its repository-specific lifecycle, result, blockers, and evidence state.
+Accordingly, **41 of 55 confirmed application/service repositories still require initial Platform Contract adoption work**, all of them public under the observed inventory. Current manifest adoption does not automatically establish Platform conformance; each declaration retains its repository-specific lifecycle, result, blockers, and evidence state.
 
 ## Current v0.2 repositories
 
@@ -65,12 +65,13 @@ The following public repositories have a current v0.2 manifest on their verified
 6. `GoreeCloud/goreecloud-mesh`
 7. `GoreeCloud/goreecloud-metrics`
 8. `GoreeCloud/goreecloud-network`
-9. `GoreeCloud/goreecloud-tasks`
-10. `GoreeCloud/goreecloud-website`
+9. `GoreeCloud/goreecloud-search`
+10. `GoreeCloud/goreecloud-tasks`
+11. `GoreeCloud/goreecloud-website`
 
 Three additional private application/service repositories have current v0.2 manifests. Their identities are intentionally not centralized in this public inventory.
 
-All thirteen current manifests retain Development/non-Stable boundaries appropriate to their repository evidence. Current manifest adoption must not be interpreted as Stable qualification, production approval, or complete integration with all seven Integral Platform Systems.
+All fourteen current manifests retain Development/non-Stable boundaries appropriate to their repository evidence. Current manifest adoption must not be interpreted as Stable qualification, production approval, or complete integration with all seven Integral Platform Systems.
 
 ### `GoreeCloud/goreecloud-containers`
 
@@ -149,9 +150,17 @@ All three declarations remain `development` and `nonconformant`. They contain no
 
 No production listener, DNS, VPN, route, peer, certificate, firewall, credential, persistent runtime, or cutover authority changed as part of this adoption wave. Broader inherited repository CI is evaluated independently and is not converted into Platform acceptance evidence by a green manifest-validation workflow.
 
+## September 4 Search adoption checkpoint
+
+`GoreeCloud/goreecloud-search` now has a current v0.2 manifest on verified authoritative `master` commit `4efe4cd5f6d7f8c4dd3d60dde9e0dfecc5636f3c`. The exact PR #110 head `d56daa5d8cdf2fec3b19930e7fa7f988cb5cdaaf` passed Platform Contract #2, Runtime Smoke #1204, Container Build #1200, Browser Acceptance #1293, Documentation #451, Upstream Container Boundary #580, Platform Integrations #583, Foundation #1300, and Integration #451 across Theme and Python 3.11 through 3.14 before expected-head squash merge. The merged default-branch manifest was then directly re-checked.
+
+The declaration records Search as a `development` application with version `unreleased-development` and overall conformance `nonconformant`. Acceptance-test and release evidence collections remain empty. Manager, Privacy Shield, Wardveil Security, Everkeep, GoreeCloud Mesh, and GoreeCloud Identity are `applicable-blocked`; GLAZE UI is `applicable-migration-required` against current Stable consumer target `1.1.0`. The external-provider entry is an unselected production-provider requirement rather than an approval of any specific provider.
+
+Search's native provider runtime and deterministic General, Images, Videos, News, and Files source-level acceptance are repository implementation evidence only. They do not establish live approved-provider acceptance, production credentials or provider policy, producer-authoritative platform runtime evidence, whole-application GLAZE UI acceptance, recovery, migration/cutover, release provenance, exact production deployment, or Stable qualification.
+
 ## Confirmed public application/service repositories missing a manifest
 
-The following **42 public repositories** are confirmed application/service repositories and have no repository-root `goreecloud.platform.yaml` on their verified default branch under the updated inventory:
+The following **41 public repositories** are confirmed application/service repositories and have no repository-root `goreecloud.platform.yaml` on their verified default branch under the updated inventory:
 
 1. `GoreeCloud/goreecloud-ai`
 2. `GoreeCloud/goreecloud-app-store`
@@ -188,13 +197,12 @@ The following **42 public repositories** are confirmed application/service repos
 33. `GoreeCloud/goreecloud-quill`
 34. `GoreeCloud/goreecloud-redirector`
 35. `GoreeCloud/goreecloud-rss`
-36. `GoreeCloud/goreecloud-search`
-37. `GoreeCloud/goreecloud-source-resync`
-38. `GoreeCloud/goreecloud-sync`
-39. `GoreeCloud/goreecloud-terminal`
-40. `GoreeCloud/goreecloud-vault-server`
-41. `GoreeCloud/goreecloud-video`
-42. `GoreeCloud/goreecloud-waypoint`
+36. `GoreeCloud/goreecloud-source-resync`
+37. `GoreeCloud/goreecloud-sync`
+38. `GoreeCloud/goreecloud-terminal`
+39. `GoreeCloud/goreecloud-vault-server`
+40. `GoreeCloud/goreecloud-video`
+41. `GoreeCloud/goreecloud-waypoint`
 
 No private confirmed application/service repository remains without a current root manifest under the observed inventory. Private repository identities remain intentionally omitted from this public record.
 
@@ -239,7 +247,7 @@ These discrepancies are documentation/source-integrity findings. They do not alt
 The current rollout should proceed without manufacturing positive states:
 
 1. **Completed:** migrate the five legacy v0.1 manifests to v0.2 using current evidence and the governed five-result Platform System vocabulary.
-2. Add truthful v0.2 manifests to the **42 confirmed in-scope repositories** that currently lack one. Under the observed inventory, all remaining initial-adoption repositories are public; private identities remain omitted regardless of future state changes.
+2. Add truthful v0.2 manifests to the **41 confirmed in-scope repositories** that currently lack one. Under the observed inventory, all remaining initial-adoption repositories are public; private identities remain omitted regardless of future state changes.
 3. Resolve the component-model decision for the **2 scope/model-review repositories** before enforcing v0.2 adoption there.
 4. For every new manifest, evaluate all seven Integral Platform Systems and preserve blocked, migration-required, nonconformant, or justified-not-applicable states when that is the supported truth.
 5. Add repository CI that calls the central reusable Platform Contract workflow by immutable commit SHA where practical.
