@@ -107,3 +107,9 @@ jobs:
 
       - name: Validate privacy-bounded public repository registry
         run: python3 scripts/validate_public_repository_registry.py
+
+  reusable-provenance:
+    name: Exercise reusable exact-revision provenance
+    uses: ./.github/workflows/reusable-platform-manifest.yml
+    with:
+      manifest-path: examples/goreecloud.platform.example.yaml
