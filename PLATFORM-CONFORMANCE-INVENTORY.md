@@ -2,7 +2,7 @@
 
 ## Status
 
-- **Observed:** September 3, 2026
+- **Observed:** September 4, 2026 — September 3 portfolio baseline with September 4 verified networking-adoption update
 - **Repository footprint:** 62 owned repositories — 59 public, 3 private
 - **Current Platform Contract:** `0.2`
 - **Manifest filename:** `goreecloud.platform.yaml`
@@ -17,7 +17,7 @@ Private repository identities are intentionally omitted from this public invento
 
 ## Audit method
 
-For every repository in the September 3, 2026 owned-repository inventory, the verified default branch was checked directly for a repository-root `goreecloud.platform.yaml`.
+The September 3, 2026 portfolio baseline checked every repository in the owned-repository inventory directly for a repository-root `goreecloud.platform.yaml` on its verified default branch. On September 4, the authoritative default branches for `GoreeCloud/goreecloud-gateway`, `GoreeCloud/goreecloud-dns`, and `GoreeCloud/goreecloud-network` were re-checked after their adoption changes merged, and the counts and lists below were updated from that verified delta. This is not represented as a fresh full-estate re-audit.
 
 The audit distinguishes:
 
@@ -33,12 +33,12 @@ Manifest presence is not treated as conformance evidence. A current manifest may
 
 | Adoption state | Total | Public | Private |
 | --- | ---: | ---: | ---: |
-| Current v0.2 manifest | 10 | 7 | 3 |
+| Current v0.2 manifest | 13 | 10 | 3 |
 | Legacy v0.1 manifest | 0 | 0 | 0 |
-| Missing root manifest | 52 | 52 | 0 |
+| Missing root manifest | 49 | 49 | 0 |
 | **Owned repositories** | **62** | **59** | **3** |
 
-Ten owned repositories now have a repository-root manifest on the current Platform Contract schema. No repository in the observed portfolio remains on the superseded v0.1 schema.
+Thirteen owned repositories now have a repository-root manifest on the current Platform Contract schema. No repository in the observed portfolio remains on the superseded v0.1 schema.
 
 ## Confirmed current-contract application/service scope
 
@@ -46,28 +46,31 @@ Role and repository-manifest evidence identify **55 repositories** as confirmed 
 
 | Confirmed application/service adoption state | Count |
 | --- | ---: |
-| Current v0.2 manifest | 10 |
+| Current v0.2 manifest | 13 |
 | Legacy v0.1 manifest requiring migration | 0 |
-| Missing root manifest | 45 |
+| Missing root manifest | 42 |
 | **Confirmed application/service repositories** | **55** |
 
-Accordingly, **45 of 55 confirmed application/service repositories still require initial Platform Contract adoption work**, all of them public under the observed inventory. Current manifest adoption does not automatically establish Platform conformance; each declaration retains its repository-specific lifecycle, result, blockers, and evidence state.
+Accordingly, **42 of 55 confirmed application/service repositories still require initial Platform Contract adoption work**, all of them public under the observed inventory. Current manifest adoption does not automatically establish Platform conformance; each declaration retains its repository-specific lifecycle, result, blockers, and evidence state.
 
 ## Current v0.2 repositories
 
 The following public repositories have a current v0.2 manifest on their verified default branch:
 
 1. `GoreeCloud/goreecloud-containers`
-2. `GoreeCloud/goreecloud-identity`
-3. `GoreeCloud/goreecloud-manager`
-4. `GoreeCloud/goreecloud-mesh`
-5. `GoreeCloud/goreecloud-metrics`
-6. `GoreeCloud/goreecloud-tasks`
-7. `GoreeCloud/goreecloud-website`
+2. `GoreeCloud/goreecloud-dns`
+3. `GoreeCloud/goreecloud-gateway`
+4. `GoreeCloud/goreecloud-identity`
+5. `GoreeCloud/goreecloud-manager`
+6. `GoreeCloud/goreecloud-mesh`
+7. `GoreeCloud/goreecloud-metrics`
+8. `GoreeCloud/goreecloud-network`
+9. `GoreeCloud/goreecloud-tasks`
+10. `GoreeCloud/goreecloud-website`
 
 Three additional private application/service repositories have current v0.2 manifests. Their identities are intentionally not centralized in this public inventory.
 
-All ten current manifests retain Development/non-Stable boundaries appropriate to their repository evidence. Current manifest adoption must not be interpreted as Stable qualification, production approval, or complete integration with all seven Integral Platform Systems.
+All thirteen current manifests retain Development/non-Stable boundaries appropriate to their repository evidence. Current manifest adoption must not be interpreted as Stable qualification, production approval, or complete integration with all seven Integral Platform Systems.
 
 ### `GoreeCloud/goreecloud-containers`
 
@@ -134,9 +137,21 @@ The Metrics adoption candidate passed both its existing exact-head source-valida
 
 This checkpoint establishes machine-readable Platform Contract participation only. Metrics remains Development source and is not thereby Stable, production-ready, production-deployed, or accepted for any unfinished Integral Platform System relationship.
 
+## September 4 networking adoption checkpoint
+
+`GoreeCloud/goreecloud-gateway`, `GoreeCloud/goreecloud-dns`, and `GoreeCloud/goreecloud-network` now have current v0.2 manifests on their authoritative default branches. Each repository's adoption candidate passed the pinned central Platform Contract workflow at its exact pull-request head before merge. The authoritative default branches were then directly re-checked for the merged root manifest.
+
+All three declarations remain `development` and `nonconformant`. They contain no acceptance-test or release evidence merely because manifest adoption succeeded, and they require the current Stable Glaze UI consumer baseline `1.1.0` without claiming that current-Stable UI conformance has been accepted.
+
+- **Gateway** records Caddy as remaining production-authoritative and keeps Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze UI, Mesh, and Identity blocked on accepted default-branch evidence.
+- **DNS** records its AdGuard Home-derived compatibility foundation and keeps production DNS migration unapproved; its inherited administration surface is `applicable-migration-required` for current Stable Glaze UI, while the other unaccepted Integral Platform System relationships remain blocked.
+- **Network** records NetBird as remaining production-authoritative; product-local privacy hardening and the partial inherited administration-shell migration are `applicable-migration-required`, while unaccepted Manager, Wardveil Security, Everkeep, Mesh, and Identity relationships remain blocked.
+
+No production listener, DNS, VPN, route, peer, certificate, firewall, credential, persistent runtime, or cutover authority changed as part of this adoption wave. Broader inherited repository CI is evaluated independently and is not converted into Platform acceptance evidence by a green manifest-validation workflow.
+
 ## Confirmed public application/service repositories missing a manifest
 
-The following **45 public repositories** are confirmed application/service repositories and have no repository-root `goreecloud.platform.yaml` on their verified default branch:
+The following **42 public repositories** are confirmed application/service repositories and have no repository-root `goreecloud.platform.yaml` on their verified default branch under the updated inventory:
 
 1. `GoreeCloud/goreecloud-ai`
 2. `GoreeCloud/goreecloud-app-store`
@@ -150,39 +165,36 @@ The following **45 public repositories** are confirmed application/service repos
 10. `GoreeCloud/goreecloud-code`
 11. `GoreeCloud/goreecloud-contacts`
 12. `GoreeCloud/goreecloud-dav`
-13. `GoreeCloud/goreecloud-dns`
-14. `GoreeCloud/goreecloud-documents`
-15. `GoreeCloud/goreecloud-drive`
-16. `GoreeCloud/goreecloud-file-manager`
-17. `GoreeCloud/goreecloud-gallery`
-18. `GoreeCloud/goreecloud-gateway`
-19. `GoreeCloud/goreecloud-github-dashboard`
-20. `GoreeCloud/goreecloud-index`
-21. `GoreeCloud/goreecloud-keyboard`
-22. `GoreeCloud/goreecloud-launcher`
-23. `GoreeCloud/goreecloud-location`
-24. `GoreeCloud/goreecloud-mail`
-25. `GoreeCloud/goreecloud-maps`
-26. `GoreeCloud/goreecloud-memos`
-27. `GoreeCloud/goreecloud-messenger`
-28. `GoreeCloud/goreecloud-monitor`
-29. `GoreeCloud/goreecloud-music`
-30. `GoreeCloud/goreecloud-network`
-31. `GoreeCloud/goreecloud-network-android`
-32. `GoreeCloud/goreecloud-network-dashboard`
-33. `GoreeCloud/goreecloud-notes`
-34. `GoreeCloud/goreecloud-notify`
-35. `GoreeCloud/goreecloud-photos`
-36. `GoreeCloud/goreecloud-quill`
-37. `GoreeCloud/goreecloud-redirector`
-38. `GoreeCloud/goreecloud-rss`
-39. `GoreeCloud/goreecloud-search`
-40. `GoreeCloud/goreecloud-source-resync`
-41. `GoreeCloud/goreecloud-sync`
-42. `GoreeCloud/goreecloud-terminal`
-43. `GoreeCloud/goreecloud-vault-server`
-44. `GoreeCloud/goreecloud-video`
-45. `GoreeCloud/goreecloud-waypoint`
+13. `GoreeCloud/goreecloud-documents`
+14. `GoreeCloud/goreecloud-drive`
+15. `GoreeCloud/goreecloud-file-manager`
+16. `GoreeCloud/goreecloud-gallery`
+17. `GoreeCloud/goreecloud-github-dashboard`
+18. `GoreeCloud/goreecloud-index`
+19. `GoreeCloud/goreecloud-keyboard`
+20. `GoreeCloud/goreecloud-launcher`
+21. `GoreeCloud/goreecloud-location`
+22. `GoreeCloud/goreecloud-mail`
+23. `GoreeCloud/goreecloud-maps`
+24. `GoreeCloud/goreecloud-memos`
+25. `GoreeCloud/goreecloud-messenger`
+26. `GoreeCloud/goreecloud-monitor`
+27. `GoreeCloud/goreecloud-music`
+28. `GoreeCloud/goreecloud-network-android`
+29. `GoreeCloud/goreecloud-network-dashboard`
+30. `GoreeCloud/goreecloud-notes`
+31. `GoreeCloud/goreecloud-notify`
+32. `GoreeCloud/goreecloud-photos`
+33. `GoreeCloud/goreecloud-quill`
+34. `GoreeCloud/goreecloud-redirector`
+35. `GoreeCloud/goreecloud-rss`
+36. `GoreeCloud/goreecloud-search`
+37. `GoreeCloud/goreecloud-source-resync`
+38. `GoreeCloud/goreecloud-sync`
+39. `GoreeCloud/goreecloud-terminal`
+40. `GoreeCloud/goreecloud-vault-server`
+41. `GoreeCloud/goreecloud-video`
+42. `GoreeCloud/goreecloud-waypoint`
 
 No private confirmed application/service repository remains without a current root manifest under the observed inventory. Private repository identities remain intentionally omitted from this public record.
 
@@ -227,7 +239,7 @@ These discrepancies are documentation/source-integrity findings. They do not alt
 The current rollout should proceed without manufacturing positive states:
 
 1. **Completed:** migrate the five legacy v0.1 manifests to v0.2 using current evidence and the governed five-result Platform System vocabulary.
-2. Add truthful v0.2 manifests to the **45 confirmed in-scope repositories** that currently lack one. Under the observed inventory, all remaining initial-adoption repositories are public; private identities remain omitted regardless of future state changes.
+2. Add truthful v0.2 manifests to the **42 confirmed in-scope repositories** that currently lack one. Under the observed inventory, all remaining initial-adoption repositories are public; private identities remain omitted regardless of future state changes.
 3. Resolve the component-model decision for the **2 scope/model-review repositories** before enforcing v0.2 adoption there.
 4. For every new manifest, evaluate all seven Integral Platform Systems and preserve blocked, migration-required, nonconformant, or justified-not-applicable states when that is the supported truth.
 5. Add repository CI that calls the central reusable Platform Contract workflow by immutable commit SHA where practical.
