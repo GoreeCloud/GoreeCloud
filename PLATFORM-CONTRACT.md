@@ -98,6 +98,8 @@ Manifest-level conformance uses:
 
 The reusable CI workflow validates the manifest and then computes `goreecloud.conformance-result.json`. That result records the exact evaluated revision, individual Platform-System checks, compatibility checks, missing Stable evidence categories, blockers, and a `stable_eligible` decision.
 
+Revision provenance is event-specific and fail closed. For a `pull_request` invocation, the caller repository is checked out at `github.event.pull_request.head.sha`, and that same immutable SHA is recorded as `evaluated_revision`; GitHub's synthetic pull-request merge SHA is not accepted as the evaluated source revision. For push/main and other non-PR invocations, `github.sha` remains the evaluated revision. The reusable workflow separately records its pinned central implementation revision as `evaluator_revision`, so the caller source and the validator implementation remain independently attributable.
+
 A Development or Release Candidate repository may truthfully compute as nonconformant without ordinary development CI pretending the repository is Stable. A repository declaring lifecycle `stable` fails closed unless:
 
 - every Platform System is `applicable-conformant` or supportably `not-applicable-justified`;
@@ -133,7 +135,7 @@ The computed conformance result explicitly records that aggregation is read-only
 
 Application and service repositories place `goreecloud.platform.yaml` at the repository root. Rollout must preserve truthfulness: blocked, migration-required, nonconformant, or genuinely non-applicable integrations must be declared as such rather than being upgraded to a positive result merely to satisfy automation.
 
-Repositories should call `.github/workflows/reusable-platform-manifest.yml` from this repository by immutable commit SHA. Updating that SHA is an explicit Platform Contract validator upgrade. The reusable workflow publishes the computed conformance result as a CI artifact tied to the caller revision.
+Repositories should call `.github/workflows/reusable-platform-manifest.yml` from this repository by immutable commit SHA. Updating that SHA is an explicit Platform Contract validator upgrade. The reusable workflow publishes the computed conformance result as a CI artifact tied to the exact caller revision resolved by the event-specific provenance rule above.
 
 ## Migration from contract v0.1
 

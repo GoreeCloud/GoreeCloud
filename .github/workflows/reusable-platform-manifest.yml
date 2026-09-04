@@ -19,14 +19,22 @@ jobs:
     timeout-minutes: 5
     env:
       MANIFEST_PATH: ${{ inputs.manifest-path }}
+      EVALUATED_REVISION: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
     steps:
-      - name: Checkout caller repository
-        uses: actions/checkout@v5
+      - name: Checkout exact caller revision
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
+          ref: ${{ env.EVALUATED_REVISION }}
           persist-credentials: false
 
+      - name: Verify exact caller revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EVALUATED_REVISION"
+
       - name: Checkout exact Platform Contract implementation
-        uses: actions/checkout@v5
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           repository: ${{ job.workflow_repository }}
           ref: ${{ job.workflow_sha }}
@@ -53,29 +61,33 @@ jobs:
         run: |
           python3 .goreecloud-platform-contract/scripts/evaluate_platform_conformance.py \
             "$MANIFEST_PATH" \
-            --revision "$GITHUB_SHA" \
+            --revision "$EVALUATED_REVISION" \
             --evaluator-revision "${{ job.workflow_sha }}" \
             --output goreecloud.conformance-result.json
 
-      - name: Validate computed conformance result schema
+      - name: Validate computed conformance result schema and provenance
         shell: bash
         run: |
           python3 - <<'PY'
           import json
+          import os
           from pathlib import Path
           from jsonschema import Draft202012Validator, FormatChecker
 
           schema = json.loads(Path('.goreecloud-platform-contract/schemas/goreecloud.conformance-result.schema.json').read_text())
           result = json.loads(Path('goreecloud.conformance-result.json').read_text())
           Draft202012Validator(schema, format_checker=FormatChecker()).validate(result)
-          print('platform-conformance-result: schema validated')
+          expected_revision = os.environ['EVALUATED_REVISION']
+          if result['evaluated_revision'] != expected_revision:
+              raise SystemExit('computed result does not identify the exact checked-out caller revision')
+          print('platform-conformance-result: schema and caller revision provenance validated')
           PY
 
       - name: Upload platform conformance evidence
         if: always() && hashFiles('goreecloud.conformance-result.json') != ''
         uses: actions/upload-artifact@v4
         with:
-          name: goreecloud-platform-conformance-${{ github.sha }}
+          name: goreecloud-platform-conformance-${{ env.EVALUATED_REVISION }}
           path: goreecloud.conformance-result.json
           if-no-files-found: error
           retention-days: 30
