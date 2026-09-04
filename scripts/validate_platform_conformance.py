@@ -99,6 +99,8 @@ def check_workflow_provenance() -> None:
             'test "$(git rev-parse HEAD)" = "$CANDIDATE_REVISION"',
             '--revision "$CANDIDATE_REVISION"',
             '--evaluator-revision "$CANDIDATE_REVISION"',
+            "uses: ./.github/workflows/reusable-platform-manifest.yml",
+            "manifest-path: examples/goreecloud.platform.example.yaml",
         ),
     )
 
