@@ -7,6 +7,8 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 CONFORMANCE = ROOT / "NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md"
 README = ROOT / "README.md"
+REUSABLE_WORKFLOW = ROOT / ".github" / "workflows" / "reusable-platform-manifest.yml"
+CENTRAL_WORKFLOW = ROOT / ".github" / "workflows" / "platform-conformance.yml"
 
 REQUIRED_SYSTEMS = (
     "GoreeCloud Manager",
@@ -46,6 +48,9 @@ FORBIDDEN_README_REFERENCES = (
     "https://github.com/GoreeCloud/glaze-ui",
 )
 
+CHECKOUT_PIN = "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803"
+PR_REVISION_EXPRESSION = "${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}"
+
 
 def fail(message: str) -> None:
     print(f"platform-conformance: {message}", file=sys.stderr)
@@ -62,6 +67,58 @@ def check_required_systems(label: str, text: str) -> None:
     missing = [name for name in REQUIRED_SYSTEMS if name not in text]
     if missing:
         fail(f"{label} missing integral systems: " + ", ".join(missing))
+
+
+def require_snippets(label: str, text: str, snippets: tuple[str, ...]) -> None:
+    missing = [snippet for snippet in snippets if snippet not in text]
+    if missing:
+        fail(f"{label} missing required provenance controls: " + "; ".join(missing))
+
+
+def check_workflow_provenance() -> None:
+    reusable = require_file(REUSABLE_WORKFLOW)
+    central = require_file(CENTRAL_WORKFLOW)
+
+    require_snippets(
+        "reusable Platform Contract workflow",
+        reusable,
+        (
+            f"EVALUATED_REVISION: {PR_REVISION_EXPRESSION}",
+            "ref: ${{ env.EVALUATED_REVISION }}",
+            'test "$(git rev-parse HEAD)" = "$EVALUATED_REVISION"',
+            '--revision "$EVALUATED_REVISION"',
+            "name: goreecloud-platform-conformance-${{ env.EVALUATED_REVISION }}",
+        ),
+    )
+    require_snippets(
+        "central Platform Contract workflow",
+        central,
+        (
+            f"CANDIDATE_REVISION: {PR_REVISION_EXPRESSION}",
+            "ref: ${{ env.CANDIDATE_REVISION }}",
+            'test "$(git rev-parse HEAD)" = "$CANDIDATE_REVISION"',
+            '--revision "$CANDIDATE_REVISION"',
+            '--evaluator-revision "$CANDIDATE_REVISION"',
+            "uses: ./.github/workflows/reusable-platform-manifest.yml",
+            "manifest-path: examples/goreecloud.platform.example.yaml",
+        ),
+    )
+
+    if reusable.count(CHECKOUT_PIN) != 2:
+        fail("reusable Platform Contract workflow must use the governed checkout pin exactly twice")
+    if central.count(CHECKOUT_PIN) != 1:
+        fail("central Platform Contract workflow must use the governed checkout pin exactly once")
+
+    combined = reusable + "\n" + central
+    forbidden = (
+        "actions/checkout@v5",
+        "actions/checkout@v6",
+        '--revision "$GITHUB_SHA"',
+        "goreecloud-platform-conformance-${{ github.sha }}",
+    )
+    present = [value for value in forbidden if value in combined]
+    if present:
+        fail("workflow provenance contains stale or floating controls: " + "; ".join(present))
 
 
 def main() -> None:
@@ -99,7 +156,10 @@ def main() -> None:
             f"expected {len(REQUIRED_SYSTEMS)}"
         )
 
+    check_workflow_provenance()
+
     print("platform-conformance: seven-system native/platform baseline validated")
+    print("platform-conformance: exact PR-head workflow provenance validated")
 
 
 if __name__ == "__main__":
