@@ -12,6 +12,7 @@ on:
       - schemas/goreecloud.platform.schema.json
       - schemas/goreecloud.conformance-result.schema.json
       - scripts/audit_public_repository_baselines.py
+      - scripts/audit_public_platform_manifests.py
       - scripts/validate_platform_conformance.py
       - scripts/validate_platform_manifest.py
       - scripts/evaluate_platform_conformance.py
@@ -31,6 +32,7 @@ on:
       - schemas/goreecloud.platform.schema.json
       - schemas/goreecloud.conformance-result.schema.json
       - scripts/audit_public_repository_baselines.py
+      - scripts/audit_public_platform_manifests.py
       - scripts/validate_platform_conformance.py
       - scripts/validate_platform_manifest.py
       - scripts/evaluate_platform_conformance.py
@@ -120,6 +122,14 @@ jobs:
         run: |
           python3 scripts/audit_public_repository_baselines.py \
             --json-output /tmp/goreecloud-public-repository-baseline-audit.json \
+            --markdown-summary "$GITHUB_STEP_SUMMARY"
+
+      - name: Audit public Platform manifest metadata
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 scripts/audit_public_platform_manifests.py \
+            --json-output /tmp/goreecloud-public-platform-manifest-audit.json \
             --markdown-summary "$GITHUB_STEP_SUMMARY"
 
   reusable-provenance:
