@@ -1,6 +1,6 @@
 {
   "schema": "goreecloud-public-repository-registry/v1",
-  "observedAt": "2026-09-03",
+  "observedAt": "2026-09-08",
   "authority": {
     "source": "GitHub repository metadata",
     "owner": "GoreeCloud",
@@ -42,6 +42,7 @@
     "GoreeCloud/goreecloud-calendar",
     "GoreeCloud/goreecloud-changelogs",
     "GoreeCloud/goreecloud-code",
+    "GoreeCloud/goreecloud-communities",
     "GoreeCloud/goreecloud-concepts",
     "GoreeCloud/goreecloud-contacts",
     "GoreeCloud/goreecloud-containers",
@@ -55,6 +56,8 @@
     "GoreeCloud/goreecloud-gateway",
     "GoreeCloud/goreecloud-github-dashboard",
     "GoreeCloud/goreecloud-glaze-ui",
+    "GoreeCloud/goreecloud-home",
+    "GoreeCloud/goreecloud-home-security",
     "GoreeCloud/goreecloud-identity",
     "GoreeCloud/goreecloud-index",
     "GoreeCloud/goreecloud-keyboard",
@@ -74,12 +77,18 @@
     "GoreeCloud/goreecloud-network-dashboard",
     "GoreeCloud/goreecloud-notes",
     "GoreeCloud/goreecloud-notify",
+    "GoreeCloud/goreecloud-os-desktop",
+    "GoreeCloud/goreecloud-os-mobile",
+    "GoreeCloud/goreecloud-os-tv",
     "GoreeCloud/goreecloud-photos",
     "GoreeCloud/goreecloud-quill",
     "GoreeCloud/goreecloud-redirector",
+    "GoreeCloud/goreecloud-research-library",
     "GoreeCloud/goreecloud-rss",
     "GoreeCloud/goreecloud-search",
+    "GoreeCloud/goreecloud-social",
     "GoreeCloud/goreecloud-source-resync",
+    "GoreeCloud/goreecloud-static-websites",
     "GoreeCloud/goreecloud-suite",
     "GoreeCloud/goreecloud-sync",
     "GoreeCloud/goreecloud-tasks",
@@ -87,6 +96,7 @@
     "GoreeCloud/goreecloud-vault-server",
     "GoreeCloud/goreecloud-video",
     "GoreeCloud/goreecloud-waypoint",
-    "GoreeCloud/goreecloud-website"
+    "GoreeCloud/goreecloud-website",
+    "GoreeCloud/goreecloud-zorin-os"
   ]
 }
