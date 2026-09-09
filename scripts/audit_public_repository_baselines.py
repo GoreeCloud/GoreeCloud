@@ -7,6 +7,12 @@ application/service repositories, while the public estate also contains
 supporting repositories whose applicability still requires authoritative
 classification. Missing files are therefore reported but do not fail the audit
 unless an explicit strict mode is introduced after scope classification.
+
+The governing baseline also requires each in-scope application/service
+FEATURE-ROADMAP.md to remain synchronized with a corresponding Drive
+FEATURE-ROADMAP.docx. This GitHub-only diagnostic measures repository-file
+presence; Drive counterpart existence/content synchronization is deliberately
+reported as outside this script's authority rather than inferred.
 """
 
 from __future__ import annotations
@@ -28,6 +34,7 @@ BASELINE_FILES = (
     "README.md",
     "SPECIFICATIONS.md",
     "FEATURES.md",
+    "FEATURE-ROADMAP.md",
     "BENEFITS.md",
     "COMPETITIVE-OBJECTIVES.md",
     "BRANDING.md",
@@ -127,6 +134,7 @@ def audit() -> dict[str, Any]:
                 "default_branch": branch,
                 "present": len(BASELINE_FILES) - len(missing),
                 "required_file_count": len(BASELINE_FILES),
+                "feature_roadmap_present": "FEATURE-ROADMAP.md" in names,
                 "missing": missing,
             }
         )
@@ -135,19 +143,27 @@ def audit() -> dict[str, Any]:
     manifest_present = sum(
         1 for row in rows if "goreecloud.platform.yaml" not in row["missing"]
     )
+    feature_roadmap_present = sum(1 for row in rows if row["feature_roadmap_present"])
 
     return {
-        "schema": "goreecloud-public-repository-baseline-audit/v1",
+        "schema": "goreecloud-public-repository-baseline-audit/v2",
         "scope": "public repository file-presence diagnostic only",
         "authority": {
             "lifecycle": False,
             "platform_conformance": False,
             "application_service_classification": False,
+            "drive_feature_roadmap_sync": False,
         },
         "required_root_files": list(BASELINE_FILES),
+        "feature_roadmap_requirement": {
+            "repository_file": "FEATURE-ROADMAP.md",
+            "drive_counterpart": "GoreeCloud/Feature Roadmap/FEATURE-ROADMAP.docx",
+            "drive_sync_evaluated_by_this_script": False,
+        },
         "summary": {
             "repositories_audited": len(rows),
             "all_baseline_files_present": complete,
+            "feature_roadmap_present": feature_roadmap_present,
             "platform_manifest_present": manifest_present,
             "repositories_with_one_or_more_missing_baseline_files": len(rows) - complete,
         },
@@ -161,20 +177,22 @@ def markdown_report(result: dict[str, Any]) -> str:
     lines = [
         "## Public repository baseline diagnostic",
         "",
-        "> Presence-only diagnostic. Missing files do not by themselves establish lifecycle, Platform conformance, or application/service applicability.",
+        "> Presence-only diagnostic. Missing files do not by themselves establish lifecycle, Platform conformance, or application/service applicability. Drive FEATURE-ROADMAP.docx synchronization is not evaluated by this GitHub-only script.",
         "",
         f"- Public repositories audited: **{summary['repositories_audited']}**",
-        f"- Repositories with all {len(BASELINE_FILES)} baseline files present: **{summary['all_baseline_files_present']}**",
+        f"- Repositories with all {len(BASELINE_FILES)} current baseline files present: **{summary['all_baseline_files_present']}**",
+        f"- Repositories with `FEATURE-ROADMAP.md` present: **{summary['feature_roadmap_present']}**",
         f"- Repositories with `goreecloud.platform.yaml` present: **{summary['platform_manifest_present']}**",
         f"- Repositories with one or more missing baseline files: **{summary['repositories_with_one_or_more_missing_baseline_files']}**",
         "",
-        "| Repository | Present | Missing |",
-        "| --- | ---: | --- |",
+        "| Repository | Present | Roadmap | Missing |",
+        "| --- | ---: | :---: | --- |",
     ]
     for row in rows:
         missing = ", ".join(f"`{name}`" for name in row["missing"]) or "—"
+        roadmap = "yes" if row["feature_roadmap_present"] else "no"
         lines.append(
-            f"| `{row['repository']}` | {row['present']}/{row['required_file_count']} | {missing} |"
+            f"| `{row['repository']}` | {row['present']}/{row['required_file_count']} | {roadmap} | {missing} |"
         )
     lines.append("")
     return "\n".join(lines)
