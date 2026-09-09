@@ -2,12 +2,13 @@
 
 ## Status
 
-- **Observed:** September 4, 2026 — September 3 portfolio baseline with September 4 verified networking and Search adoption updates
+- **Observed portfolio baseline:** September 4, 2026 — September 3 portfolio baseline with September 4 verified networking and Search adoption updates
+- **Current contract baseline refreshed:** September 8, 2026 — Glaze UI consumer target only; no full-estate adoption re-audit is represented by this refresh
 - **Repository footprint:** 62 owned repositories — 59 public, 3 private
 - **Current Platform Contract:** `0.2`
 - **Manifest filename:** `goreecloud.platform.yaml`
 - **Current schema component types:** `application`, `service`
-- **Current Stable Glaze UI consumer target used by the Platform Contract:** `1.1.0`
+- **Current Stable Glaze UI consumer target used by the Platform Contract:** `1.3.0`
 
 This document is the operational inventory for GoreeCloud Platform Contract adoption across the currently owned repository estate.
 
@@ -18,6 +19,8 @@ Private repository identities are intentionally omitted from this public invento
 ## Audit method
 
 The September 3, 2026 portfolio baseline checked every repository in the owned-repository inventory directly for a repository-root `goreecloud.platform.yaml` on its verified default branch. On September 4, the authoritative default branches for `GoreeCloud/goreecloud-gateway`, `GoreeCloud/goreecloud-dns`, `GoreeCloud/goreecloud-network`, and `GoreeCloud/goreecloud-search` were re-checked after their adoption changes merged, and the counts and lists below were updated from those verified deltas. This is not represented as a fresh full-estate re-audit.
+
+The September 8 contract-baseline refresh updates the current Platform Contract Glaze UI consumer target to `1.3.0` alongside the central validator/documentation change. It does not retroactively rewrite the Glaze baseline used by earlier September 3-4 repository adoption checkpoints, and it does not claim that the portfolio was re-audited for V1.3 migration or acceptance.
 
 The audit distinguishes:
 
@@ -142,10 +145,10 @@ This checkpoint establishes machine-readable Platform Contract participation onl
 
 `GoreeCloud/goreecloud-gateway`, `GoreeCloud/goreecloud-dns`, and `GoreeCloud/goreecloud-network` now have current v0.2 manifests on their authoritative default branches. Each repository's adoption candidate passed the pinned central Platform Contract workflow at its exact pull-request head before merge. The authoritative default branches were then directly re-checked for the merged root manifest.
 
-All three declarations remain `development` and `nonconformant`. They contain no acceptance-test or release evidence merely because manifest adoption succeeded, and they require the current Stable Glaze UI consumer baseline `1.1.0` without claiming that current-Stable UI conformance has been accepted.
+All three declarations remain `development` and `nonconformant`. They contain no acceptance-test or release evidence merely because manifest adoption succeeded, and at that September 4 checkpoint they required the then-current Stable Glaze UI consumer baseline `1.1.0` without claiming that current-Stable UI conformance had been accepted.
 
 - **Gateway** records Caddy as remaining production-authoritative and keeps Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze UI, Mesh, and Identity blocked on accepted default-branch evidence.
-- **DNS** records its AdGuard Home-derived compatibility foundation and keeps production DNS migration unapproved; its inherited administration surface is `applicable-migration-required` for current Stable Glaze UI, while the other unaccepted Integral Platform System relationships remain blocked.
+- **DNS** records its AdGuard Home-derived compatibility foundation and keeps production DNS migration unapproved; its inherited administration surface is `applicable-migration-required` for the applicable Glaze UI baseline at that checkpoint, while the other unaccepted Integral Platform System relationships remain blocked.
 - **Network** records NetBird as remaining production-authoritative; product-local privacy hardening and the partial inherited administration-shell migration are `applicable-migration-required`, while unaccepted Manager, Wardveil Security, Everkeep, Mesh, and Identity relationships remain blocked.
 
 No production listener, DNS, VPN, route, peer, certificate, firewall, credential, persistent runtime, or cutover authority changed as part of this adoption wave. Broader inherited repository CI is evaluated independently and is not converted into Platform acceptance evidence by a green manifest-validation workflow.
@@ -154,7 +157,7 @@ No production listener, DNS, VPN, route, peer, certificate, firewall, credential
 
 `GoreeCloud/goreecloud-search` now has a current v0.2 manifest on verified authoritative `master` commit `4efe4cd5f6d7f8c4dd3d60dde9e0dfecc5636f3c`. The exact PR #110 head `d56daa5d8cdf2fec3b19930e7fa7f988cb5cdaaf` passed Platform Contract #2, Runtime Smoke #1204, Container Build #1200, Browser Acceptance #1293, Documentation #451, Upstream Container Boundary #580, Platform Integrations #583, Foundation #1300, and Integration #451 across Theme and Python 3.11 through 3.14 before expected-head squash merge. The merged default-branch manifest was then directly re-checked.
 
-The declaration records Search as a `development` application with version `unreleased-development` and overall conformance `nonconformant`. Acceptance-test and release evidence collections remain empty. Manager, Privacy Shield, Wardveil Security, Everkeep, GoreeCloud Mesh, and GoreeCloud Identity are `applicable-blocked`; GLAZE UI is `applicable-migration-required` against current Stable consumer target `1.1.0`. The external-provider entry is an unselected production-provider requirement rather than an approval of any specific provider.
+The declaration records Search as a `development` application with version `unreleased-development` and overall conformance `nonconformant`. Acceptance-test and release evidence collections remain empty. Manager, Privacy Shield, Wardveil Security, Everkeep, GoreeCloud Mesh, and GoreeCloud Identity are `applicable-blocked`; at that September 4 checkpoint GLAZE UI was `applicable-migration-required` against the then-current Stable consumer target `1.1.0`. The external-provider entry is an unselected production-provider requirement rather than an approval of any specific provider.
 
 Search's native provider runtime and deterministic General, Images, Videos, News, and Files source-level acceptance are repository implementation evidence only. They do not establish live approved-provider acceptance, production credentials or provider policy, producer-authoritative platform runtime evidence, whole-application GLAZE UI acceptance, recovery, migration/cutover, release provenance, exact production deployment, or Stable qualification.
 
@@ -233,12 +236,12 @@ This classification is limited to the **current Platform Contract manifest schem
 
 ## Discrepancies discovered during the audit
 
-The audit found cross-repository statements that conflict with the current central/canonical baseline and should be corrected through repository-specific work rather than silently normalized here:
+The September 3-4 audit found cross-repository statements that conflicted with the central/canonical baseline at that checkpoint and should be corrected through repository-specific work rather than silently normalized here:
 
-1. `GoreeCloud/goreecloud-suite` currently states that Glaze UI `2.1.0` is the current Stable design-system target.
-2. `GoreeCloud/goreecloud-website` currently states that Glaze UI `2.2.0` is the current GoreeCloud platform target and that its accepted implementation is `2.1.0`.
-3. The central Platform Contract and the canonical `GoreeCloud/goreecloud-glaze-ui` repository currently identify Glaze UI `1.1.0` as the current Stable consumer target. This inventory therefore does not treat the Suite or Website version statements as authority for portfolio-wide Platform Contract evaluation.
-4. `GoreeCloud/goreecloud-website` also contains an older repository-portfolio statement of `57 repositories — 40 public, 17 private` and describes `GoreeCloud/goreecloud-index` as private. The September 3 canonical repository inventory is `62 — 59 public, 3 private`, and current GitHub metadata identifies `GoreeCloud/goreecloud-index` as public.
+1. `GoreeCloud/goreecloud-suite` stated that Glaze UI `2.1.0` was the current Stable design-system target.
+2. `GoreeCloud/goreecloud-website` stated that Glaze UI `2.2.0` was the current GoreeCloud platform target and that its accepted implementation was `2.1.0`.
+3. At the September 3-4 audit checkpoint, the central Platform Contract and canonical Glaze UI authority used `1.1.0` as the Stable consumer target. The current central Platform Contract target has since advanced and these historical adoption observations must not be rewritten as though they were originally validated against the newer baseline.
+4. `GoreeCloud/goreecloud-website` also contained an older repository-portfolio statement of `57 repositories — 40 public, 17 private` and described `GoreeCloud/goreecloud-index` as private. The September 3 canonical repository inventory is `62 — 59 public, 3 private`, and current GitHub metadata identifies `GoreeCloud/goreecloud-index` as public.
 
 These discrepancies are documentation/source-integrity findings. They do not alter the authoritative September 3 repository inventory or upgrade/downgrade application conformance by themselves.
 
@@ -252,7 +255,7 @@ The current rollout should proceed without manufacturing positive states:
 4. For every new manifest, evaluate all seven Integral Platform Systems and preserve blocked, migration-required, nonconformant, or justified-not-applicable states when that is the supported truth.
 5. Add repository CI that calls the central reusable Platform Contract workflow by immutable commit SHA where practical.
 6. Do not represent a repository as Stable or Platform-conformant unless required implementation and acceptance evidence independently supports that claim.
-7. Correct the identified stale cross-repository Glaze UI and repository-inventory statements through their own authoritative repository workflows.
+7. Correct identified stale cross-repository Glaze UI and repository-inventory statements through their own authoritative repository workflows, and migrate application manifests to the current Glaze baseline without upgrading incomplete conformance claims.
 
 ## Maintenance
 
@@ -261,7 +264,7 @@ Refresh this inventory when:
 - the owned repository set changes;
 - repository visibility or default branches change;
 - a root Platform Contract manifest is added, removed, or migrated;
-- the central Platform Contract schema changes;
+- the central Platform Contract schema or current required consumer baseline changes;
 - a repository's role changes enough to affect contract applicability;
 - a scope/model-review decision is resolved; or
 - a private/public boundary changes.
