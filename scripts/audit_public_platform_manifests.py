@@ -2,9 +2,9 @@
 """Audit public GoreeCloud Platform manifests against live authority.
 
 This script is diagnostic. It reports manifest/component/lifecycle metadata,
-required Stable-gate integration declarations, and Glaze UI version planes
-without converting repository declarations into lifecycle, production-readiness,
-runtime-acceptance, or conformance proof.
+central-schema validity, required Stable-gate integration declarations, and
+Glaze UI version planes without converting repository declarations into
+lifecycle, production-readiness, runtime-acceptance, or conformance proof.
 """
 
 from __future__ import annotations
@@ -21,10 +21,12 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 
+from jsonschema import Draft202012Validator, FormatChecker
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "repositories.public.json"
+SCHEMA_PATH = ROOT / "schemas" / "goreecloud.platform.schema.json"
 MANIFEST_PATH = "goreecloud.platform.yaml"
 GLAZE_REPOSITORY = "GoreeCloud/goreecloud-glaze-ui"
 GLAZE_LIFECYCLE_PATH = "registry/lifecycle.json"
@@ -93,6 +95,18 @@ def load_registry() -> tuple[list[str], dict[str, str], str]:
     return repositories, overrides, defaults["defaultBranch"]
 
 
+def load_platform_validator() -> Draft202012Validator:
+    try:
+        schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        fail(f"cannot parse central Platform manifest schema: {exc}")
+    try:
+        Draft202012Validator.check_schema(schema)
+    except Exception as exc:  # jsonschema exposes multiple schema error subclasses
+        fail(f"central Platform manifest schema is invalid: {exc}")
+    return Draft202012Validator(schema, format_checker=FormatChecker())
+
+
 def contents_url(repository: str, path: str, branch: str) -> str:
     owner, name = repository.split("/", 1)
     encoded_path = "/".join(quote(part, safe="") for part in path.split("/"))
@@ -156,7 +170,22 @@ def list_count(value: Any) -> int | None:
     return len(value) if isinstance(value, list) else None
 
 
-def audit_manifest(repository: str, branch: str, current_stable: str) -> dict[str, Any]:
+def schema_error_text(error: Any) -> str:
+    path = "$"
+    for part in error.absolute_path:
+        if isinstance(part, int):
+            path += f"[{part}]"
+        else:
+            path += f".{part}"
+    return f"{path}: {error.message}"
+
+
+def audit_manifest(
+    repository: str,
+    branch: str,
+    current_stable: str,
+    validator: Draft202012Validator,
+) -> dict[str, Any]:
     text = fetch_text(repository, MANIFEST_PATH, branch, allow_missing=True)
     if text is None:
         return {
@@ -164,6 +193,7 @@ def audit_manifest(repository: str, branch: str, current_stable: str) -> dict[st
             "default_branch": branch,
             "manifest_present": False,
             "parseable": False,
+            "schema_valid": False,
         }
 
     row: dict[str, Any] = {
@@ -171,6 +201,7 @@ def audit_manifest(repository: str, branch: str, current_stable: str) -> dict[st
         "default_branch": branch,
         "manifest_present": True,
         "parseable": False,
+        "schema_valid": False,
     }
     try:
         data = yaml.safe_load(text)
@@ -180,6 +211,14 @@ def audit_manifest(repository: str, branch: str, current_stable: str) -> dict[st
     if not isinstance(data, dict):
         row["parse_error"] = "manifest root is not a mapping"
         return row
+
+    schema_errors = sorted(
+        validator.iter_errors(data),
+        key=lambda error: tuple(str(part) for part in error.absolute_path),
+    )
+    row["schema_valid"] = not schema_errors
+    row["schema_error_count"] = len(schema_errors)
+    row["schema_error_samples"] = [schema_error_text(error) for error in schema_errors[:10]]
 
     gate_declarations: dict[str, dict[str, Any]] = {}
     declared_blocking_gates: list[str] = []
@@ -262,16 +301,23 @@ def gate_summary(rows: list[dict[str, Any]], gate_key: str) -> dict[str, Any]:
 
 def audit() -> dict[str, Any]:
     repositories, overrides, default_branch = load_registry()
+    validator = load_platform_validator()
     glaze = live_glaze_stable()
     current_stable = glaze["current_stable"]
     assert isinstance(current_stable, str)
 
     rows = [
-        audit_manifest(repository, overrides.get(repository, default_branch), current_stable)
+        audit_manifest(
+            repository,
+            overrides.get(repository, default_branch),
+            current_stable,
+            validator,
+        )
         for repository in repositories
     ]
     present = [row for row in rows if row["manifest_present"]]
     parseable = [row for row in present if row["parseable"]]
+    schema_valid = [row for row in parseable if row["schema_valid"]]
 
     required_gate_summaries = {
         gate_key: {
@@ -282,14 +328,16 @@ def audit() -> dict[str, Any]:
     }
 
     return {
-        "schema": "goreecloud-public-platform-manifest-audit/v2",
-        "scope": "public repository manifest metadata diagnostic only",
+        "schema": "goreecloud-public-platform-manifest-audit/v3",
+        "scope": "public repository manifest structure and metadata diagnostic only",
         "authority": {
             "lifecycle_verdict": False,
             "platform_conformance_verdict": False,
             "production_readiness_verdict": False,
             "runtime_acceptance_verdict": False,
             "required_gate_declarations_are_proof": False,
+            "schema_validity_is_acceptance": False,
+            "platform_manifest_schema_source": str(SCHEMA_PATH.relative_to(ROOT)),
             "glaze_lifecycle_source": f"{GLAZE_REPOSITORY}/{GLAZE_LIFECYCLE_PATH}@main",
             **glaze,
         },
@@ -299,6 +347,8 @@ def audit() -> dict[str, Any]:
             "manifests_present": len(present),
             "manifests_parseable": len(parseable),
             "manifests_unparseable": len(present) - len(parseable),
+            "manifests_schema_valid": len(schema_valid),
+            "manifests_schema_invalid": len(parseable) - len(schema_valid),
             "component_types": counter_dict([row.get("component_type") for row in parseable]),
             "schema_versions": counter_dict([row.get("schema_version") for row in parseable]),
             "lifecycle_values": counter_dict([row.get("lifecycle") for row in parseable]),
@@ -331,6 +381,7 @@ def audit() -> dict[str, Any]:
             ),
         },
         "notes": [
+            "Schema validation uses the exact central schemas/goreecloud.platform.schema.json carried by the audit candidate. Schema validity establishes structural compatibility only; it is not runtime, lifecycle, release, or Platform acceptance evidence.",
             "Privacy Shield, Wardveil Security, Everkeep, and Glaze UI are reported as required Stable-gate declaration planes. Manifest declarations are diagnostic metadata and are not substituted for the latest applicable Stable contract, runtime evidence, or acceptance decision.",
             "A blocking declaration (applicable-migration-required, applicable-blocked, or applicable-nonconformant) is surfaced as unresolved portfolio evidence. A not-applicable-justified declaration is reported separately and is not silently treated as accepted.",
             "platform_systems.glaze_ui.version describes repository-declared Glaze integration state; compatibility.glaze_ui_required describes the Platform Contract compatibility plane. They may differ during a controlled contract rollout.",
@@ -364,12 +415,14 @@ def markdown_report(result: dict[str, Any]) -> str:
     lines = [
         "## Public Platform manifest diagnostic",
         "",
-        "> Metadata-only diagnostic. It does not establish lifecycle, Platform conformance, runtime acceptance, production readiness, or application/service acceptance.",
+        "> Structure-and-metadata diagnostic only. It does not establish lifecycle, Platform conformance, runtime acceptance, production readiness, or application/service acceptance.",
         "",
         f"- Live Glaze current Stable: **{authority['current_stable']}**",
         f"- Public repositories registered: **{summary['repositories_registered']}**",
         f"- Platform manifests present: **{summary['manifests_present']}**",
         f"- Parseable manifests: **{summary['manifests_parseable']}**",
+        f"- Manifests valid against the candidate's central Platform schema: **{summary['manifests_schema_valid']}**",
+        f"- Parseable manifests invalid against the candidate's central Platform schema: **{summary['manifests_schema_invalid']}**",
         f"- Manifests with at least one declared blocking Stable-gate result: **{summary['repositories_with_declared_blocking_stable_gate']}**",
         f"- Stable-lifecycle manifests that also declare a blocking Stable-gate result: **{summary['stable_lifecycle_with_declared_gate_blocker']}**",
         f"- Manifests declaring current Stable in `platform_systems.glaze_ui.version`: **{summary['glaze_platform_version_current_stable']}**",
@@ -391,17 +444,19 @@ def markdown_report(result: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "| Repository | Component | Lifecycle | Required Stable-gate declarations | Glaze integration | Contract requirement | Conformance declaration |",
-            "| --- | --- | --- | --- | --- | --- | --- |",
+            "| Repository | Schema | Component | Lifecycle | Required Stable-gate declarations | Glaze integration | Contract requirement | Conformance declaration |",
+            "| --- | :---: | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for row in rows:
         if not row["parseable"]:
-            lines.append(f"| `{row['repository']}` | — | — | parse error | — | — | — |")
+            lines.append(f"| `{row['repository']}` | parse error | — | — | — | — | — | — |")
             continue
+        schema_state = "valid" if row["schema_valid"] else f"invalid ({row['schema_error_count']})"
         lines.append(
-            "| `{repository}` | {component} | {lifecycle} | {gates} | {version} | {compatibility} | {conformance} |".format(
+            "| `{repository}` | {schema} | {component} | {lifecycle} | {gates} | {version} | {compatibility} | {conformance} |".format(
                 repository=row["repository"],
+                schema=schema_state,
                 component=row.get("component_type") or "—",
                 lifecycle=row.get("lifecycle") or "—",
                 gates=compact_gate_results(row),
@@ -410,10 +465,13 @@ def markdown_report(result: dict[str, Any]) -> str:
                 conformance=row.get("conformance_status") or "—",
             )
         )
+        if not row["schema_valid"]:
+            for sample in row.get("schema_error_samples", []):
+                lines.append(f"  - `{row['repository']}` schema: {sample}")
     lines.extend(
         [
             "",
-            "Required Stable-gate values above are repository declarations, not independent acceptance evidence. `platform_systems.glaze_ui.version` and `compatibility.glaze_ui_required` are separate authority planes during controlled Platform Contract rollout; differences are reported rather than auto-failed.",
+            "Schema validity is structural compatibility only, not acceptance. Required Stable-gate values above are repository declarations, not independent acceptance evidence. `platform_systems.glaze_ui.version` and `compatibility.glaze_ui_required` are separate authority planes during controlled Platform Contract rollout; differences are reported rather than auto-failed.",
             "",
         ]
     )
