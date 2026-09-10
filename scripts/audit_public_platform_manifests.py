@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Audit public GoreeCloud platform manifests against live lifecycle authority.
+"""Audit public GoreeCloud Platform manifests against live authority.
 
-This script is diagnostic. It reports manifest/component/lifecycle metadata and
-Glaze UI version planes without converting transitional differences into
-lifecycle, production-readiness, or conformance verdicts.
+This script is diagnostic. It reports manifest/component/lifecycle metadata,
+required Stable-gate integration declarations, and Glaze UI version planes
+without converting repository declarations into lifecycle, production-readiness,
+runtime-acceptance, or conformance proof.
 """
 
 from __future__ import annotations
@@ -27,6 +28,18 @@ REGISTRY = ROOT / "repositories.public.json"
 MANIFEST_PATH = "goreecloud.platform.yaml"
 GLAZE_REPOSITORY = "GoreeCloud/goreecloud-glaze-ui"
 GLAZE_LIFECYCLE_PATH = "registry/lifecycle.json"
+
+REQUIRED_STABLE_GATES = (
+    ("privacy_shield", "Privacy Shield"),
+    ("wardveil_security", "Wardveil Security"),
+    ("everkeep", "Everkeep"),
+    ("glaze_ui", "Glaze UI"),
+)
+BLOCKING_RESULTS = {
+    "applicable-migration-required",
+    "applicable-blocked",
+    "applicable-nonconformant",
+}
 
 
 def fail(message: str) -> None:
@@ -139,6 +152,10 @@ def nested(mapping: Any, *keys: str) -> Any:
     return value
 
 
+def list_count(value: Any) -> int | None:
+    return len(value) if isinstance(value, list) else None
+
+
 def audit_manifest(repository: str, branch: str, current_stable: str) -> dict[str, Any]:
     text = fetch_text(repository, MANIFEST_PATH, branch, allow_missing=True)
     if text is None:
@@ -164,16 +181,49 @@ def audit_manifest(repository: str, branch: str, current_stable: str) -> dict[st
         row["parse_error"] = "manifest root is not a mapping"
         return row
 
-    glaze_result = nested(data, "platform_systems", "glaze_ui", "result")
-    glaze_version = nested(data, "platform_systems", "glaze_ui", "version")
+    gate_declarations: dict[str, dict[str, Any]] = {}
+    declared_blocking_gates: list[str] = []
+    declared_conformant_gates: list[str] = []
+    declared_not_applicable_gates: list[str] = []
+    for key, label in REQUIRED_STABLE_GATES:
+        result = nested(data, "platform_systems", key, "result")
+        version = nested(data, "platform_systems", key, "version")
+        evidence = nested(data, "platform_systems", key, "evidence")
+        gate_declarations[key] = {
+            "label": label,
+            "result": result,
+            "version": version,
+            "evidence_count": list_count(evidence),
+        }
+        if result in BLOCKING_RESULTS:
+            declared_blocking_gates.append(key)
+        elif result == "applicable-conformant":
+            declared_conformant_gates.append(key)
+        elif result == "not-applicable-justified":
+            declared_not_applicable_gates.append(key)
+
+    glaze_result = gate_declarations["glaze_ui"]["result"]
+    glaze_version = gate_declarations["glaze_ui"]["version"]
     compatibility_glaze = nested(data, "compatibility", "glaze_ui_required")
+    lifecycle = data.get("lifecycle")
+    conformance_status = nested(data, "conformance", "status")
+    conformance_validated_at = nested(data, "conformance", "validated_at")
+
     row.update(
         {
             "parseable": True,
             "schema_version": data.get("schema_version"),
             "component_type": nested(data, "component", "type"),
             "component_id": nested(data, "component", "id"),
-            "lifecycle": data.get("lifecycle"),
+            "lifecycle": lifecycle,
+            "required_stable_gates": gate_declarations,
+            "declared_blocking_stable_gates": declared_blocking_gates,
+            "declared_conformant_stable_gates": declared_conformant_gates,
+            "declared_not_applicable_stable_gates": declared_not_applicable_gates,
+            "has_declared_blocking_stable_gate": bool(declared_blocking_gates),
+            "stable_lifecycle_with_declared_gate_blocker": (
+                lifecycle == "stable" and bool(declared_blocking_gates)
+            ),
             "glaze_result": glaze_result,
             "glaze_platform_version": glaze_version,
             "glaze_platform_version_is_current_stable": glaze_version == current_stable,
@@ -184,6 +234,11 @@ def audit_manifest(repository: str, branch: str, current_stable: str) -> dict[st
                 and isinstance(compatibility_glaze, str)
                 and glaze_version != compatibility_glaze
             ),
+            "conformance_status": conformance_status,
+            "conformance_validated_at": conformance_validated_at,
+            "conformance_blocker_count": list_count(nested(data, "conformance", "blockers")),
+            "acceptance_evidence_count": list_count(nested(data, "evidence", "acceptance_tests")),
+            "release_evidence_count": list_count(nested(data, "evidence", "release")),
         }
     )
     return row
@@ -192,6 +247,17 @@ def audit_manifest(repository: str, branch: str, current_stable: str) -> dict[st
 def counter_dict(values: list[Any]) -> dict[str, int]:
     counter = Counter("<absent>" if value is None else str(value) for value in values)
     return dict(sorted(counter.items(), key=lambda item: item[0].casefold()))
+
+
+def gate_summary(rows: list[dict[str, Any]], gate_key: str) -> dict[str, Any]:
+    declarations = [row["required_stable_gates"][gate_key] for row in rows]
+    return {
+        "result_values": counter_dict([declaration.get("result") for declaration in declarations]),
+        "version_values": counter_dict([declaration.get("version") for declaration in declarations]),
+        "repositories_with_zero_declared_evidence": sum(
+            1 for declaration in declarations if declaration.get("evidence_count") == 0
+        ),
+    }
 
 
 def audit() -> dict[str, Any]:
@@ -207,16 +273,27 @@ def audit() -> dict[str, Any]:
     present = [row for row in rows if row["manifest_present"]]
     parseable = [row for row in present if row["parseable"]]
 
+    required_gate_summaries = {
+        gate_key: {
+            "label": label,
+            **gate_summary(parseable, gate_key),
+        }
+        for gate_key, label in REQUIRED_STABLE_GATES
+    }
+
     return {
-        "schema": "goreecloud-public-platform-manifest-audit/v1",
+        "schema": "goreecloud-public-platform-manifest-audit/v2",
         "scope": "public repository manifest metadata diagnostic only",
         "authority": {
             "lifecycle_verdict": False,
             "platform_conformance_verdict": False,
             "production_readiness_verdict": False,
+            "runtime_acceptance_verdict": False,
+            "required_gate_declarations_are_proof": False,
             "glaze_lifecycle_source": f"{GLAZE_REPOSITORY}/{GLAZE_LIFECYCLE_PATH}@main",
             **glaze,
         },
+        "required_stable_gate_keys": [gate_key for gate_key, _ in REQUIRED_STABLE_GATES],
         "summary": {
             "repositories_registered": len(rows),
             "manifests_present": len(present),
@@ -225,7 +302,21 @@ def audit() -> dict[str, Any]:
             "component_types": counter_dict([row.get("component_type") for row in parseable]),
             "schema_versions": counter_dict([row.get("schema_version") for row in parseable]),
             "lifecycle_values": counter_dict([row.get("lifecycle") for row in parseable]),
-            "glaze_platform_versions": counter_dict([row.get("glaze_platform_version") for row in parseable]),
+            "conformance_status_values": counter_dict(
+                [row.get("conformance_status") for row in parseable]
+            ),
+            "required_stable_gates": required_gate_summaries,
+            "repositories_with_declared_blocking_stable_gate": sum(
+                1 for row in parseable if row.get("has_declared_blocking_stable_gate") is True
+            ),
+            "stable_lifecycle_with_declared_gate_blocker": sum(
+                1
+                for row in parseable
+                if row.get("stable_lifecycle_with_declared_gate_blocker") is True
+            ),
+            "glaze_platform_versions": counter_dict(
+                [row.get("glaze_platform_version") for row in parseable]
+            ),
             "glaze_compatibility_requirements": counter_dict(
                 [row.get("glaze_compatibility_required") for row in parseable]
             ),
@@ -240,12 +331,30 @@ def audit() -> dict[str, Any]:
             ),
         },
         "notes": [
+            "Privacy Shield, Wardveil Security, Everkeep, and Glaze UI are reported as required Stable-gate declaration planes. Manifest declarations are diagnostic metadata and are not substituted for the latest applicable Stable contract, runtime evidence, or acceptance decision.",
+            "A blocking declaration (applicable-migration-required, applicable-blocked, or applicable-nonconformant) is surfaced as unresolved portfolio evidence. A not-applicable-justified declaration is reported separately and is not silently treated as accepted.",
             "platform_systems.glaze_ui.version describes repository-declared Glaze integration state; compatibility.glaze_ui_required describes the Platform Contract compatibility plane. They may differ during a controlled contract rollout.",
             "A version difference is diagnostic evidence only and must not be converted into a conformance, lifecycle, production, or acceptance verdict without the applicable authoritative contract and evidence.",
             "Missing manifests remain part of the separate repository-baseline rollout and are not silently treated as parseable defaults.",
         ],
         "repositories": rows,
     }
+
+
+def compact_gate_results(row: dict[str, Any]) -> str:
+    if not row.get("parseable"):
+        return "—"
+    abbreviations = {
+        "privacy_shield": "Privacy",
+        "wardveil_security": "Wardveil",
+        "everkeep": "Everkeep",
+        "glaze_ui": "Glaze",
+    }
+    parts = []
+    for gate_key, _ in REQUIRED_STABLE_GATES:
+        result = row["required_stable_gates"][gate_key].get("result") or "—"
+        parts.append(f"{abbreviations[gate_key]}={result}")
+    return "; ".join(parts)
 
 
 def markdown_report(result: dict[str, Any]) -> str:
@@ -255,37 +364,56 @@ def markdown_report(result: dict[str, Any]) -> str:
     lines = [
         "## Public Platform manifest diagnostic",
         "",
-        "> Metadata-only diagnostic. It does not establish lifecycle, Platform conformance, production readiness, or application/service acceptance.",
+        "> Metadata-only diagnostic. It does not establish lifecycle, Platform conformance, runtime acceptance, production readiness, or application/service acceptance.",
         "",
         f"- Live Glaze current Stable: **{authority['current_stable']}**",
         f"- Public repositories registered: **{summary['repositories_registered']}**",
         f"- Platform manifests present: **{summary['manifests_present']}**",
         f"- Parseable manifests: **{summary['manifests_parseable']}**",
+        f"- Manifests with at least one declared blocking Stable-gate result: **{summary['repositories_with_declared_blocking_stable_gate']}**",
+        f"- Stable-lifecycle manifests that also declare a blocking Stable-gate result: **{summary['stable_lifecycle_with_declared_gate_blocker']}**",
         f"- Manifests declaring current Stable in `platform_systems.glaze_ui.version`: **{summary['glaze_platform_version_current_stable']}**",
         f"- Manifests whose Platform Contract compatibility requirement equals current Stable: **{summary['glaze_compatibility_current_stable']}**",
         f"- Manifests with different Glaze integration/compatibility version planes: **{summary['version_plane_differences']}**",
         "",
-        "| Repository | Component | Lifecycle | Glaze result | Integration version | Contract requirement |",
-        "| --- | --- | --- | --- | --- | --- |",
+        "### Required Stable-gate declaration distributions",
+        "",
     ]
+    for gate_key, label in REQUIRED_STABLE_GATES:
+        gate = summary["required_stable_gates"][gate_key]
+        distribution = ", ".join(
+            f"`{result}`={count}" for result, count in gate["result_values"].items()
+        )
+        lines.append(
+            f"- **{label}:** {distribution}; zero declared evidence paths: **{gate['repositories_with_zero_declared_evidence']}**"
+        )
+
+    lines.extend(
+        [
+            "",
+            "| Repository | Component | Lifecycle | Required Stable-gate declarations | Glaze integration | Contract requirement | Conformance declaration |",
+            "| --- | --- | --- | --- | --- | --- | --- |",
+        ]
+    )
     for row in rows:
         if not row["parseable"]:
-            lines.append(f"| `{row['repository']}` | — | — | parse error | — | — |")
+            lines.append(f"| `{row['repository']}` | — | — | parse error | — | — | — |")
             continue
         lines.append(
-            "| `{repository}` | {component} | {lifecycle} | {result} | {version} | {compatibility} |".format(
+            "| `{repository}` | {component} | {lifecycle} | {gates} | {version} | {compatibility} | {conformance} |".format(
                 repository=row["repository"],
                 component=row.get("component_type") or "—",
                 lifecycle=row.get("lifecycle") or "—",
-                result=row.get("glaze_result") or "—",
+                gates=compact_gate_results(row),
                 version=row.get("glaze_platform_version") or "—",
                 compatibility=row.get("glaze_compatibility_required") or "—",
+                conformance=row.get("conformance_status") or "—",
             )
         )
     lines.extend(
         [
             "",
-            "`platform_systems.glaze_ui.version` and `compatibility.glaze_ui_required` are separate authority planes during the controlled Platform Contract rollout; differences are reported rather than auto-failed.",
+            "Required Stable-gate values above are repository declarations, not independent acceptance evidence. `platform_systems.glaze_ui.version` and `compatibility.glaze_ui_required` are separate authority planes during controlled Platform Contract rollout; differences are reported rather than auto-failed.",
             "",
         ]
     )
