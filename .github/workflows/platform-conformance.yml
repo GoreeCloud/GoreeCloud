@@ -13,6 +13,7 @@ on:
       - schemas/goreecloud.conformance-result.schema.json
       - scripts/audit_public_repository_baselines.py
       - scripts/audit_public_platform_manifests.py
+      - scripts/audit_public_integral_platform_systems.py
       - scripts/validate_platform_conformance.py
       - scripts/validate_platform_manifest.py
       - scripts/evaluate_platform_conformance.py
@@ -33,6 +34,7 @@ on:
       - schemas/goreecloud.conformance-result.schema.json
       - scripts/audit_public_repository_baselines.py
       - scripts/audit_public_platform_manifests.py
+      - scripts/audit_public_integral_platform_systems.py
       - scripts/validate_platform_conformance.py
       - scripts/validate_platform_manifest.py
       - scripts/evaluate_platform_conformance.py
@@ -130,6 +132,14 @@ jobs:
         run: |
           python3 scripts/audit_public_platform_manifests.py \
             --json-output /tmp/goreecloud-public-platform-manifest-audit.json \
+            --markdown-summary "$GITHUB_STEP_SUMMARY"
+
+      - name: Audit all seven Integral Platform System declarations
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 scripts/audit_public_integral_platform_systems.py \
+            --json-output /tmp/goreecloud-public-integral-platform-system-audit.json \
             --markdown-summary "$GITHUB_STEP_SUMMARY"
 
   reusable-provenance:
