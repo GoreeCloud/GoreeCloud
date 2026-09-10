@@ -2,14 +2,14 @@
 
 This document records the current repository footprint owned by the `GoreeCloud` GitHub account.
 
-**Observed:** September 9, 2026
+**Observed:** September 10, 2026
 
 ## Summary
 
 | Category | Count |
 | --- | ---: |
-| Total owned repositories | 74 |
-| Public repositories | 71 |
+| Total owned repositories | 75 |
+| Public repositories | 72 |
 | Private repositories | 3 |
 | Archived repositories | 0 |
 
@@ -17,7 +17,7 @@ Repository presence alone does not establish application completeness, Stable li
 
 ## Public repositories
 
-The following 71 public repositories were verified from GitHub repository metadata:
+The following 72 public repositories were verified from GitHub repository metadata:
 
 1. [`GoreeCloud/GoreeCloud`](https://github.com/GoreeCloud/GoreeCloud)
 2. [`GoreeCloud/goreecloud-ai`](https://github.com/GoreeCloud/goreecloud-ai)
@@ -74,22 +74,23 @@ The following 71 public repositories were verified from GitHub repository metada
 53. [`GoreeCloud/goreecloud-photos`](https://github.com/GoreeCloud/goreecloud-photos)
 54. [`GoreeCloud/goreecloud-plugin`](https://github.com/GoreeCloud/goreecloud-plugin)
 55. [`GoreeCloud/goreecloud-quill`](https://github.com/GoreeCloud/goreecloud-quill)
-56. [`GoreeCloud/goreecloud-redirector`](https://github.com/GoreeCloud/goreecloud-redirector)
-57. [`GoreeCloud/goreecloud-research-library`](https://github.com/GoreeCloud/goreecloud-research-library)
-58. [`GoreeCloud/goreecloud-rss`](https://github.com/GoreeCloud/goreecloud-rss)
-59. [`GoreeCloud/goreecloud-search`](https://github.com/GoreeCloud/goreecloud-search)
-60. [`GoreeCloud/goreecloud-social`](https://github.com/GoreeCloud/goreecloud-social)
-61. [`GoreeCloud/goreecloud-source-resync`](https://github.com/GoreeCloud/goreecloud-source-resync)
-62. [`GoreeCloud/goreecloud-static-websites`](https://github.com/GoreeCloud/goreecloud-static-websites)
-63. [`GoreeCloud/goreecloud-suite`](https://github.com/GoreeCloud/goreecloud-suite)
-64. [`GoreeCloud/goreecloud-sync`](https://github.com/GoreeCloud/goreecloud-sync)
-65. [`GoreeCloud/goreecloud-tasks`](https://github.com/GoreeCloud/goreecloud-tasks)
-66. [`GoreeCloud/goreecloud-terminal`](https://github.com/GoreeCloud/goreecloud-terminal)
-67. [`GoreeCloud/goreecloud-vault-server`](https://github.com/GoreeCloud/goreecloud-vault-server)
-68. [`GoreeCloud/goreecloud-video`](https://github.com/GoreeCloud/goreecloud-video)
-69. [`GoreeCloud/goreecloud-waypoint`](https://github.com/GoreeCloud/goreecloud-waypoint)
-70. [`GoreeCloud/goreecloud-website`](https://github.com/GoreeCloud/goreecloud-website)
-71. [`GoreeCloud/goreecloud-zorin-os`](https://github.com/GoreeCloud/goreecloud-zorin-os)
+56. [`GoreeCloud/goreecloud-reader`](https://github.com/GoreeCloud/goreecloud-reader)
+57. [`GoreeCloud/goreecloud-redirector`](https://github.com/GoreeCloud/goreecloud-redirector)
+58. [`GoreeCloud/goreecloud-research-library`](https://github.com/GoreeCloud/goreecloud-research-library)
+59. [`GoreeCloud/goreecloud-rss`](https://github.com/GoreeCloud/goreecloud-rss)
+60. [`GoreeCloud/goreecloud-search`](https://github.com/GoreeCloud/goreecloud-search)
+61. [`GoreeCloud/goreecloud-social`](https://github.com/GoreeCloud/goreecloud-social)
+62. [`GoreeCloud/goreecloud-source-resync`](https://github.com/GoreeCloud/goreecloud-source-resync)
+63. [`GoreeCloud/goreecloud-static-websites`](https://github.com/GoreeCloud/goreecloud-static-websites)
+64. [`GoreeCloud/goreecloud-suite`](https://github.com/GoreeCloud/goreecloud-suite)
+65. [`GoreeCloud/goreecloud-sync`](https://github.com/GoreeCloud/goreecloud-sync)
+66. [`GoreeCloud/goreecloud-tasks`](https://github.com/GoreeCloud/goreecloud-tasks)
+67. [`GoreeCloud/goreecloud-terminal`](https://github.com/GoreeCloud/goreecloud-terminal)
+68. [`GoreeCloud/goreecloud-vault-server`](https://github.com/GoreeCloud/goreecloud-vault-server)
+69. [`GoreeCloud/goreecloud-video`](https://github.com/GoreeCloud/goreecloud-video)
+70. [`GoreeCloud/goreecloud-waypoint`](https://github.com/GoreeCloud/goreecloud-waypoint)
+71. [`GoreeCloud/goreecloud-website`](https://github.com/GoreeCloud/goreecloud-website)
+72. [`GoreeCloud/goreecloud-zorin-os`](https://github.com/GoreeCloud/goreecloud-zorin-os)
 
 ## Private repositories
 
