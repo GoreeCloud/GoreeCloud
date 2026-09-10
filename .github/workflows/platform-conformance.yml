@@ -118,12 +118,16 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: python3 scripts/validate_public_repository_registry.py --verify-live-public
 
+      - name: Prepare portfolio audit evidence
+        shell: bash
+        run: mkdir -p portfolio-audit-evidence
+
       - name: Audit public repository baseline adoption
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           python3 scripts/audit_public_repository_baselines.py \
-            --json-output /tmp/goreecloud-public-repository-baseline-audit.json \
+            --json-output portfolio-audit-evidence/public-repository-baseline-audit.json \
             --markdown-summary "$GITHUB_STEP_SUMMARY"
 
       - name: Audit public Platform manifest metadata
@@ -131,7 +135,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           python3 scripts/audit_public_platform_manifests.py \
-            --json-output /tmp/goreecloud-public-platform-manifest-audit.json \
+            --json-output portfolio-audit-evidence/public-platform-manifest-audit.json \
             --markdown-summary "$GITHUB_STEP_SUMMARY"
 
       - name: Audit all seven Integral Platform System declarations
@@ -139,8 +143,51 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           python3 scripts/audit_public_integral_platform_systems.py \
-            --json-output /tmp/goreecloud-public-integral-platform-system-audit.json \
+            --json-output portfolio-audit-evidence/public-integral-platform-system-audit.json \
             --markdown-summary "$GITHUB_STEP_SUMMARY"
+
+      - name: Record portfolio audit provenance
+        shell: bash
+        env:
+          WORKFLOW_RUN_ID: ${{ github.run_id }}
+          WORKFLOW_RUN_ATTEMPT: ${{ github.run_attempt }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          provenance = {
+              "schema": "goreecloud-portfolio-audit-provenance/v1",
+              "repository": os.environ["GITHUB_REPOSITORY"],
+              "candidate_revision": os.environ["CANDIDATE_REVISION"],
+              "workflow": os.environ["GITHUB_WORKFLOW"],
+              "workflow_run_id": os.environ["WORKFLOW_RUN_ID"],
+              "workflow_run_attempt": os.environ["WORKFLOW_RUN_ATTEMPT"],
+              "event_name": os.environ["EVENT_NAME"],
+              "authority": {
+                  "source_validation_only": True,
+                  "lifecycle_verdict": False,
+                  "platform_conformance_verdict": False,
+                  "runtime_acceptance_verdict": False,
+                  "production_readiness_verdict": False,
+              },
+          }
+          Path("portfolio-audit-evidence/provenance.json").write_text(
+              json.dumps(provenance, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Upload portfolio audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: goreecloud-portfolio-audit-${{ env.CANDIDATE_REVISION }}
+          path: portfolio-audit-evidence/
+          if-no-files-found: error
+          retention-days: 30
 
   reusable-provenance:
     name: Exercise reusable exact-revision provenance
