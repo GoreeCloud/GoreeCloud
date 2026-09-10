@@ -1,6 +1,6 @@
 {
   "schema": "goreecloud-public-repository-registry/v1",
-  "observedAt": "2026-09-09",
+  "observedAt": "2026-09-10",
   "authority": {
     "source": "GitHub repository metadata",
     "owner": "GoreeCloud",
@@ -84,6 +84,7 @@
     "GoreeCloud/goreecloud-photos",
     "GoreeCloud/goreecloud-plugin",
     "GoreeCloud/goreecloud-quill",
+    "GoreeCloud/goreecloud-reader",
     "GoreeCloud/goreecloud-redirector",
     "GoreeCloud/goreecloud-research-library",
     "GoreeCloud/goreecloud-rss",
