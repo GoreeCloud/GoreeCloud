@@ -1,0 +1,112 @@
+{
+  "schema": "goreecloud-suite-products-snapshot/v1",
+  "captured_at": "2026-09-10",
+  "authority": {
+    "authoritative": false,
+    "purpose": "Derived exact-revision audit snapshot only. The canonical Google Drive Suite inventory remains authoritative and controls on conflict.",
+    "source_title": "Inventory — Suite Applications",
+    "source_document_id": "1IVK4W6e7Rhh1ODrVrzL00ffECc6FROzt9BPcY_2FF6E",
+    "source_revision_id": "ANLCKQlrRiWt9xAvbZa8-Cc5fWZ7aKcUfbOybqO-g9MLYCuy3Z4JWRFAZhwgMjcRwDAvcXTUekZVzBp081_ymHlUd2AJzbkvGL6U_rJBXEs",
+    "lifecycle_authority": false,
+    "repository_mapping_authority": false,
+    "platform_acceptance_authority": false,
+    "production_authority": false
+  },
+  "product_count": 45,
+  "functional_group_count": 9,
+  "retired_current_names": {
+    "GoreeVault": "GoreeCloud Vault"
+  },
+  "groups": [
+    {
+      "name": "Productivity and organization",
+      "products": [
+        "GoreeCloud Notes",
+        "GoreeCloud Memos",
+        "GoreeCloud Tasks",
+        "GoreeCloud Calendar",
+        "GoreeCloud Contacts",
+        "GoreeCloud Documents"
+      ]
+    },
+    {
+      "name": "Storage, media, and library",
+      "products": [
+        "GoreeCloud Drive",
+        "GoreeCloud File Manager",
+        "GoreeCloud Sync",
+        "GoreeCloud Photos",
+        "GoreeCloud Gallery",
+        "GoreeCloud Music",
+        "GoreeCloud Video",
+        "GoreeCloud Bookmarks",
+        "GoreeCloud Reader"
+      ]
+    },
+    {
+      "name": "Communication and discovery",
+      "products": [
+        "GoreeCloud Mail",
+        "GoreeCloud Messenger",
+        "GoreeCloud Search",
+        "GoreeCloud Browser",
+        "GoreeCloud Feed",
+        "GoreeCloud Location",
+        "GoreeCloud Maps",
+        "GoreeCloud Social"
+      ]
+    },
+    {
+      "name": "Devices and interface",
+      "products": [
+        "GoreeCloud Keyboard",
+        "GoreeCloud Launcher",
+        "GoreeCloud Terminal"
+      ]
+    },
+    {
+      "name": "Platform and operations",
+      "products": [
+        "GoreeCloud Manager",
+        "GoreeCloud App Store",
+        "GoreeCloud Identity",
+        "GoreeCloud Vault",
+        "GoreeCloud Backup",
+        "GoreeCloud Network",
+        "GoreeCloud DNS",
+        "GoreeCloud Gateway",
+        "GoreeCloud Notify",
+        "GoreeCloud Monitor",
+        "GoreeCloud Changelogs"
+      ]
+    },
+    {
+      "name": "Developer and intelligence",
+      "products": [
+        "GoreeCloud AI",
+        "GoreeCloud Index",
+        "GoreeCloud Code"
+      ]
+    },
+    {
+      "name": "Home, health, and personal systems",
+      "products": [
+        "GoreeCloud Health",
+        "GoreeCloud Home",
+        "GoreeCloud Home Security"
+      ]
+    },
+    {
+      "name": "Infrastructure and edge products",
+      "products": [
+        "GoreeCloud Router OS"
+      ]
+    },
+    {
+      "name": "Public experience",
+      "products": [
+        "GoreeCloud Website"
+      ]
+    }
+  ]
+}
