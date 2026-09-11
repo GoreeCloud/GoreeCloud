@@ -8,16 +8,16 @@ This document records the current repository footprint owned by the `GoreeCloud`
 
 | Category | Count |
 | --- | ---: |
-| Total owned repositories | 75 |
-| Public repositories | 72 |
-| Private repositories | 3 |
+| Total owned repositories | 77 |
+| Public repositories | 73 |
+| Private repositories | 4 |
 | Archived repositories | 0 |
 
 Repository presence alone does not establish application completeness, Stable lifecycle status, production approval, deployment state, or completed GoreeCloud Platform integration. Repository-local specifications, release evidence, acceptance records, and applicable GoreeCloud standards remain authoritative for those claims.
 
 ## Public repositories
 
-The following 72 public repositories were verified from GitHub repository metadata:
+The following 73 public repositories were verified from GitHub repository metadata:
 
 1. [`GoreeCloud/GoreeCloud`](https://github.com/GoreeCloud/GoreeCloud)
 2. [`GoreeCloud/goreecloud-ai`](https://github.com/GoreeCloud/goreecloud-ai)
@@ -77,24 +77,25 @@ The following 72 public repositories were verified from GitHub repository metada
 56. [`GoreeCloud/goreecloud-reader`](https://github.com/GoreeCloud/goreecloud-reader)
 57. [`GoreeCloud/goreecloud-redirector`](https://github.com/GoreeCloud/goreecloud-redirector)
 58. [`GoreeCloud/goreecloud-research-library`](https://github.com/GoreeCloud/goreecloud-research-library)
-59. [`GoreeCloud/goreecloud-rss`](https://github.com/GoreeCloud/goreecloud-rss)
-60. [`GoreeCloud/goreecloud-search`](https://github.com/GoreeCloud/goreecloud-search)
-61. [`GoreeCloud/goreecloud-social`](https://github.com/GoreeCloud/goreecloud-social)
-62. [`GoreeCloud/goreecloud-source-resync`](https://github.com/GoreeCloud/goreecloud-source-resync)
-63. [`GoreeCloud/goreecloud-static-websites`](https://github.com/GoreeCloud/goreecloud-static-websites)
-64. [`GoreeCloud/goreecloud-suite`](https://github.com/GoreeCloud/goreecloud-suite)
-65. [`GoreeCloud/goreecloud-sync`](https://github.com/GoreeCloud/goreecloud-sync)
-66. [`GoreeCloud/goreecloud-tasks`](https://github.com/GoreeCloud/goreecloud-tasks)
-67. [`GoreeCloud/goreecloud-terminal`](https://github.com/GoreeCloud/goreecloud-terminal)
-68. [`GoreeCloud/goreecloud-vault-server`](https://github.com/GoreeCloud/goreecloud-vault-server)
-69. [`GoreeCloud/goreecloud-video`](https://github.com/GoreeCloud/goreecloud-video)
-70. [`GoreeCloud/goreecloud-waypoint`](https://github.com/GoreeCloud/goreecloud-waypoint)
-71. [`GoreeCloud/goreecloud-website`](https://github.com/GoreeCloud/goreecloud-website)
-72. [`GoreeCloud/goreecloud-zorin-os`](https://github.com/GoreeCloud/goreecloud-zorin-os)
+59. [`GoreeCloud/goreecloud-router-os`](https://github.com/GoreeCloud/goreecloud-router-os)
+60. [`GoreeCloud/goreecloud-rss`](https://github.com/GoreeCloud/goreecloud-rss)
+61. [`GoreeCloud/goreecloud-search`](https://github.com/GoreeCloud/goreecloud-search)
+62. [`GoreeCloud/goreecloud-social`](https://github.com/GoreeCloud/goreecloud-social)
+63. [`GoreeCloud/goreecloud-source-resync`](https://github.com/GoreeCloud/goreecloud-source-resync)
+64. [`GoreeCloud/goreecloud-static-websites`](https://github.com/GoreeCloud/goreecloud-static-websites)
+65. [`GoreeCloud/goreecloud-suite`](https://github.com/GoreeCloud/goreecloud-suite)
+66. [`GoreeCloud/goreecloud-sync`](https://github.com/GoreeCloud/goreecloud-sync)
+67. [`GoreeCloud/goreecloud-tasks`](https://github.com/GoreeCloud/goreecloud-tasks)
+68. [`GoreeCloud/goreecloud-terminal`](https://github.com/GoreeCloud/goreecloud-terminal)
+69. [`GoreeCloud/goreecloud-vault-server`](https://github.com/GoreeCloud/goreecloud-vault-server)
+70. [`GoreeCloud/goreecloud-video`](https://github.com/GoreeCloud/goreecloud-video)
+71. [`GoreeCloud/goreecloud-waypoint`](https://github.com/GoreeCloud/goreecloud-waypoint)
+72. [`GoreeCloud/goreecloud-website`](https://github.com/GoreeCloud/goreecloud-website)
+73. [`GoreeCloud/goreecloud-zorin-os`](https://github.com/GoreeCloud/goreecloud-zorin-os)
 
 ## Private repositories
 
-The GoreeCloud account currently owns **3 private repositories**.
+The GoreeCloud account currently owns **4 private repositories**.
 
 Their repository identities are intentionally omitted from this public inventory. This follows the privacy boundary established by [`repositories.public.json`](./repositories.public.json), which records public repository metadata only and does not centralize private repository names in a public registry.
 
