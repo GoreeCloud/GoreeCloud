@@ -11,6 +11,7 @@ on:
       - examples/goreecloud.platform.example.yaml
       - schemas/goreecloud.platform.schema.json
       - schemas/goreecloud.conformance-result.schema.json
+      - scripts/audit_public_repository_baselines.py
       - scripts/validate_platform_conformance.py
       - scripts/validate_platform_manifest.py
       - scripts/evaluate_platform_conformance.py
@@ -29,6 +30,7 @@ on:
       - examples/goreecloud.platform.example.yaml
       - schemas/goreecloud.platform.schema.json
       - schemas/goreecloud.conformance-result.schema.json
+      - scripts/audit_public_repository_baselines.py
       - scripts/validate_platform_conformance.py
       - scripts/validate_platform_manifest.py
       - scripts/evaluate_platform_conformance.py
@@ -111,6 +113,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python3 scripts/validate_public_repository_registry.py --verify-live-public
+
+      - name: Audit public repository baseline adoption
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 scripts/audit_public_repository_baselines.py \
+            --json-output /tmp/goreecloud-public-repository-baseline-audit.json \
+            --markdown-summary "$GITHUB_STEP_SUMMARY"
 
   reusable-provenance:
     name: Exercise reusable exact-revision provenance
