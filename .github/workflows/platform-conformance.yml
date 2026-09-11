@@ -8,12 +8,14 @@ on:
       - NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md
       - PLATFORM-CONTRACT.md
       - repositories.public.json
+      - suite-products.snapshot.json
       - examples/goreecloud.platform.example.yaml
       - schemas/goreecloud.platform.schema.json
       - schemas/goreecloud.conformance-result.schema.json
       - scripts/audit_public_repository_baselines.py
       - scripts/audit_public_platform_manifests.py
       - scripts/audit_public_integral_platform_systems.py
+      - scripts/audit_suite_product_coverage.py
       - scripts/validate_platform_conformance.py
       - scripts/validate_platform_manifest.py
       - scripts/evaluate_platform_conformance.py
@@ -29,12 +31,14 @@ on:
       - NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md
       - PLATFORM-CONTRACT.md
       - repositories.public.json
+      - suite-products.snapshot.json
       - examples/goreecloud.platform.example.yaml
       - schemas/goreecloud.platform.schema.json
       - schemas/goreecloud.conformance-result.schema.json
       - scripts/audit_public_repository_baselines.py
       - scripts/audit_public_platform_manifests.py
       - scripts/audit_public_integral_platform_systems.py
+      - scripts/audit_suite_product_coverage.py
       - scripts/validate_platform_conformance.py
       - scripts/validate_platform_manifest.py
       - scripts/evaluate_platform_conformance.py
@@ -144,6 +148,14 @@ jobs:
         run: |
           python3 scripts/audit_public_integral_platform_systems.py \
             --json-output portfolio-audit-evidence/public-integral-platform-system-audit.json \
+            --markdown-summary "$GITHUB_STEP_SUMMARY"
+
+      - name: Audit authoritative Suite product coverage
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 scripts/audit_suite_product_coverage.py \
+            --json-output portfolio-audit-evidence/suite-product-coverage-audit.json \
             --markdown-summary "$GITHUB_STEP_SUMMARY"
 
       - name: Record portfolio audit provenance
