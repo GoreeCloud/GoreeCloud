@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - README.md
+      - REPOSITORIES.md
       - NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md
       - PLATFORM-CONTRACT.md
       - repositories.public.json
@@ -21,6 +22,7 @@ on:
       - main
     paths:
       - README.md
+      - REPOSITORIES.md
       - NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md
       - PLATFORM-CONTRACT.md
       - repositories.public.json
@@ -106,7 +108,9 @@ jobs:
           PY
 
       - name: Validate privacy-bounded public repository registry
-        run: python3 scripts/validate_public_repository_registry.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/validate_public_repository_registry.py --verify-live-public
 
   reusable-provenance:
     name: Exercise reusable exact-revision provenance
