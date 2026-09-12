@@ -1,4 +1,4 @@
-schema_version: "0.2"
+schema_version: "0.3"
 
 component:
   type: application
@@ -7,7 +7,7 @@ component:
   repository: GoreeCloud/example-app
 
 lifecycle: development
-version: 0.2.0-dev
+version: 0.3.0-dev
 
 supported_platforms:
   - web
@@ -32,7 +32,7 @@ platform_systems:
     version: null
     evidence:
       - docs/privacy/example-evidence.md
-    notes: Example repository evidence exists, but accepted Privacy Shield integration is not claimed.
+    notes: Example evidence exists, but accepted Privacy Shield integration is not claimed.
   wardveil_security:
     result: applicable-blocked
     version: null
@@ -48,7 +48,7 @@ platform_systems:
     version: "1.1.0"
     evidence:
       - evidence/glaze-ui/example-source-mapping.json
-    notes: Example source still targets an older Glaze UI line and must migrate to current Stable 1.3.0 before conformance.
+    notes: Example source targets an older Glaze UI line and must migrate to current Stable 1.3.0 before conformance.
   mesh:
     result: applicable-blocked
     version: null
@@ -59,6 +59,7 @@ platform_systems:
       - example.read
     dependencies:
       - goreecloud-identity
+      - goreecloud-sync
     published_events:
       - example.item.updated.v1
     consumed_events:
@@ -69,6 +70,12 @@ platform_systems:
     evidence:
       - evidence/identity/example-integration.json
     notes: Example only; Identity runtime acceptance is incomplete.
+  sync:
+    result: applicable-blocked
+    version: null
+    evidence:
+      - evidence/sync/example-dataset-contract.json
+    notes: Example only; a dataset contract is referenced but accepted Sync runtime integration and cross-device reconciliation evidence are incomplete.
 
 health:
   health_endpoint: /health
@@ -99,10 +106,10 @@ external_dependencies:
     version_constraint: ">=1.0"
 
 compatibility:
-  platform_contract: "0.2"
+  platform_contract: "0.3"
   glaze_ui_required: "1.3.0"
   requires:
-    - goreecloud-platform-contract==0.2
+    - goreecloud-platform-contract==0.3
     - glaze-ui==1.3.0
   provides:
     - example-api-v1
@@ -123,4 +130,5 @@ conformance:
     - Glaze UI migration to current Stable 1.3.0 remains required.
     - GoreeCloud Mesh runtime publication and acceptance remain blocked.
     - GoreeCloud Identity runtime acceptance remains blocked.
+    - GoreeCloud Sync runtime synchronization and reconciliation acceptance remain blocked.
     - Required Stable acceptance-test and release evidence has not been produced for this Development example.
