@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compute a GoreeCloud platform conformance result from a repository manifest."""
+"""Compute a GoreeCloud Platform Contract 0.3 conformance result."""
 
 from __future__ import annotations
 
@@ -24,16 +24,7 @@ validator = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = validator
 spec.loader.exec_module(validator)
 
-PLATFORM_SYSTEMS = (
-    "manager",
-    "privacy_shield",
-    "wardveil_security",
-    "everkeep",
-    "glaze_ui",
-    "mesh",
-    "identity",
-)
-
+PLATFORM_SYSTEMS = validator.PLATFORM_SYSTEMS
 DISPLAY_NAMES = {
     "manager": "GoreeCloud Manager",
     "privacy_shield": "Privacy Shield",
@@ -42,44 +33,23 @@ DISPLAY_NAMES = {
     "glaze_ui": "Glaze UI",
     "mesh": "GoreeCloud Mesh",
     "identity": "GoreeCloud Identity",
-}
-
-STABLE_ACCEPTANCE_CATEGORIES = {
-    "api",
-    "accessibility",
-    "supported-platform",
-    "security",
-    "privacy",
-    "backup",
-    "restore",
-    "export-portability",
-    "documentation",
-    "integration",
-    "release",
+    "sync": "GoreeCloud Sync",
 }
 
 
 def require_git_revision(value: str, label: str) -> str:
     if not FULL_GIT_REVISION.fullmatch(value):
-        raise validator.ValidationError(
-            f"{label} must be an exact 40-character lowercase Git revision"
-        )
+        raise validator.ValidationError(f"{label} must be an exact 40-character lowercase Git revision")
     return value
 
 
-def evaluate(
-    manifest: dict[str, Any],
-    *,
-    revision: str,
-    evaluator_revision: str,
-    evaluated_at: str,
-) -> dict[str, Any]:
+def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str, evaluated_at: str) -> dict[str, Any]:
     revision = require_git_revision(revision, "evaluated revision")
     evaluator_revision = require_git_revision(evaluator_revision, "evaluator revision")
-    lifecycle = manifest["lifecycle"]
     systems = manifest["platform_systems"]
     acceptance = manifest["evidence"]["acceptance_tests"]
-    release = manifest["evidence"]["release"]
+    releases = manifest["evidence"]["release"]
+    lifecycle = manifest["lifecycle"]
 
     checks: list[dict[str, Any]] = []
     blockers: list[str] = []
@@ -87,21 +57,19 @@ def evaluate(
     for name in PLATFORM_SYSTEMS:
         entry = systems[name]
         result = entry["result"]
-        passing = result in {"applicable-conformant", "not-applicable-justified"}
-        checks.append(
-            {
-                "id": f"platform-system:{name}",
-                "category": "platform-system",
-                "result": "passed" if passing else "failed",
-                "declared_result": result,
-                "evidence": entry["evidence"],
-                "message": (
-                    f"{DISPLAY_NAMES[name]} is {result}."
-                    if passing
-                    else f"{DISPLAY_NAMES[name]} remains {result} and cannot satisfy Stable eligibility."
-                ),
-            }
-        )
+        passing = result in validator.PASSING_PLATFORM_RESULTS
+        checks.append({
+            "id": f"platform-system:{name}",
+            "category": "platform-system",
+            "result": "passed" if passing else "failed",
+            "declared_result": result,
+            "evidence": entry["evidence"],
+            "message": (
+                f"{DISPLAY_NAMES[name]} is {result}."
+                if passing else
+                f"{DISPLAY_NAMES[name]} remains {result} and cannot satisfy Stable eligibility."
+            ),
+        })
         if not passing:
             blockers.append(f"{DISPLAY_NAMES[name]}: {result}")
 
@@ -110,81 +78,56 @@ def evaluate(
     if glaze["result"] != "not-applicable-justified":
         current = (
             required_glaze == validator.CURRENT_GLAZE_UI_VERSION
-            and (
-                glaze["result"] != "applicable-conformant"
-                or glaze["version"] == required_glaze
-            )
+            and (glaze["result"] != "applicable-conformant" or glaze["version"] == required_glaze)
         )
-        checks.append(
-            {
-                "id": "compatibility:glaze-ui",
-                "category": "compatibility",
-                "result": "passed" if current else "failed",
-                "declared_result": glaze["result"],
-                "evidence": glaze["evidence"],
-                "message": (
-                    f"Glaze UI target is current Stable {validator.CURRENT_GLAZE_UI_VERSION}."
-                    if current
-                    else f"Glaze UI target must be current Stable {validator.CURRENT_GLAZE_UI_VERSION}."
-                ),
-            }
-        )
+        checks.append({
+            "id": "compatibility:glaze-ui",
+            "category": "compatibility",
+            "result": "passed" if current else "failed",
+            "declared_result": glaze["result"],
+            "evidence": glaze["evidence"],
+            "message": (
+                f"Glaze UI target is current Stable {validator.CURRENT_GLAZE_UI_VERSION}."
+                if current else
+                f"Glaze UI target must be current Stable {validator.CURRENT_GLAZE_UI_VERSION}."
+            ),
+        })
         if not current:
-            blockers.append(
-                f"Glaze UI compatibility target is not current Stable {validator.CURRENT_GLAZE_UI_VERSION}"
-            )
+            blockers.append(f"Glaze UI compatibility target is not current Stable {validator.CURRENT_GLAZE_UI_VERSION}")
 
-    passed_categories = {
-        item["category"] for item in acceptance if item["result"] == "passed"
-    }
-    missing_acceptance = sorted(STABLE_ACCEPTANCE_CATEGORIES - passed_categories)
-    checks.append(
-        {
-            "id": "evidence:stable-acceptance",
-            "category": "evidence",
-            "result": "passed" if not missing_acceptance else "failed",
-            "evidence": [item["id"] for item in acceptance if item["result"] == "passed"],
-            "message": (
-                "Required Stable acceptance evidence categories are present."
-                if not missing_acceptance
-                else "Missing passing Stable acceptance categories: "
-                + ", ".join(missing_acceptance)
-            ),
-        }
-    )
-    if missing_acceptance:
-        blockers.append(
+    passed_categories = {item["category"] for item in acceptance if item["result"] == "passed"}
+    missing_acceptance = sorted(validator.STABLE_ACCEPTANCE_CATEGORIES - passed_categories)
+    checks.append({
+        "id": "evidence:stable-acceptance",
+        "category": "evidence",
+        "result": "passed" if not missing_acceptance else "failed",
+        "evidence": [item["id"] for item in acceptance if item["result"] == "passed"],
+        "message": (
+            "Required Stable acceptance evidence categories are present."
+            if not missing_acceptance else
             "Missing passing Stable acceptance categories: " + ", ".join(missing_acceptance)
-        )
+        ),
+    })
+    if missing_acceptance:
+        blockers.append("Missing passing Stable acceptance categories: " + ", ".join(missing_acceptance))
 
-    published_releases = [item for item in release if item["result"] == "published"]
-    checks.append(
-        {
-            "id": "evidence:release",
-            "category": "release",
-            "result": "passed" if published_releases else "failed",
-            "evidence": [item["id"] for item in published_releases],
-            "message": (
-                "Published release evidence is present."
-                if published_releases
-                else "Published release evidence is missing."
-            ),
-        }
-    )
-    if not published_releases:
+    published = [item for item in releases if item["result"] == "published"]
+    checks.append({
+        "id": "evidence:release",
+        "category": "release",
+        "result": "passed" if published else "failed",
+        "evidence": [item["id"] for item in published],
+        "message": "Published release evidence is present." if published else "Published release evidence is missing.",
+    })
+    if not published:
         blockers.append("Published release evidence is missing")
 
     declared = manifest["conformance"]
     if declared["status"] != "conformant":
         blockers.extend(declared["blockers"])
-
     blockers = list(dict.fromkeys(blockers))
-    stable_eligible = (
-        not blockers
-        and declared["status"] == "conformant"
-        and declared["validated_at"] is not None
-    )
 
+    stable_eligible = not blockers and declared["status"] == "conformant" and declared["validated_at"] is not None
     if stable_eligible:
         computed = "conformant"
     elif lifecycle == "stable":
@@ -195,7 +138,7 @@ def evaluate(
         computed = "nonconformant"
 
     return {
-        "schema_version": "0.2",
+        "schema_version": validator.SCHEMA_VERSION,
         "component": manifest["component"]["id"],
         "repository": manifest["component"]["repository"],
         "manifest_schema_version": manifest["schema_version"],
@@ -214,9 +157,9 @@ def evaluate(
             "aggregation_role": "read-only",
             "aggregators_may_transfer_authority": False,
             "notes": (
-                "This computed result evaluates repository declarations and referenced evidence "
-                "metadata. GoreeCloud Mesh and GoreeCloud Manager may aggregate or present it "
-                "without becoming authoritative for producer-owned facts."
+                "This computed result evaluates repository declarations and evidence metadata. "
+                "GoreeCloud Mesh, GoreeCloud Sync, and GoreeCloud Manager may coordinate or present "
+                "bounded state without becoming authoritative for producer-owned facts."
             ),
         },
     }
@@ -237,17 +180,13 @@ def main() -> int:
             manifest,
             revision=args.revision,
             evaluator_revision=args.evaluator_revision,
-            evaluated_at=(
-                args.evaluated_at
-                or datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
-            ),
+            evaluated_at=args.evaluated_at or datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         )
     except validator.ValidationError as exc:
         print(f"platform-conformance: {exc}", file=sys.stderr)
         return 1
 
-    rendered = json.dumps(result, indent=2, sort_keys=False) + "\n"
-
+    rendered = json.dumps(result, indent=2) + "\n"
     if args.output:
         args.output.write_text(rendered, encoding="utf-8")
     else:
@@ -256,7 +195,6 @@ def main() -> int:
     if manifest["lifecycle"] == "stable" and not result["stable_eligible"]:
         print("platform-conformance: Stable eligibility failed closed", file=sys.stderr)
         return 1
-
     return 0
 
 

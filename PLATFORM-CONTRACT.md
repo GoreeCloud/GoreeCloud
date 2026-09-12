@@ -2,61 +2,74 @@
 
 ## Status
 
-- Contract version: `0.2`
-- Repository role: platform-wide implementation reference
+- Contract version: `0.3`
+- Repository role: platform-wide implementation and conformance reference
 - Manifest filename: `goreecloud.platform.yaml`
 - Computed result filename: `goreecloud.conformance-result.json`
-- Applies to: GoreeCloud application and service repositories
-- Canonical governance: GoreeCloud Google Drive instructions, standards, policies, and project specifications
+- Applies to: GoreeCloud applications, services, and Integral Platform Systems
+- Canonical governance: GoreeCloud Google Drive instructions, decisions, standards, policies, and project specifications
 - Current Stable Glaze UI consumer target: `1.3.0` (`GLAZE UI V1.3`)
 
-This repository contains the machine-readable implementation foundation for the GoreeCloud Platform Contract. The contract records a repository's declared platform identity, lifecycle, compatibility, operational interfaces, continuity requirements, evidence references, and integration state. A manifest is a declaration and validation input; it does not by itself prove that a capability is implemented or accepted.
+This repository contains the machine-readable implementation foundation for the GoreeCloud Platform Contract. The contract records a repository's declared identity, lifecycle, compatibility, operational interfaces, continuity requirements, evidence references, and integration state. A manifest is a declaration and validation input; it does not by itself prove that a capability is implemented or accepted.
 
-The CI evaluator produces a separate computed conformance result from the repository declaration and evidence metadata. GoreeCloud Mesh may aggregate the declaration, computed result, relationships, capabilities, dependencies, and evidence references. GoreeCloud Manager may present that state. Neither aggregation nor presentation transfers authority away from the repository or Platform System that owns the underlying fact.
+The CI evaluator produces a separate computed conformance result from the repository declaration and evidence metadata. GoreeCloud Mesh may coordinate transport and platform relationships, GoreeCloud Sync may coordinate authorized synchronized state, and GoreeCloud Manager may present bounded operational state. None of those roles transfers authority away from the repository or Platform System that owns the underlying fact.
+
+## Exactly eight Integral Platform Systems
+
+The authoritative platform baseline contains exactly eight Integral Platform Systems:
+
+1. **GoreeCloud Manager** — administration, configuration, lifecycle, inventory, and operational control.
+2. **Privacy Shield** — privacy authorization, consent, minimization, purpose limitation, retention, sharing, and data-use control.
+3. **Wardveil Security** — security, trust, protection, verification, threat handling, response, and security evidence.
+4. **Everkeep** — resilience, backup, restore, recovery, preservation, portability, continuity, succession, and digital legacy.
+5. **Glaze UI** — shared visual, interaction, accessibility, responsive, and design-system behavior.
+6. **GoreeCloud Mesh** — private connectivity, discovery, coordination, capability relationships, dependency relationships, events, and service interoperability.
+7. **GoreeCloud Identity** — identity, authentication, authorization, accounts, sessions, devices, applications, services, and delegated authority.
+8. **GoreeCloud Sync** — synchronization, change tracking, state coordination, version reconciliation, conflict handling, authorized replication, offline continuity, and cross-device continuity.
+
+Every application, service, and Platform System must be evaluated explicitly against all eight. Genuine non-applicability must be justified with evidence. Cosmetic presence, metadata, documentation, a Manager card, Mesh registration, a Sync badge, or source-only placeholders do not establish implementation or acceptance.
+
+Full implementation of the eight Platform Systems is a GoreeCloud completion objective and release obligation. This requirement does not authorize false maturity claims: Development, partial, migration-required, blocked, or production-unaccepted state must remain labeled accurately until implementation and acceptance evidence proves otherwise.
+
+## Authority boundaries
+
+The contract keeps the eight systems complementary rather than interchangeable:
+
+- **Identity** determines who or what is acting and the authority it possesses.
+- **Privacy Shield** determines whether the intended data use is permitted.
+- **Wardveil Security** determines applicable trust, protection, and security response.
+- **Manager** provides bounded administration and operational control.
+- **Mesh** establishes private reachability, discovery, coordination, and event/service interoperability.
+- **Sync** determines what authorized state should synchronize, how versions and conflicts are reconciled, and how offline synchronization resumes.
+- **Everkeep** preserves recoverable historical state and continuity; synchronization is not backup.
+- **Glaze UI** presents accurate, accessible state and interaction behavior without manufacturing capabilities.
+
+A system must not silently absorb or bypass another system's authority.
 
 ## Required manifest areas
 
-Every application or service manifest must declare:
+Every manifest must declare:
 
 - Contract schema version.
-- Component type, stable application/service identifier, product name, and authoritative repository.
+- Component type (`application`, `service`, or `platform-system`), stable identifier, product name, and authoritative repository.
 - Lifecycle state and current version.
 - Supported platforms.
 - API versions and declared endpoints.
-- Glaze UI version, current required baseline, and integration result.
-- GoreeCloud Manager integration result.
-- GoreeCloud Identity integration result.
-- Wardveil Security integration result.
-- Privacy Shield integration result.
-- Everkeep integration result and recovery requirements.
-- GoreeCloud Mesh integration result, capabilities, dependencies, and published/consumed events.
+- An integration result for each of all eight Integral Platform Systems.
+- GoreeCloud Mesh capabilities, dependencies, and published/consumed events where applicable.
 - Health and readiness interfaces.
 - Backup, restore, export, and portability requirements.
 - Required external dependencies.
-- Platform compatibility requirements.
+- Platform compatibility requirements, including the current Glaze UI target where applicable.
 - Structured acceptance-test evidence references.
 - Structured release evidence references.
 - Declared conformance status, blockers, validation time, and evidence references.
 
-Unknown fields are rejected. Applications and services must not invent incompatible local Platform Contract extensions. Breaking changes belong in a new version of the central contract with an explicit migration path.
-
-## Integral Platform Systems
-
-The current platform baseline contains seven Integral Platform Systems:
-
-1. GoreeCloud Manager
-2. Privacy Shield
-3. Wardveil Security
-4. Everkeep
-5. Glaze UI
-6. GoreeCloud Mesh
-7. GoreeCloud Identity
-
-Each system must be evaluated explicitly. Cosmetic presence, metadata, documentation, a Manager card, or Mesh registration does not establish implementation or acceptance.
+Unknown fields are rejected. Components must not invent incompatible local Platform Contract extensions. Breaking contract changes require an explicit version and migration path.
 
 ## Platform-System result vocabulary
 
-Contract v0.2 standardizes the authoritative platform result vocabulary. Human-readable governance terms map to these machine values:
+Contract v0.3 retains the governed result vocabulary introduced by v0.2:
 
 - `Applicable — Conformant` → `applicable-conformant`
 - `Applicable — Migration Required` → `applicable-migration-required`
@@ -64,11 +77,9 @@ Contract v0.2 standardizes the authoritative platform result vocabulary. Human-r
 - `Applicable — Nonconformant` → `applicable-nonconformant`
 - `Not Applicable — Justified` → `not-applicable-justified`
 
-`not-applicable-justified` requires both an explicit justification and an evidence reference supporting the applicability decision. `applicable-conformant` requires evidence references. The result records repository truth without upgrading incomplete work merely to satisfy CI.
+`not-applicable-justified` requires an explicit justification and evidence reference. `applicable-conformant` requires evidence references. The result records repository truth without upgrading incomplete work merely to satisfy CI.
 
 ## Lifecycle values
-
-The Platform Contract uses the following lifecycle values:
 
 - `concept`
 - `experimental`
@@ -78,69 +89,69 @@ The Platform Contract uses the following lifecycle values:
 - `deprecated`
 - `retired`
 
-Lifecycle claims are evidence-backed states. Repository existence, successful compilation, a passing structural manifest check, or documentation completion does not establish Stable maturity.
+Lifecycle claims are evidence-backed states. Repository existence, successful compilation, structural manifest validity, or documentation completion does not establish Stable maturity.
 
 ## Evidence model
 
-Contract v0.2 distinguishes declarations from acceptance evidence.
+`evidence.acceptance_tests` records attributable evidence references with an ID, category, repository path, exact revision, result, and observation time. Supported Platform-System categories cover all eight systems: `manager`, `privacy-shield`, `wardveil-security`, `everkeep`, `glaze-ui`, `mesh`, `identity`, and `sync`, plus API, accessibility, supported-platform, backup, restore, export/portability, security, privacy, documentation, integration, migration, rollback, and release acceptance.
 
-`evidence.acceptance_tests` records attributable evidence references with an ID, category, repository path, exact revision, result, and observation time. Supported categories cover the seven Platform Systems plus API, accessibility, supported-platform, backup, restore, export/portability, security, privacy, documentation, integration, migration, rollback, and release acceptance.
-
-`evidence.release` records release evidence with an ID, version, revision, path, result, observation time, and optional artifact digest. The manifest never treats a prose declaration as a substitute for the underlying test, workflow artifact, release record, restore record, or acceptance record.
+`evidence.release` records release evidence with an ID, version, revision, path, result, observation time, and optional artifact digest. Prose declarations never substitute for underlying test, workflow, release, restore, or acceptance evidence.
 
 ## Conformance and Stable fail-closed behavior
 
-Manifest-level conformance uses:
+Manifest-level conformance uses `conformant`, `nonconformant`, or `unverified`.
 
-- `conformant`
-- `nonconformant`
-- `unverified`
-
-The reusable CI workflow validates the manifest and then computes `goreecloud.conformance-result.json`. That result records the exact evaluated revision, individual Platform-System checks, compatibility checks, missing Stable evidence categories, blockers, and a `stable_eligible` decision.
-
-Revision provenance is event-specific and fail closed. For a `pull_request` invocation, the caller repository is checked out at `github.event.pull_request.head.sha`, and that same immutable SHA is recorded as `evaluated_revision`; GitHub's synthetic pull-request merge SHA is not accepted as the evaluated source revision. For push/main and other non-PR invocations, `github.sha` remains the evaluated revision. The reusable workflow separately records its pinned central implementation revision as `evaluator_revision`, so the caller source and the validator implementation remain independently attributable.
+The reusable CI workflow validates the manifest and computes `goreecloud.conformance-result.json`. The result records the exact evaluated revision, individual checks for all eight Platform Systems, compatibility checks, missing Stable evidence categories, blockers, and `stable_eligible`.
 
 A Development or Release Candidate repository may truthfully compute as nonconformant without ordinary development CI pretending the repository is Stable. A repository declaring lifecycle `stable` fails closed unless:
 
-- every Platform System is `applicable-conformant` or supportably `not-applicable-justified`;
+- all eight Platform Systems are `applicable-conformant` or supportably `not-applicable-justified`;
 - declared conformance is `conformant` and time-bounded by a validation timestamp;
 - required API, accessibility, supported-platform, security, privacy, backup, restore, export/portability, documentation, integration, and release acceptance evidence has a passing result; and
 - published release evidence exists.
 
-Additional application-specific or governance-required evidence can remain mandatory even when the generic contract gate passes. A passing generic contract check never overrides a more specific security, privacy, recovery, platform, release, or production-acceptance requirement.
+Additional application-, service-, or Platform-System-specific evidence can remain mandatory even when the generic contract gate passes. A generic passing result never overrides a more specific security, privacy, identity, sync, recovery, platform, release, or production-acceptance requirement.
 
 ## Glaze UI baseline
 
-The current specific Glaze UI authority and canonical `GoreeCloud/goreecloud-glaze-ui` repository identify `GLAZE UI V1.3 / 1.3.0` as the current Stable consumer target. Contract v0.2 therefore requires applicable applications to declare `compatibility.glaze_ui_required: "1.3.0"`.
+The canonical `GoreeCloud/goreecloud-glaze-ui` repository identifies `GLAZE UI V1.3 / 1.3.0` as the current Stable consumer target. Contract v0.3 requires applicable consumers to declare `compatibility.glaze_ui_required: "1.3.0"`. A current baseline declaration does not establish downstream conformance by itself.
 
-GLAZE UI V1.3 inherits the V1.2 Frosted Neutral material foundation while adding Adaptive Resonance requirements for bounded adaptive expression, ergonomic composition, resilience, and app-local migration/rollback acceptance. A current baseline declaration does not establish downstream product conformance by itself.
+## Mesh, Sync, and Everkeep separation
 
-Older version-number references in broader platform documents do not establish downstream consumer conformance. Each application still requires application-specific implementation and acceptance evidence for the current Stable Glaze UI contract.
+GoreeCloud Mesh, GoreeCloud Sync, and Everkeep must remain distinct:
 
-## Authority preservation and Mesh aggregation
+- Mesh establishes private reachability, discovery, coordination, and transport/event relationships.
+- Sync understands authorized application state, tracks changes, coordinates versions, handles conflicts, and resumes replication after interruption.
+- Everkeep preserves recoverable historical state and continuity after loss, corruption, deletion, failure, or migration.
 
-The declaration owner remains authoritative for repository-owned facts. Platform Systems remain authoritative for their own domains. GoreeCloud Mesh is a coordination and evidence-transport boundary, not an authorization or truth-upgrade mechanism. GoreeCloud Manager is initially a read-only operational presentation surface for this platform state.
-
-The computed conformance result explicitly records that aggregation is read-only and does not transfer authority. Mesh or Manager must not transform missing, stale, blocked, nonconformant, or unverified producer evidence into a positive platform claim.
-
-## Files in this repository
-
-- `schemas/goreecloud.platform.schema.json` — strict JSON Schema for the repository declaration.
-- `schemas/goreecloud.conformance-result.schema.json` — schema for computed CI conformance results.
-- `examples/goreecloud.platform.example.yaml` — truthful non-production example manifest.
-- `scripts/validate_platform_manifest.py` — semantic manifest validator and Stable declaration gate.
-- `scripts/evaluate_platform_conformance.py` — conformance evaluator for an exact repository revision.
-- `.github/workflows/platform-conformance.yml` — CI validating the central platform baseline.
-- `.github/workflows/reusable-platform-manifest.yml` — reusable application/service validation and conformance-evidence workflow.
+A synchronized replica, synchronized deletion, or successful transfer must never be represented as Everkeep recovery evidence unless an actual Everkeep mechanism preserves a recoverable state.
 
 ## Repository adoption
 
-Application and service repositories place `goreecloud.platform.yaml` at the repository root. Rollout must preserve truthfulness: blocked, migration-required, nonconformant, or genuinely non-applicable integrations must be declared as such rather than being upgraded to a positive result merely to satisfy automation.
+Applications, services, and Integral Platform Systems place `goreecloud.platform.yaml` at repository root as contract rollout reaches them. Rollout must preserve truthfulness: blocked, migration-required, nonconformant, or genuinely non-applicable integrations must be declared as such rather than upgraded merely to satisfy automation.
 
-Repositories should call `.github/workflows/reusable-platform-manifest.yml` from this repository by immutable commit SHA. Updating that SHA is an explicit Platform Contract validator upgrade. The reusable workflow publishes the computed conformance result as a CI artifact tied to the exact caller revision resolved by the event-specific provenance rule above.
+Repositories should call `.github/workflows/reusable-platform-manifest.yml` from this repository by immutable commit SHA. Updating that SHA is an explicit validator upgrade. The reusable workflow publishes a computed conformance artifact tied to the exact caller revision.
 
-## Migration from contract v0.1
+## Files in this repository
 
-Contract v0.1 used ambiguous `implemented`, `partial`, `planned`, `not-applicable`, and `unknown` integration states and did not require structured acceptance/release evidence. Contract v0.2 replaces those values with the governed five-result vocabulary, removes manifest-level `partial`, adds exact evidence structures, adds current Glaze UI compatibility metadata, rejects unrecognized fields, and generates a computed conformance record.
+- `schemas/goreecloud.platform.schema.json` — strict JSON Schema for repository declarations.
+- `schemas/goreecloud.conformance-result.schema.json` — strict schema for computed conformance results.
+- `examples/goreecloud.platform.example.yaml` — truthful non-production example manifest.
+- `scripts/validate_platform_manifest.py` — semantic manifest validator and Stable declaration gate.
+- `scripts/evaluate_platform_conformance.py` — exact-revision conformance evaluator.
+- `scripts/validate_platform_conformance.py` — repository-local eight-system baseline guard.
+- `.github/workflows/platform-conformance.yml` — central validation workflow.
+- `.github/workflows/reusable-platform-manifest.yml` — reusable repository validation workflow.
 
-Repositories migrating from v0.1 must map their current state conservatively. A previous `partial`, `planned`, or `unknown` value must not be upgraded to `applicable-conformant` without current accepted evidence.
+## Migration from contract v0.2
+
+Contract v0.3 adopts the authoritative eight-system architecture and is a breaking schema migration from v0.2. Repositories migrating from v0.2 must:
+
+1. Change `schema_version` and `compatibility.platform_contract` to `0.3`.
+2. Add the required `platform_systems.sync` declaration.
+3. Evaluate Sync applicability honestly and preserve blockers where implementation or acceptance is incomplete.
+4. Use `component.type: platform-system` for repositories whose primary role is one of the eight Integral Platform Systems.
+5. Update `compatibility.requires` to the v0.3 contract target.
+6. Preserve all existing evidence and lifecycle truth; migration must not upgrade incomplete integrations to conformant.
+
+Contract v0.2 remains historical migration context only once v0.3 is accepted on the default branch.
