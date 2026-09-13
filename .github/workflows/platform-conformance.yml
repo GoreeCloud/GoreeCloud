@@ -65,6 +65,41 @@ jobs:
       - name: Install platform contract dependencies
         run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.2 jsonschema==4.25.1
 
+      - name: Verify current GLAZE UI Stable authority binding
+        run: |
+          python3 - <<'PY'
+          import importlib.util
+          from pathlib import Path
+          import yaml
+
+          path = Path('scripts/validate_platform_manifest.py')
+          spec = importlib.util.spec_from_file_location('platform_validator', path)
+          if spec is None or spec.loader is None:
+              raise SystemExit('unable to load Platform Contract validator')
+          validator = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(validator)
+
+          expected = '1.4.0'
+          if validator.CURRENT_GLAZE_UI_VERSION != expected:
+              raise SystemExit(
+                  f'validator Glaze target is {validator.CURRENT_GLAZE_UI_VERSION!r}, want {expected!r}'
+              )
+
+          example = yaml.safe_load(Path('examples/goreecloud.platform.example.yaml').read_text(encoding='utf-8'))
+          if example['compatibility']['glaze_ui_required'] != expected:
+              raise SystemExit('example manifest is not bound to current Glaze Stable target')
+          if f'glaze-ui=={expected}' not in example['compatibility']['requires']:
+              raise SystemExit('example manifest dependency does not require current Glaze Stable target')
+
+          contract = Path('PLATFORM-CONTRACT.md').read_text(encoding='utf-8')
+          if f'Current Stable Glaze UI consumer target: `{expected}`' not in contract:
+              raise SystemExit('Platform Contract documentation does not identify current Glaze Stable target')
+          if 'GLAZE UI V1.4 / 1.4.0' not in contract:
+              raise SystemExit('Platform Contract Glaze baseline section is stale')
+
+          print(f'platform-contract: current Glaze Stable authority is {expected}')
+          PY
+
       - name: Validate repository-local platform conformance
         run: python3 scripts/validate_platform_conformance.py
 
