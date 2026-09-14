@@ -70,12 +70,6 @@ platform_systems:
     evidence:
       - evidence/identity/example-integration.json
     notes: Example only; Identity runtime acceptance is incomplete.
-  sync:
-    result: applicable-blocked
-    version: null
-    evidence:
-      - evidence/sync/example-dataset-contract.json
-    notes: Example only; a dataset contract is referenced but accepted Sync runtime integration and cross-device reconciliation evidence are incomplete.
 
 health:
   health_endpoint: /health
@@ -130,5 +124,4 @@ conformance:
     - Glaze UI migration to current Stable 1.4.0 remains required.
     - GoreeCloud Mesh runtime publication and acceptance remain blocked.
     - GoreeCloud Identity runtime acceptance remains blocked.
-    - GoreeCloud Sync runtime synchronization and reconciliation acceptance remain blocked.
     - Required Stable acceptance-test and release evidence has not been produced for this Development example.
