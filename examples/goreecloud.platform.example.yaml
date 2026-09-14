@@ -45,10 +45,10 @@ platform_systems:
     notes: Example only; Everkeep integration and restore acceptance have not been completed.
   glaze_ui:
     result: applicable-migration-required
-    version: "1.1.0"
+    version: "1.3.0"
     evidence:
       - evidence/glaze-ui/example-source-mapping.json
-    notes: Example source targets an older Glaze UI line and must migrate to current Stable 1.3.0 before conformance.
+    notes: Example source targets the prior Glaze UI line and must migrate to current Stable 1.4.0 before conformance.
   mesh:
     result: applicable-blocked
     version: null
@@ -107,10 +107,10 @@ external_dependencies:
 
 compatibility:
   platform_contract: "0.3"
-  glaze_ui_required: "1.3.0"
+  glaze_ui_required: "1.4.0"
   requires:
     - goreecloud-platform-contract==0.3
-    - glaze-ui==1.3.0
+    - glaze-ui==1.4.0
   provides:
     - example-api-v1
 
@@ -127,7 +127,7 @@ conformance:
     - Privacy Shield integration remains blocked pending accepted runtime evidence.
     - Wardveil Security integration remains blocked pending accepted runtime evidence.
     - Everkeep integration remains blocked pending backup and restore acceptance.
-    - Glaze UI migration to current Stable 1.3.0 remains required.
+    - Glaze UI migration to current Stable 1.4.0 remains required.
     - GoreeCloud Mesh runtime publication and acceptance remain blocked.
     - GoreeCloud Identity runtime acceptance remains blocked.
     - GoreeCloud Sync runtime synchronization and reconciliation acceptance remain blocked.
