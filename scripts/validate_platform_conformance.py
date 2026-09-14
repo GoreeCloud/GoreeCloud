@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail closed when the repository-local GoreeCloud eight-system platform baseline drifts."""
+"""Fail closed when the repository-local GoreeCloud seven-system platform baseline drifts."""
 
 from pathlib import Path
 import sys
@@ -18,7 +18,6 @@ REQUIRED_SYSTEMS = (
     "Glaze UI",
     "GoreeCloud Mesh",
     "GoreeCloud Identity",
-    "GoreeCloud Sync",
 )
 
 REQUIRED_CONFORMANCE_BOUNDARIES = (
@@ -30,23 +29,27 @@ REQUIRED_CONFORMANCE_BOUNDARIES = (
     "Source acceptance",
     "production acceptance",
     "goreecloud.platform.yaml",
-    "eight Integral Platform Systems",
+    "seven Integral Platform Systems",
+    "GoreeCloud Sync",
+    "not one of the seven Integral Platform Systems",
 )
 
 REQUIRED_README_BOUNDARIES = (
     "applications and services cohesive",
     "original, native, GoreeCloud-owned destination",
     "Existing complete-product forks or adopted implementations may remain temporarily",
-    "Required GoreeCloud Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze UI, GoreeCloud Mesh, GoreeCloud Identity, and GoreeCloud Sync integrations",
+    "Required GoreeCloud Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze UI, GoreeCloud Mesh, and GoreeCloud Identity integrations",
+    "GoreeCloud Sync remains a separate application/service capability",
     "must not be presented as Stable or production-ready merely because it builds successfully",
 )
 
 FORBIDDEN_STALE_PHRASES = (
     "all four integral platform systems",
     "all four shared platform systems",
-    "seven integral platform systems",
-    "seven functional platform systems",
-    "seven-system native/platform baseline",
+    "eight integral platform systems",
+    "eight functional platform systems",
+    "eight-system native/platform baseline",
+    "sync integral platform system",
 )
 
 FORBIDDEN_README_REFERENCES = ("https://github.com/GoreeCloud/glaze-ui",)
@@ -136,7 +139,7 @@ def main() -> None:
         fail(f"integral platform system list has {bullet_count} entries; expected {len(REQUIRED_SYSTEMS)}")
 
     check_workflow_provenance()
-    print("platform-conformance: eight-system native/platform baseline validated")
+    print("platform-conformance: seven-system native/platform baseline validated")
     print("platform-conformance: exact PR-head workflow provenance validated")
 
 
