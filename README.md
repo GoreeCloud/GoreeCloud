@@ -29,7 +29,7 @@ GoreeCloud is more than a homelab or a collection of self-hosted applications. I
 
 ## Platform systems
 
-GoreeCloud uses exactly eight Integral Platform Systems to keep applications and services cohesive without making them unnecessarily dependent on one another. **GoreeCloud Suite** is the integrated user-facing product experience built across the ecosystem; it is distinct from the eight functional platform systems below.
+GoreeCloud uses exactly seven Integral Platform Systems to keep applications and services cohesive without making them unnecessarily dependent on one another. **GoreeCloud Suite** is the integrated user-facing product experience built across the ecosystem and is distinct from these shared platform systems.
 
 | Integral Platform System | Role |
 | --- | --- |
@@ -40,13 +40,18 @@ GoreeCloud uses exactly eight Integral Platform Systems to keep applications and
 | **[Glaze UI](https://github.com/GoreeCloud/goreecloud-glaze-ui)** | Shared design and interaction language, including semantic tokens, reusable interface primitives, accessibility behavior, responsive behavior, and conformance guidance. |
 | **[GoreeCloud Mesh](https://github.com/GoreeCloud/goreecloud-mesh)** | Private connectivity, capability discovery, coordination, dependency/event relationships, governance, and service interoperability where applicable. |
 | **[GoreeCloud Identity](https://github.com/GoreeCloud/goreecloud-identity)** | Central identity, account, device, application, service, credential, session, authentication, authorization, and delegated-authority foundation while application-specific authorization remains appropriately scoped. |
-| **[GoreeCloud Sync](https://github.com/GoreeCloud/goreecloud-sync)** | Authorized synchronization, change tracking, state coordination, version reconciliation, conflict handling, offline continuity, and cross-device continuity. |
 
 These are functional platform systems rather than decorative labels. Application and service repositories must represent required integrations through real behavior, contracts, authority boundaries, validation, and user-visible state where applicable. A project that has not completed required integration and acceptance must not be presented as Stable or production-ready merely because it builds successfully.
 
-All eight are mandatory GoreeCloud foundations and are required to progress to complete, production-grade implementation of their approved responsibilities. This requirement does not override evidence-based status: a Platform System may remain Development, migration-required, blocked, or production-unaccepted until its own implementation and acceptance evidence proves completion.
+All seven are mandatory GoreeCloud foundations and are required to progress to complete, production-grade implementation of their approved responsibilities. This requirement does not override evidence-based status: a Platform System may remain Development, migration-required, blocked, or production-unaccepted until its own implementation and acceptance evidence proves completion.
 
-The versioned **GoreeCloud Platform Contract** provides a machine-readable declaration and validation foundation for these relationships through repository-root `goreecloud.platform.yaml` manifests. Platform Contract `0.3` requires explicit evaluation of all eight systems. A valid manifest records declared state and evidence references; it does not independently prove that an integration is implemented, accepted, production-ready, or Stable. See [`PLATFORM-CONTRACT.md`](./PLATFORM-CONTRACT.md) for the current repository-local implementation reference.
+The versioned **GoreeCloud Platform Contract** provides a machine-readable declaration and validation foundation for these relationships through repository-root `goreecloud.platform.yaml` manifests. Platform Contract `0.3` requires explicit evaluation of all seven systems. A valid manifest records declared state and evidence references; it does not independently prove that an integration is implemented, accepted, production-ready, or Stable. See [`PLATFORM-CONTRACT.md`](./PLATFORM-CONTRACT.md) for the current repository-local implementation reference.
+
+### GoreeCloud Sync
+
+**[GoreeCloud Sync](https://github.com/GoreeCloud/goreecloud-sync)** remains a separate application/service capability for authorized synchronization, change tracking, state coordination, version reconciliation, conflict handling, offline continuity, nearby transfer, secure sharing, and cross-device continuity. It is not one of the seven Integral Platform Systems.
+
+Products that use GoreeCloud Sync still need truthful Sync-specific contracts, privacy/identity boundaries, dataset definitions, conflict/deletion semantics, runtime validation, and acceptance evidence where applicable. The Platform Contract may retain Sync-specific evidence categories for those product requirements without reclassifying Sync as an Integral Platform System.
 
 ### Important platform boundaries
 
@@ -55,9 +60,9 @@ The versioned **GoreeCloud Platform Contract** provides a machine-readable decla
 - Wardveil Security governs trust, protection, and security response.
 - GoreeCloud Manager provides bounded administration and operational control.
 - GoreeCloud Mesh provides private reachability, discovery, coordination, and event/service interoperability.
-- GoreeCloud Sync understands authorized application state, coordinates changes and versions, reconciles conflicts, and resumes synchronization after interruption.
-- Everkeep preserves recoverable historical state and continuity; synchronization is not backup.
+- Everkeep preserves recoverable historical state and continuity.
 - Glaze UI presents accurate, accessible interfaces and state without manufacturing underlying capabilities.
+- GoreeCloud Sync coordinates authorized synchronized application/service state where used; synchronization is not identity, privacy authorization, security trust, management authority, Mesh reachability, backup/recovery, or UI conformance.
 
 ## Selected public projects
 
@@ -71,7 +76,7 @@ The versioned **GoreeCloud Platform Contract** provides a machine-readable decla
 ### Storage, synchronization, and knowledge
 
 - **[GoreeCloud Drive](https://github.com/GoreeCloud/goreecloud-drive)** — private multi-user cloud storage and file-management platform.
-- **[GoreeCloud Sync](https://github.com/GoreeCloud/goreecloud-sync)** — synchronization, nearby transfer, and secure sharing platform and the adopted synchronization Integral Platform System.
+- **[GoreeCloud Sync](https://github.com/GoreeCloud/goreecloud-sync)** — synchronization, nearby transfer, secure sharing, state-coordination, and cross-device continuity service/application capability.
 - **[GoreeCloud Notes](https://github.com/GoreeCloud/goreecloud-notes)** — self-hosted notes, knowledge management, and personal productivity.
 - **[GoreeCloud Memos](https://github.com/GoreeCloud/goreecloud-memos)** — lightweight quick-note and Markdown-native capture experience.
 - **[GoreeCloud Bookmarks](https://github.com/GoreeCloud/goreecloud-bookmarks)** — bookmark management, reading, annotation, and web preservation.
@@ -120,7 +125,9 @@ GoreeCloud applications and services are developed toward an original, native, G
 - New application implementations are built from the ground up under GoreeCloud ownership.
 - Existing complete-product forks or adopted implementations may remain temporarily for migration, compatibility, testing, reference, or historical purposes while native replacements are built and accepted.
 - Narrow critical foundations may remain dependencies when independent reimplementation would materially increase security, cryptographic, protocol, standards, codec, rendering, operating-system, runtime, interoperability, or maintainability risk.
-- Required GoreeCloud Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze UI, GoreeCloud Mesh, GoreeCloud Identity, and GoreeCloud Sync integrations remain functional acceptance requirements rather than branding claims.
+- Required GoreeCloud Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze UI, GoreeCloud Mesh, and GoreeCloud Identity integrations remain functional acceptance requirements rather than branding claims.
+
+GoreeCloud Sync remains a separate application/service capability whose integration is required only where synchronization is applicable to the product and whose implementation must remain subordinate to the relevant application and Platform-System authority boundaries.
 
 The long-term objective is not to reproduce any commercial cloud ecosystem exactly. GoreeCloud builds software around verified roles while strengthening privacy, ownership, interoperability, portability, maintainability, security, recoverability, synchronization, and long-term independence.
 
