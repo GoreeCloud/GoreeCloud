@@ -2,22 +2,22 @@
 
 This document records the current repository footprint owned by the `GoreeCloud` GitHub account.
 
-**Observed:** September 3, 2026
+**Observed:** September 15, 2026
 
 ## Summary
 
 | Category | Count |
 | --- | ---: |
-| Total owned repositories | 62 |
-| Public repositories | 59 |
-| Private repositories | 3 |
+| Total owned repositories | 81 |
+| Public repositories | 77 |
+| Private repositories | 4 |
 | Archived repositories | 0 |
 
 Repository presence alone does not establish application completeness, Stable lifecycle status, production approval, deployment state, or completed GoreeCloud Platform integration. Repository-local specifications, release evidence, acceptance records, and applicable GoreeCloud standards remain authoritative for those claims.
 
 ## Public repositories
 
-The following 59 public repositories were verified from GitHub repository metadata:
+The following 77 public repositories were verified from GitHub repository metadata:
 
 1. [`GoreeCloud/GoreeCloud`](https://github.com/GoreeCloud/GoreeCloud)
 2. [`GoreeCloud/goreecloud-ai`](https://github.com/GoreeCloud/goreecloud-ai)
@@ -32,56 +32,74 @@ The following 59 public repositories were verified from GitHub repository metada
 11. [`GoreeCloud/goreecloud-calendar`](https://github.com/GoreeCloud/goreecloud-calendar)
 12. [`GoreeCloud/goreecloud-changelogs`](https://github.com/GoreeCloud/goreecloud-changelogs)
 13. [`GoreeCloud/goreecloud-code`](https://github.com/GoreeCloud/goreecloud-code)
-14. [`GoreeCloud/goreecloud-concepts`](https://github.com/GoreeCloud/goreecloud-concepts)
-15. [`GoreeCloud/goreecloud-contacts`](https://github.com/GoreeCloud/goreecloud-contacts)
-16. [`GoreeCloud/goreecloud-containers`](https://github.com/GoreeCloud/goreecloud-containers)
-17. [`GoreeCloud/goreecloud-dav`](https://github.com/GoreeCloud/goreecloud-dav)
-18. [`GoreeCloud/goreecloud-dns`](https://github.com/GoreeCloud/goreecloud-dns)
-19. [`GoreeCloud/goreecloud-documents`](https://github.com/GoreeCloud/goreecloud-documents)
-20. [`GoreeCloud/goreecloud-drive`](https://github.com/GoreeCloud/goreecloud-drive)
-21. [`GoreeCloud/goreecloud-file-manager`](https://github.com/GoreeCloud/goreecloud-file-manager)
-22. [`GoreeCloud/goreecloud-firefox-extensions`](https://github.com/GoreeCloud/goreecloud-firefox-extensions)
-23. [`GoreeCloud/goreecloud-gallery`](https://github.com/GoreeCloud/goreecloud-gallery)
-24. [`GoreeCloud/goreecloud-gateway`](https://github.com/GoreeCloud/goreecloud-gateway)
-25. [`GoreeCloud/goreecloud-github-dashboard`](https://github.com/GoreeCloud/goreecloud-github-dashboard)
-26. [`GoreeCloud/goreecloud-glaze-ui`](https://github.com/GoreeCloud/goreecloud-glaze-ui)
-27. [`GoreeCloud/goreecloud-identity`](https://github.com/GoreeCloud/goreecloud-identity)
-28. [`GoreeCloud/goreecloud-index`](https://github.com/GoreeCloud/goreecloud-index)
-29. [`GoreeCloud/goreecloud-keyboard`](https://github.com/GoreeCloud/goreecloud-keyboard)
-30. [`GoreeCloud/goreecloud-launcher`](https://github.com/GoreeCloud/goreecloud-launcher)
-31. [`GoreeCloud/goreecloud-location`](https://github.com/GoreeCloud/goreecloud-location)
-32. [`GoreeCloud/goreecloud-mail`](https://github.com/GoreeCloud/goreecloud-mail)
-33. [`GoreeCloud/goreecloud-manager`](https://github.com/GoreeCloud/goreecloud-manager)
-34. [`GoreeCloud/goreecloud-maps`](https://github.com/GoreeCloud/goreecloud-maps)
-35. [`GoreeCloud/goreecloud-memos`](https://github.com/GoreeCloud/goreecloud-memos)
-36. [`GoreeCloud/goreecloud-mesh`](https://github.com/GoreeCloud/goreecloud-mesh)
-37. [`GoreeCloud/goreecloud-messenger`](https://github.com/GoreeCloud/goreecloud-messenger)
-38. [`GoreeCloud/goreecloud-metrics`](https://github.com/GoreeCloud/goreecloud-metrics)
-39. [`GoreeCloud/goreecloud-monitor`](https://github.com/GoreeCloud/goreecloud-monitor)
-40. [`GoreeCloud/goreecloud-music`](https://github.com/GoreeCloud/goreecloud-music)
-41. [`GoreeCloud/goreecloud-network`](https://github.com/GoreeCloud/goreecloud-network)
-42. [`GoreeCloud/goreecloud-network-android`](https://github.com/GoreeCloud/goreecloud-network-android)
-43. [`GoreeCloud/goreecloud-network-dashboard`](https://github.com/GoreeCloud/goreecloud-network-dashboard)
-44. [`GoreeCloud/goreecloud-notes`](https://github.com/GoreeCloud/goreecloud-notes)
-45. [`GoreeCloud/goreecloud-notify`](https://github.com/GoreeCloud/goreecloud-notify)
-46. [`GoreeCloud/goreecloud-photos`](https://github.com/GoreeCloud/goreecloud-photos)
-47. [`GoreeCloud/goreecloud-quill`](https://github.com/GoreeCloud/goreecloud-quill)
-48. [`GoreeCloud/goreecloud-redirector`](https://github.com/GoreeCloud/goreecloud-redirector)
-49. [`GoreeCloud/goreecloud-rss`](https://github.com/GoreeCloud/goreecloud-rss)
-50. [`GoreeCloud/goreecloud-search`](https://github.com/GoreeCloud/goreecloud-search)
-51. [`GoreeCloud/goreecloud-source-resync`](https://github.com/GoreeCloud/goreecloud-source-resync)
-52. [`GoreeCloud/goreecloud-suite`](https://github.com/GoreeCloud/goreecloud-suite)
-53. [`GoreeCloud/goreecloud-sync`](https://github.com/GoreeCloud/goreecloud-sync)
-54. [`GoreeCloud/goreecloud-tasks`](https://github.com/GoreeCloud/goreecloud-tasks)
-55. [`GoreeCloud/goreecloud-terminal`](https://github.com/GoreeCloud/goreecloud-terminal)
-56. [`GoreeCloud/goreecloud-vault-server`](https://github.com/GoreeCloud/goreecloud-vault-server)
-57. [`GoreeCloud/goreecloud-video`](https://github.com/GoreeCloud/goreecloud-video)
-58. [`GoreeCloud/goreecloud-waypoint`](https://github.com/GoreeCloud/goreecloud-waypoint)
-59. [`GoreeCloud/goreecloud-website`](https://github.com/GoreeCloud/goreecloud-website)
+14. [`GoreeCloud/goreecloud-communities`](https://github.com/GoreeCloud/goreecloud-communities)
+15. [`GoreeCloud/goreecloud-concepts`](https://github.com/GoreeCloud/goreecloud-concepts)
+16. [`GoreeCloud/goreecloud-contacts`](https://github.com/GoreeCloud/goreecloud-contacts)
+17. [`GoreeCloud/goreecloud-containers`](https://github.com/GoreeCloud/goreecloud-containers)
+18. [`GoreeCloud/goreecloud-dav`](https://github.com/GoreeCloud/goreecloud-dav)
+19. [`GoreeCloud/goreecloud-design-center`](https://github.com/GoreeCloud/goreecloud-design-center)
+20. [`GoreeCloud/goreecloud-dialer`](https://github.com/GoreeCloud/goreecloud-dialer)
+21. [`GoreeCloud/goreecloud-dns`](https://github.com/GoreeCloud/goreecloud-dns)
+22. [`GoreeCloud/goreecloud-documents`](https://github.com/GoreeCloud/goreecloud-documents)
+23. [`GoreeCloud/goreecloud-drive`](https://github.com/GoreeCloud/goreecloud-drive)
+24. [`GoreeCloud/goreecloud-file-manager`](https://github.com/GoreeCloud/goreecloud-file-manager)
+25. [`GoreeCloud/goreecloud-firefox-extensions`](https://github.com/GoreeCloud/goreecloud-firefox-extensions)
+26. [`GoreeCloud/goreecloud-gallery`](https://github.com/GoreeCloud/goreecloud-gallery)
+27. [`GoreeCloud/goreecloud-gateway`](https://github.com/GoreeCloud/goreecloud-gateway)
+28. [`GoreeCloud/goreecloud-github-dashboard`](https://github.com/GoreeCloud/goreecloud-github-dashboard)
+29. [`GoreeCloud/goreecloud-glaze-ui`](https://github.com/GoreeCloud/goreecloud-glaze-ui)
+30. [`GoreeCloud/goreecloud-health`](https://github.com/GoreeCloud/goreecloud-health)
+31. [`GoreeCloud/goreecloud-home`](https://github.com/GoreeCloud/goreecloud-home)
+32. [`GoreeCloud/goreecloud-home-security`](https://github.com/GoreeCloud/goreecloud-home-security)
+33. [`GoreeCloud/goreecloud-identity`](https://github.com/GoreeCloud/goreecloud-identity)
+34. [`GoreeCloud/goreecloud-index`](https://github.com/GoreeCloud/goreecloud-index)
+35. [`GoreeCloud/goreecloud-keyboard`](https://github.com/GoreeCloud/goreecloud-keyboard)
+36. [`GoreeCloud/goreecloud-launcher`](https://github.com/GoreeCloud/goreecloud-launcher)
+37. [`GoreeCloud/goreecloud-location`](https://github.com/GoreeCloud/goreecloud-location)
+38. [`GoreeCloud/goreecloud-mail`](https://github.com/GoreeCloud/goreecloud-mail)
+39. [`GoreeCloud/goreecloud-manager`](https://github.com/GoreeCloud/goreecloud-manager)
+40. [`GoreeCloud/goreecloud-maps`](https://github.com/GoreeCloud/goreecloud-maps)
+41. [`GoreeCloud/goreecloud-memos`](https://github.com/GoreeCloud/goreecloud-memos)
+42. [`GoreeCloud/goreecloud-mesh`](https://github.com/GoreeCloud/goreecloud-mesh)
+43. [`GoreeCloud/goreecloud-messenger`](https://github.com/GoreeCloud/goreecloud-messenger)
+44. [`GoreeCloud/goreecloud-metrics`](https://github.com/GoreeCloud/goreecloud-metrics)
+45. [`GoreeCloud/goreecloud-monitor`](https://github.com/GoreeCloud/goreecloud-monitor)
+46. [`GoreeCloud/goreecloud-music`](https://github.com/GoreeCloud/goreecloud-music)
+47. [`GoreeCloud/goreecloud-network`](https://github.com/GoreeCloud/goreecloud-network)
+48. [`GoreeCloud/goreecloud-notes`](https://github.com/GoreeCloud/goreecloud-notes)
+49. [`GoreeCloud/goreecloud-notify`](https://github.com/GoreeCloud/goreecloud-notify)
+50. [`GoreeCloud/goreecloud-os-desktop`](https://github.com/GoreeCloud/goreecloud-os-desktop)
+51. [`GoreeCloud/goreecloud-os-mobile`](https://github.com/GoreeCloud/goreecloud-os-mobile)
+52. [`GoreeCloud/goreecloud-os-tv`](https://github.com/GoreeCloud/goreecloud-os-tv)
+53. [`GoreeCloud/goreecloud-photos`](https://github.com/GoreeCloud/goreecloud-photos)
+54. [`GoreeCloud/goreecloud-plugin`](https://github.com/GoreeCloud/goreecloud-plugin)
+55. [`GoreeCloud/goreecloud-privacy-center`](https://github.com/GoreeCloud/goreecloud-privacy-center)
+56. [`GoreeCloud/goreecloud-quill`](https://github.com/GoreeCloud/goreecloud-quill)
+57. [`GoreeCloud/goreecloud-reader`](https://github.com/GoreeCloud/goreecloud-reader)
+58. [`GoreeCloud/goreecloud-redirector`](https://github.com/GoreeCloud/goreecloud-redirector)
+59. [`GoreeCloud/goreecloud-research-library`](https://github.com/GoreeCloud/goreecloud-research-library)
+60. [`GoreeCloud/goreecloud-router-os`](https://github.com/GoreeCloud/goreecloud-router-os)
+61. [`GoreeCloud/goreecloud-rss`](https://github.com/GoreeCloud/goreecloud-rss)
+62. [`GoreeCloud/goreecloud-search`](https://github.com/GoreeCloud/goreecloud-search)
+63. [`GoreeCloud/goreecloud-security-center`](https://github.com/GoreeCloud/goreecloud-security-center)
+64. [`GoreeCloud/goreecloud-social`](https://github.com/GoreeCloud/goreecloud-social)
+65. [`GoreeCloud/goreecloud-source-resync`](https://github.com/GoreeCloud/goreecloud-source-resync)
+66. [`GoreeCloud/goreecloud-static-websites`](https://github.com/GoreeCloud/goreecloud-static-websites)
+67. [`GoreeCloud/goreecloud-suite`](https://github.com/GoreeCloud/goreecloud-suite)
+68. [`GoreeCloud/goreecloud-swarm`](https://github.com/GoreeCloud/goreecloud-swarm)
+69. [`GoreeCloud/goreecloud-sync`](https://github.com/GoreeCloud/goreecloud-sync)
+70. [`GoreeCloud/goreecloud-tasks`](https://github.com/GoreeCloud/goreecloud-tasks)
+71. [`GoreeCloud/goreecloud-terminal`](https://github.com/GoreeCloud/goreecloud-terminal)
+72. [`GoreeCloud/goreecloud-vault`](https://github.com/GoreeCloud/goreecloud-vault)
+73. [`GoreeCloud/goreecloud-video`](https://github.com/GoreeCloud/goreecloud-video)
+74. [`GoreeCloud/goreecloud-waypoint`](https://github.com/GoreeCloud/goreecloud-waypoint)
+75. [`GoreeCloud/goreecloud-website`](https://github.com/GoreeCloud/goreecloud-website)
+76. [`GoreeCloud/goreecloud-youtube-player`](https://github.com/GoreeCloud/goreecloud-youtube-player)
+77. [`GoreeCloud/goreecloud-zorin-os`](https://github.com/GoreeCloud/goreecloud-zorin-os)
 
 ## Private repositories
 
-The GoreeCloud account currently owns **3 private repositories**.
+The GoreeCloud account currently owns **4 private repositories**.
 
 Their repository identities are intentionally omitted from this public inventory. This follows the privacy boundary established by [`repositories.public.json`](./repositories.public.json), which records public repository metadata only and does not centralize private repository names in a public registry.
 
