@@ -46,7 +46,7 @@
     "platform_systems": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["manager", "privacy_shield", "wardveil_security", "everkeep", "glaze_ui", "mesh", "identity", "sync"],
+      "required": ["manager", "privacy_shield", "wardveil_security", "everkeep", "glaze_ui", "mesh", "identity"],
       "properties": {
         "manager": {"$ref": "#/$defs/integration"},
         "privacy_shield": {"$ref": "#/$defs/integration"},
@@ -54,8 +54,7 @@
         "everkeep": {"$ref": "#/$defs/integration"},
         "glaze_ui": {"$ref": "#/$defs/integration"},
         "mesh": {"$ref": "#/$defs/meshIntegration"},
-        "identity": {"$ref": "#/$defs/integration"},
-        "sync": {"$ref": "#/$defs/integration"}
+        "identity": {"$ref": "#/$defs/integration"}
       }
     },
     "health": {
