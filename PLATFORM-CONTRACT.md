@@ -8,7 +8,7 @@
 - Computed result filename: `goreecloud.conformance-result.json`
 - Applies to: GoreeCloud applications, services, and Integral Platform Systems
 - Canonical governance: GoreeCloud Google Drive instructions, decisions, standards, policies, and project specifications
-- Current Stable Glaze UI consumer target: `1.3.0` (`GLAZE UI V1.3`)
+- Current Stable Glaze UI consumer target: `1.4.1` (`GLAZE UI V1.4 — Optical Intelligence`)
 
 This repository contains the machine-readable implementation foundation for the GoreeCloud Platform Contract. The contract records a repository's declared identity, lifecycle, compatibility, operational interfaces, continuity requirements, evidence references, and integration state. A manifest is a declaration and validation input; it does not by itself prove that a capability is implemented or accepted.
 
@@ -114,7 +114,7 @@ Additional application-, service-, or Platform-System-specific evidence can rema
 
 ## Glaze UI baseline
 
-The canonical `GoreeCloud/goreecloud-glaze-ui` repository identifies `GLAZE UI V1.3 / 1.3.0` as the current Stable consumer target. Contract v0.3 requires applicable consumers to declare `compatibility.glaze_ui_required: "1.3.0"`. A current baseline declaration does not establish downstream conformance by itself.
+The canonical `GoreeCloud/goreecloud-glaze-ui` repository identifies `GLAZE UI V1.4 — Optical Intelligence / 1.4.1` as the current Official Stable and consumer-eligible target. Contract v0.3 requires applicable consumers to declare `compatibility.glaze_ui_required: "1.4.1"`. A current baseline declaration does not establish downstream conformance by itself; repositories with an older implemented Glaze version must preserve that implementation truth while declaring migration-required status and the current compatibility target.
 
 ## Mesh, Sync, and Everkeep separation
 
