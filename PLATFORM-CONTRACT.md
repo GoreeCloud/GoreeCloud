@@ -9,7 +9,7 @@
 - Computed result filename: `goreecloud.conformance-result.json`
 - Applies to: GoreeCloud applications, services, and Integral Platform Systems
 - Canonical governance: GoreeCloud Google Drive instructions, decisions, standards, policies, and project specifications
-- Current Stable Glaze UI consumer target: `1.4.0` (`GLAZE UI V1.4`)
+- Current Stable Glaze UI consumer target: `1.4.1` (`GLAZE UI V1.4`)
 
 This repository contains the machine-readable implementation foundation for the GoreeCloud Platform Contract. The contract records a repository's declared identity, lifecycle, compatibility, operational interfaces, continuity requirements, evidence references, and integration state. A manifest is a declaration and validation input; it does not by itself prove that a capability is implemented or accepted.
 
@@ -121,7 +121,7 @@ Product-specific requirements may add further gates, including Sync-specific acc
 
 ## Glaze UI baseline
 
-The canonical `GoreeCloud/goreecloud-glaze-ui` lifecycle registry identifies `GLAZE UI V1.4 / 1.4.0` as the current Official Stable and consumer-eligible target. Contract v0.3 requires applicable consumers to declare `compatibility.glaze_ui_required: "1.4.0"`. A current baseline declaration does not establish downstream conformance by itself. Human/manual/physical-device/subjective optical qualification explicitly assigned by Glaze UI to V1.4.1 remains separate from the V1.4.0 machine-verifiable consumer baseline.
+The canonical `GoreeCloud/goreecloud-glaze-ui` lifecycle registry identifies `GLAZE UI V1.4 / 1.4.1` as the current Official Stable and consumer-eligible target. Contract v0.3 requires applicable consumers to declare `compatibility.glaze_ui_required: "1.4.1"`. A current baseline declaration does not establish downstream conformance by itself. Each consumer must still provide its own implementation, runtime, accessibility, platform, and release-acceptance evidence required by the applicable GoreeCloud governance and product specification.
 
 ## Mesh, Sync, and Everkeep separation
 
