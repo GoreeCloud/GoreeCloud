@@ -14,7 +14,7 @@ import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 
 SCHEMA_VERSION = "0.3"
-CURRENT_GLAZE_UI_VERSION = "1.4.0"
+CURRENT_GLAZE_UI_VERSION = "1.4.1"
 PLATFORM_SYSTEMS = (
     "manager",
     "privacy_shield",
