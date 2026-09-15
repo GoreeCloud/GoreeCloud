@@ -7,13 +7,13 @@
   "additionalProperties": false,
   "required": ["schema_version", "component", "lifecycle", "version", "supported_platforms", "api", "platform_systems", "health", "continuity", "external_dependencies", "compatibility", "evidence", "conformance"],
   "properties": {
-    "schema_version": {"const": "0.3"},
+    "schema_version": {"const": "0.2"},
     "component": {
       "type": "object",
       "additionalProperties": false,
       "required": ["type", "id", "product_name", "repository"],
       "properties": {
-        "type": {"enum": ["application", "service", "platform-system"]},
+        "type": {"enum": ["application", "service"]},
         "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
         "product_name": {"type": "string", "minLength": 1},
         "repository": {"type": "string", "pattern": "^GoreeCloud/[A-Za-z0-9._-]+$"}
@@ -46,7 +46,7 @@
     "platform_systems": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["manager", "privacy_shield", "wardveil_security", "everkeep", "glaze_ui", "mesh", "identity", "sync"],
+      "required": ["manager", "privacy_shield", "wardveil_security", "everkeep", "glaze_ui", "mesh", "identity"],
       "properties": {
         "manager": {"$ref": "#/$defs/integration"},
         "privacy_shield": {"$ref": "#/$defs/integration"},
@@ -54,8 +54,7 @@
         "everkeep": {"$ref": "#/$defs/integration"},
         "glaze_ui": {"$ref": "#/$defs/integration"},
         "mesh": {"$ref": "#/$defs/meshIntegration"},
-        "identity": {"$ref": "#/$defs/integration"},
-        "sync": {"$ref": "#/$defs/integration"}
+        "identity": {"$ref": "#/$defs/integration"}
       }
     },
     "health": {
@@ -97,7 +96,7 @@
       "additionalProperties": false,
       "required": ["platform_contract", "glaze_ui_required", "requires", "provides"],
       "properties": {
-        "platform_contract": {"const": "0.3"},
+        "platform_contract": {"const": "0.2"},
         "glaze_ui_required": {"type": ["string", "null"]},
         "requires": {"$ref": "#/$defs/stringList"},
         "provides": {"$ref": "#/$defs/stringList"}
@@ -169,7 +168,7 @@
       "required": ["id", "category", "path", "revision", "result", "observed_at"],
       "properties": {
         "id": {"type": "string", "minLength": 1},
-        "category": {"enum": ["manager", "privacy-shield", "wardveil-security", "everkeep", "glaze-ui", "mesh", "identity", "sync", "api", "accessibility", "supported-platform", "backup", "restore", "export-portability", "security", "privacy", "documentation", "integration", "migration", "rollback", "release"]},
+        "category": {"enum": ["manager", "privacy-shield", "wardveil-security", "everkeep", "glaze-ui", "mesh", "identity", "api", "accessibility", "supported-platform", "backup", "restore", "export-portability", "security", "privacy", "documentation", "integration", "migration", "rollback", "release"]},
         "path": {"type": "string", "minLength": 1},
         "revision": {"type": "string", "minLength": 1},
         "result": {"enum": ["passed", "failed", "blocked", "not-run"]},

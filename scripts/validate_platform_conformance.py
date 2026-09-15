@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail closed when the repository-local GoreeCloud eight-system platform baseline drifts."""
+"""Fail closed when the repository-local seven-system Platform Contract baseline drifts."""
 
 from pathlib import Path
 import sys
@@ -7,6 +7,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 CONFORMANCE = ROOT / "NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md"
 README = ROOT / "README.md"
+CONTRACT = ROOT / "PLATFORM-CONTRACT.md"
 REUSABLE_WORKFLOW = ROOT / ".github" / "workflows" / "reusable-platform-manifest.yml"
 CENTRAL_WORKFLOW = ROOT / ".github" / "workflows" / "platform-conformance.yml"
 
@@ -18,7 +19,6 @@ REQUIRED_SYSTEMS = (
     "Glaze UI",
     "GoreeCloud Mesh",
     "GoreeCloud Identity",
-    "GoreeCloud Sync",
 )
 
 REQUIRED_CONFORMANCE_BOUNDARIES = (
@@ -30,23 +30,31 @@ REQUIRED_CONFORMANCE_BOUNDARIES = (
     "Source acceptance",
     "production acceptance",
     "goreecloud.platform.yaml",
-    "eight Integral Platform Systems",
+    "seven Integral Platform Systems",
+    "GoreeCloud Sync is a separately governed application/service capability",
 )
 
 REQUIRED_README_BOUNDARIES = (
     "applications and services cohesive",
     "original, native, GoreeCloud-owned destination",
     "Existing complete-product forks or adopted implementations may remain temporarily",
-    "Required GoreeCloud Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze UI, GoreeCloud Mesh, GoreeCloud Identity, and GoreeCloud Sync integrations",
+    "Required GoreeCloud Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze UI, GoreeCloud Mesh, and GoreeCloud Identity integrations",
     "must not be presented as Stable or production-ready merely because it builds successfully",
 )
 
+REQUIRED_CONTRACT_BOUNDARIES = (
+    "Contract version: `0.2`",
+    "Current Stable Glaze UI consumer target: `1.4.1`",
+    "Exactly seven Integral Platform Systems",
+    "GoreeCloud Sync is not an eighth Integral Platform System",
+    "Pull-request validation must evaluate the exact PR head",
+)
+
 FORBIDDEN_STALE_PHRASES = (
-    "all four integral platform systems",
-    "all four shared platform systems",
-    "seven integral platform systems",
-    "seven functional platform systems",
-    "seven-system native/platform baseline",
+    "eight integral platform systems",
+    "eight platform systems",
+    "eight-system native/platform baseline",
+    "sync is explicitly the eighth",
 )
 
 FORBIDDEN_README_REFERENCES = ("https://github.com/GoreeCloud/glaze-ui",)
@@ -113,6 +121,7 @@ def check_workflow_provenance() -> None:
 def main() -> None:
     conformance = require_file(CONFORMANCE)
     readme = require_file(README)
+    contract = require_file(CONTRACT)
     check_required_systems("conformance record", conformance)
     check_required_systems("README", readme)
 
@@ -122,11 +131,14 @@ def main() -> None:
     missing_readme = [x for x in REQUIRED_README_BOUNDARIES if x not in readme]
     if missing_readme:
         fail("README is missing current platform boundaries: " + "; ".join(missing_readme))
+    missing_contract = [x for x in REQUIRED_CONTRACT_BOUNDARIES if x not in contract]
+    if missing_contract:
+        fail("Platform Contract is missing governance-aligned boundaries: " + "; ".join(missing_contract))
 
-    combined_lower = (conformance + "\n" + readme).lower()
+    combined_lower = (conformance + "\n" + readme + "\n" + contract).lower()
     stale = [x for x in FORBIDDEN_STALE_PHRASES if x in combined_lower]
     if stale:
-        fail("stale platform-system wording remains: " + "; ".join(stale))
+        fail("conflicting eight-system wording remains: " + "; ".join(stale))
     stale_refs = [x for x in FORBIDDEN_README_REFERENCES if x in readme]
     if stale_refs:
         fail("README contains stale repository references: " + "; ".join(stale_refs))
@@ -136,7 +148,8 @@ def main() -> None:
         fail(f"integral platform system list has {bullet_count} entries; expected {len(REQUIRED_SYSTEMS)}")
 
     check_workflow_provenance()
-    print("platform-conformance: eight-system native/platform baseline validated")
+    print("platform-conformance: seven-system native/platform baseline validated")
+    print("platform-conformance: Sync separation and Glaze UI 1.4.1 target validated")
     print("platform-conformance: exact PR-head workflow provenance validated")
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compute a GoreeCloud Platform Contract 0.3 conformance result."""
+"""Compute a GoreeCloud Platform Contract 0.2 conformance result."""
 
 from __future__ import annotations
 
@@ -33,7 +33,6 @@ DISPLAY_NAMES = {
     "glaze_ui": "Glaze UI",
     "mesh": "GoreeCloud Mesh",
     "identity": "GoreeCloud Identity",
-    "sync": "GoreeCloud Sync",
 }
 
 
@@ -158,8 +157,9 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
             "aggregators_may_transfer_authority": False,
             "notes": (
                 "This computed result evaluates repository declarations and evidence metadata. "
-                "GoreeCloud Mesh, GoreeCloud Sync, and GoreeCloud Manager may coordinate or present "
-                "bounded state without becoming authoritative for producer-owned facts."
+                "GoreeCloud Mesh and GoreeCloud Manager may coordinate or present bounded state "
+                "without becoming authoritative for producer-owned facts. GoreeCloud Sync is a "
+                "separately governed application/service capability and is not part of the seven-system set."
             ),
         },
     }
