@@ -1,14 +1,14 @@
 # Native Application and Platform Conformance
 
-Effective August 24, 2026. Current integral-platform baseline updated September 2, 2026.
+Effective August 24, 2026. Governance-aligned seven-system baseline restored September 15, 2026.
 
 All GoreeCloud applications and services must be original GoreeCloud-owned software built natively from the ground up. Existing complete-product forks or adopted implementations may remain only as controlled migration, compatibility, testing, reference, or historical sources while native replacements are built and accepted.
 
 Narrow exceptions are permitted only for critical supporting foundations such as established cryptographic primitives, WireGuard and other standards/protocol foundations, platform interfaces, database engines, codecs, rendering/runtime components, and comparable dependencies where independent reimplementation would materially reduce security, interoperability, reliability, correctness, or maintainability. Every exception must remain limited to its minimum necessary role.
 
-## Integral platform systems
+## Integral Platform Systems
 
-Every GoreeCloud application and service must implement and remain current with each applicable integral platform system:
+Every GoreeCloud application and service must be evaluated against each of the seven Integral Platform Systems and implement every applicable responsibility:
 
 - **GoreeCloud Manager** — bounded platform management, inventory, configuration, lifecycle, operational visibility, governance implementation, and administrative control-plane integration where applicable.
 - **Privacy Shield** — consent, purpose limitation, minimization, retention, sharing, processing-boundary, and user privacy controls.
@@ -18,7 +18,9 @@ Every GoreeCloud application and service must implement and remain current with 
 - **GoreeCloud Mesh** — bounded first-party capability discovery, coordination, governance, integration, and event/capability exchange where applicable.
 - **GoreeCloud Identity** — user, account, device, application, service, credential, session, authentication, authorization, and delegated-authority boundaries where applicable.
 
-These are functional platform requirements, not branding labels or checklist decorations. An integration must be represented by real product behavior, contracts, authority boundaries, validation, and user-visible state where applicable. If one of the seven systems is genuinely not applicable to a particular component, that non-applicability must be explicit and supportable rather than silently omitted.
+These are functional platform requirements, not branding labels or checklist decorations. An integration must be represented by real product behavior, contracts, authority boundaries, validation, and user-visible state where applicable. If one of the seven systems is genuinely not applicable to a component, that non-applicability must be explicit and supportable rather than silently omitted.
+
+**GoreeCloud Sync is a separately governed application/service capability, not an eighth Integral Platform System.** Products that use Sync must still document and validate their synchronization behavior, authorization, change/version model, conflict handling, offline continuity, and cross-device behavior where applicable, but Sync is not represented inside the seven-system `platform_systems` set.
 
 ## Acceptance boundary
 
@@ -30,7 +32,9 @@ Repository-local documentation must distinguish implemented and validated behavi
 
 ## Platform Contract
 
-Every GoreeCloud application and service is expected to adopt the versioned GoreeCloud Platform Contract through a repository-root `goreecloud.platform.yaml` manifest as the contract rollout reaches that repository. The manifest records declared identity, lifecycle, compatibility, operational interfaces, continuity requirements, platform-system state, and evidence references. Manifest presence or structural validity alone does not establish implementation, acceptance, Stable qualification, or production readiness.
+Every GoreeCloud application and service is expected to adopt the versioned GoreeCloud Platform Contract through a repository-root `goreecloud.platform.yaml` manifest as the contract rollout reaches that repository. The manifest records declared identity, lifecycle, compatibility, operational interfaces, continuity requirements, seven-system state, and evidence references. Manifest presence or structural validity alone does not establish implementation, acceptance, Stable qualification, or production readiness.
+
+Contract `0.2` is the current governance-aligned schema after restoration from the conflicting eight-system `0.3` implementation. The restoration is a new controlled revision and does not erase the historical `0.3` commit. A future schema revision must follow current authoritative Drive governance and an explicit migration path.
 
 The current implementation reference for the Platform Contract is maintained in this repository under `PLATFORM-CONTRACT.md`, `schemas/goreecloud.platform.schema.json`, and the platform-conformance validation scripts.
 
@@ -38,4 +42,4 @@ The current implementation reference for the Platform Contract is maintained in 
 
 Existing GoreeCloud repositories and development plans must transition toward the native-first model and keep dependencies, CI, documentation, platform contracts, compatibility evidence, accessibility evidence, recovery evidence, and release state current as the shared platform systems evolve.
 
-The canonical GoreeCloud Google Drive instructions, standards, policies, and project specifications remain authoritative when this repository-local summary is less specific or becomes stale.
+The canonical GoreeCloud Google Drive instructions, standards, policies, rules, preferences, and project specifications remain authoritative when this repository-local summary is less specific or becomes stale.
