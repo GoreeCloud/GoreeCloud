@@ -8,7 +8,7 @@
 - Computed result filename: `goreecloud.conformance-result.json`
 - Applies to: GoreeCloud application and service repositories
 - Canonical governance: GoreeCloud Google Drive instructions, policies, standards, rules, preferences, and project specifications
-- Current Stable Glaze UI consumer target: `1.4.1` (`GLAZE UI V1.4 — Optical Intelligence`)
+- Current Stable Glaze UI consumer target: `1.5.0` (`GLAZE UI V1.5 — Contextual + Capability Awareness`)
 
 Contract `0.2` is the current governance-aligned schema. The September 12, 2026 repository commit that introduced eight-system Contract `0.3` conflicts with the newer authoritative Drive instruction that defines exactly seven Integral Platform Systems and explicitly keeps GoreeCloud Sync as a separate application/service capability. The September 15 corrective revision restores Contract `0.2` semantics as a new controlled event; it does not erase the intervening history.
 
@@ -85,7 +85,7 @@ Lifecycle claims are evidence-backed states. Repository existence, successful co
 
 ## Stable fail-closed gates
 
-A `stable` lifecycle declaration fails validation unless all applicable Platform-System results pass, the current required Glaze UI target is `1.4.1` where applicable, conformance is declared `conformant` with a validation timestamp, required acceptance categories have passing evidence, and published release evidence exists.
+A `stable` lifecycle declaration fails validation unless all applicable Platform-System results pass, the current required Glaze UI target is `1.5.0` where applicable, conformance is declared `conformant` with a validation timestamp, required acceptance categories have passing evidence, and published release evidence exists.
 
 A passing manifest or computed conformance result proves only the checks encoded by the validator. Runtime acceptance, representative-device/browser validation, accessibility, recovery, release approval, deployment, production acceptance, and Stable qualification remain independent gates.
 
@@ -100,7 +100,7 @@ Repositories that adopted the conflicting eight-system Contract `0.3` must not s
 1. removing `platform_systems.sync` from the central seven-system set;
 2. retaining Sync-specific implementation truth in appropriate repository documentation, integration metadata, roadmap/task records, or application/service contracts;
 3. setting `schema_version` and `compatibility.platform_contract` to `0.2`;
-4. setting the current applicable `compatibility.glaze_ui_required` target to `1.4.1`;
+4. setting the current applicable `compatibility.glaze_ui_required` target to `1.5.0`;
 5. rerunning exact-head manifest, conformance, source/build, and other affected validation;
 6. preserving the historical `0.3` branch/commit/PR evidence rather than rewriting it as though it never existed.
 
