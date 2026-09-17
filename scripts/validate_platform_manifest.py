@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate GoreeCloud goreecloud.platform.yaml manifests against Platform Contract 0.2."""
+"""Validate GoreeCloud goreecloud.platform.yaml manifests against Platform Contract 0.4."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from typing import Any
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 
-SCHEMA_VERSION = "0.2"
+SCHEMA_VERSION = "0.4"
 CURRENT_GLAZE_UI_VERSION = "1.5.1"
 PLATFORM_SYSTEMS = (
     "manager",
@@ -23,8 +23,21 @@ PLATFORM_SYSTEMS = (
     "glaze_ui",
     "mesh",
     "identity",
+    "policy",
+    "observability",
 )
 PASSING_PLATFORM_RESULTS = {"applicable-conformant", "not-applicable-justified"}
+SYSTEM_ACCEPTANCE_CATEGORIES = {
+    "manager": "manager",
+    "privacy_shield": "privacy-shield",
+    "wardveil_security": "wardveil-security",
+    "everkeep": "everkeep",
+    "glaze_ui": "glaze-ui",
+    "mesh": "mesh",
+    "identity": "identity",
+    "policy": "policy",
+    "observability": "observability",
+}
 STABLE_ACCEPTANCE_CATEGORIES = {
     "api",
     "accessibility",
@@ -84,7 +97,7 @@ def _validate_unique_ids(items: list[dict[str, Any]], label: str) -> None:
 def _validate_platform_semantics(manifest: dict[str, Any]) -> None:
     systems = manifest["platform_systems"]
     if set(systems) != set(PLATFORM_SYSTEMS):
-        fail("platform_systems must contain exactly the seven Integral Platform Systems; GoreeCloud Sync is separate")
+        fail("platform_systems must contain exactly the nine Integral Platform Systems; GoreeCloud Sync remains separate")
     for name in PLATFORM_SYSTEMS:
         entry = systems[name]
         result = entry["result"]
@@ -109,7 +122,7 @@ def _validate_stable_gate(manifest: dict[str, Any]) -> None:
         if systems[name]["result"] not in PASSING_PLATFORM_RESULTS
     ]
     if failing:
-        fail("Stable lifecycle requires passing results for all seven Integral Platform Systems; failing: " + ", ".join(failing))
+        fail("Stable lifecycle requires passing results for all nine Integral Platform Systems; failing: " + ", ".join(failing))
 
     conformance = manifest["conformance"]
     if conformance["status"] != "conformant":
@@ -131,6 +144,10 @@ def _validate_stable_gate(manifest: dict[str, Any]) -> None:
     missing = sorted(STABLE_ACCEPTANCE_CATEGORIES - passed_categories)
     if missing:
         fail("Stable lifecycle missing passing acceptance categories: " + ", ".join(missing))
+
+    for system, category in SYSTEM_ACCEPTANCE_CATEGORIES.items():
+        if systems[system]["result"] == "applicable-conformant" and category not in passed_categories:
+            fail(f"Stable lifecycle requires passing {category!r} acceptance evidence for applicable-conformant platform_systems.{system}")
 
     releases = manifest["evidence"]["release"]
     if not any(item["result"] == "published" for item in releases):
@@ -174,7 +191,7 @@ def main() -> int:
     print(
         "platform-contract: valid declaration "
         f"for {manifest['component']['repository']} at schema {manifest['schema_version']} "
-        "with exactly seven Integral Platform Systems declared"
+        "with exactly nine Integral Platform Systems declared"
     )
     return 0
 
