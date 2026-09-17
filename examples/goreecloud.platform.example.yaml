@@ -1,4 +1,4 @@
-schema_version: "0.2"
+schema_version: "0.4"
 
 component:
   type: application
@@ -7,7 +7,7 @@ component:
   repository: GoreeCloud/example-goreecloud-application
 
 lifecycle: development
-version: 0.2.0-dev
+version: 0.4.0-dev
 
 supported_platforms:
   - web
@@ -59,6 +59,8 @@ platform_systems:
       - example.read
     dependencies:
       - goreecloud-identity
+      - goreecloud-policy
+      - goreecloud-observability
     published_events:
       - example.item.updated.v1
     consumed_events:
@@ -69,6 +71,16 @@ platform_systems:
     evidence:
       - evidence/identity/example-integration.json
     notes: Example only; Identity runtime acceptance is incomplete.
+  policy:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; applicable policy contracts, decision interfaces, enforcement behavior, and policy evidence have not been accepted.
+  observability:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; operational-health, telemetry, freshness, diagnostics, and observability evidence have not been accepted.
 
 health:
   health_endpoint: /health
@@ -99,10 +111,10 @@ external_dependencies:
     version_constraint: ">=1.0"
 
 compatibility:
-  platform_contract: "0.2"
+  platform_contract: "0.4"
   glaze_ui_required: "1.5.1"
   requires:
-    - goreecloud-platform-contract==0.2
+    - goreecloud-platform-contract==0.4
     - glaze-ui==1.5.1
   provides:
     - example-api-v1
@@ -123,7 +135,9 @@ conformance:
     - Glaze UI migration from implemented 1.3.0 to current Stable 1.5.1 remains required.
     - GoreeCloud Mesh runtime publication and acceptance remain blocked.
     - GoreeCloud Identity runtime acceptance remains blocked.
+    - GoreeCloud Policy applicability, decision, enforcement, and evidence acceptance remain blocked.
+    - GoreeCloud Observability operational-health, telemetry, and evidence acceptance remain blocked.
     - Required Stable acceptance-test and release evidence has not been produced for this Development example.
 
 # GoreeCloud Sync remains a separate application/service capability and is intentionally
-# not represented as an eighth key under platform_systems.
+# not represented as a tenth key under platform_systems.

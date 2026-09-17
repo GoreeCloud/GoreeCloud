@@ -7,10 +7,10 @@
   "additionalProperties": false,
   "required": ["schema_version", "component", "repository", "manifest_schema_version", "evaluated_revision", "evaluator_repository", "evaluator_revision", "evaluated_at", "lifecycle", "declared_conformance", "computed_conformance", "stable_eligible", "checks", "blockers", "authority"],
   "properties": {
-    "schema_version": {"const": "0.2"},
+    "schema_version": {"const": "0.4"},
     "component": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
     "repository": {"type": "string", "pattern": "^GoreeCloud/[A-Za-z0-9._-]+$"},
-    "manifest_schema_version": {"const": "0.2"},
+    "manifest_schema_version": {"const": "0.4"},
     "evaluated_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
     "evaluator_repository": {"const": "GoreeCloud/GoreeCloud"},
     "evaluator_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compute a GoreeCloud Platform Contract 0.2 conformance result."""
+"""Compute a GoreeCloud Platform Contract 0.4 conformance result."""
 
 from __future__ import annotations
 
@@ -33,6 +33,8 @@ DISPLAY_NAMES = {
     "glaze_ui": "Glaze UI",
     "mesh": "GoreeCloud Mesh",
     "identity": "GoreeCloud Identity",
+    "policy": "GoreeCloud Policy",
+    "observability": "GoreeCloud Observability",
 }
 
 
@@ -110,6 +112,18 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
     if missing_acceptance:
         blockers.append("Missing passing Stable acceptance categories: " + ", ".join(missing_acceptance))
 
+    for system, category in validator.SYSTEM_ACCEPTANCE_CATEGORIES.items():
+        if systems[system]["result"] == "applicable-conformant" and category not in passed_categories:
+            checks.append({
+                "id": f"evidence:platform-system:{system}",
+                "category": "evidence",
+                "result": "failed",
+                "declared_result": systems[system]["result"],
+                "evidence": systems[system]["evidence"],
+                "message": f"Applicable-conformant {DISPLAY_NAMES[system]} lacks passing {category} acceptance evidence.",
+            })
+            blockers.append(f"{DISPLAY_NAMES[system]} lacks passing {category} acceptance evidence")
+
     published = [item for item in releases if item["result"] == "published"]
     checks.append({
         "id": "evidence:release",
@@ -157,9 +171,11 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
             "aggregators_may_transfer_authority": False,
             "notes": (
                 "This computed result evaluates repository declarations and evidence metadata. "
-                "GoreeCloud Mesh and GoreeCloud Manager may coordinate or present bounded state "
-                "without becoming authoritative for producer-owned facts. GoreeCloud Sync is a "
-                "separately governed application/service capability and is not part of the seven-system set."
+                "GoreeCloud Mesh and GoreeCloud Manager may coordinate or present bounded state; "
+                "GoreeCloud Policy may evaluate approved rules; and GoreeCloud Observability may "
+                "correlate operational evidence. None acquires another producer's domain authority. "
+                "GoreeCloud Sync remains a separately governed application/service capability and is "
+                "not part of the nine-system Integral Platform System set."
             ),
         },
     }
