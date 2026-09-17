@@ -7,7 +7,7 @@
   "additionalProperties": false,
   "required": ["schema_version", "component", "lifecycle", "version", "supported_platforms", "api", "platform_systems", "health", "continuity", "external_dependencies", "compatibility", "evidence", "conformance"],
   "properties": {
-    "schema_version": {"const": "0.2"},
+    "schema_version": {"const": "0.4"},
     "component": {
       "type": "object",
       "additionalProperties": false,
@@ -46,7 +46,7 @@
     "platform_systems": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["manager", "privacy_shield", "wardveil_security", "everkeep", "glaze_ui", "mesh", "identity"],
+      "required": ["manager", "privacy_shield", "wardveil_security", "everkeep", "glaze_ui", "mesh", "identity", "policy", "observability"],
       "properties": {
         "manager": {"$ref": "#/$defs/integration"},
         "privacy_shield": {"$ref": "#/$defs/integration"},
@@ -54,7 +54,9 @@
         "everkeep": {"$ref": "#/$defs/integration"},
         "glaze_ui": {"$ref": "#/$defs/integration"},
         "mesh": {"$ref": "#/$defs/meshIntegration"},
-        "identity": {"$ref": "#/$defs/integration"}
+        "identity": {"$ref": "#/$defs/integration"},
+        "policy": {"$ref": "#/$defs/integration"},
+        "observability": {"$ref": "#/$defs/integration"}
       }
     },
     "health": {
@@ -96,7 +98,7 @@
       "additionalProperties": false,
       "required": ["platform_contract", "glaze_ui_required", "requires", "provides"],
       "properties": {
-        "platform_contract": {"const": "0.2"},
+        "platform_contract": {"const": "0.4"},
         "glaze_ui_required": {"type": ["string", "null"]},
         "requires": {"$ref": "#/$defs/stringList"},
         "provides": {"$ref": "#/$defs/stringList"}
@@ -168,7 +170,7 @@
       "required": ["id", "category", "path", "revision", "result", "observed_at"],
       "properties": {
         "id": {"type": "string", "minLength": 1},
-        "category": {"enum": ["manager", "privacy-shield", "wardveil-security", "everkeep", "glaze-ui", "mesh", "identity", "api", "accessibility", "supported-platform", "backup", "restore", "export-portability", "security", "privacy", "documentation", "integration", "migration", "rollback", "release"]},
+        "category": {"enum": ["manager", "privacy-shield", "wardveil-security", "everkeep", "glaze-ui", "mesh", "identity", "policy", "observability", "api", "accessibility", "supported-platform", "backup", "restore", "export-portability", "security", "privacy", "documentation", "integration", "migration", "rollback", "release"]},
         "path": {"type": "string", "minLength": 1},
         "revision": {"type": "string", "minLength": 1},
         "result": {"enum": ["passed", "failed", "blocked", "not-run"]},
