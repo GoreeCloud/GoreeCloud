@@ -51,6 +51,22 @@ STABLE_ACCEPTANCE_CATEGORIES = {
     "integration",
     "release",
 }
+SHARED_LIBRARY_STABLE_ACCEPTANCE_CATEGORIES = {
+    "accessibility",
+    "supported-platform",
+    "security",
+    "privacy",
+    "documentation",
+    "integration",
+    "release",
+}
+
+
+def stable_acceptance_categories(manifest: dict[str, Any]) -> set[str]:
+    """Return the class-level Stable acceptance baseline for a manifest."""
+    if manifest["component"]["type"] == "shared-library":
+        return SHARED_LIBRARY_STABLE_ACCEPTANCE_CATEGORIES
+    return STABLE_ACCEPTANCE_CATEGORIES
 
 
 class ValidationError(Exception):
@@ -141,7 +157,7 @@ def _validate_stable_gate(manifest: dict[str, Any]) -> None:
 
     acceptance = manifest["evidence"]["acceptance_tests"]
     passed_categories = {item["category"] for item in acceptance if item["result"] == "passed"}
-    missing = sorted(STABLE_ACCEPTANCE_CATEGORIES - passed_categories)
+    missing = sorted(stable_acceptance_categories(manifest) - passed_categories)
     if missing:
         fail("Stable lifecycle missing passing acceptance categories: " + ", ".join(missing))
 
