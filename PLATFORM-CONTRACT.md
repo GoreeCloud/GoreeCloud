@@ -9,7 +9,7 @@
 - Applies to: GoreeCloud application, service, and governance-recognized shared-library repositories
 - Canonical governance: GoreeCloud Google Drive instructions, policies, standards, rules, preferences, and project specifications
 - Integral Platform System authority: **Instructions — Integral Platform Systems v3.0**
-- Current Stable Glaze UI consumer target: `1.5.1` (`GLAZE UI V1.5 — Contextual + Capability Awareness`)
+- Current Stable Glaze UI consumer target: `1.6.0` (`GLAZE UI V1.6`)
 
 Contract `0.4` is the governance-aligned machine-readable contract for the nine-system Integral Platform Systems v3.0 model. It adds **GoreeCloud Policy** and **GoreeCloud Observability** as required evaluation keys while keeping **GoreeCloud Sync** separately governed.
 
@@ -116,7 +116,7 @@ A `stable` lifecycle declaration fails validation unless:
 
 - all nine Integral Platform Systems have passing results (`applicable-conformant` or evidence-backed `not-applicable-justified`);
 - each applicable-conformant Integral Platform System has passing structured system acceptance evidence;
-- the current required Glaze UI target is `1.5.1` where applicable;
+- the current required Glaze UI target is `1.6.0` where applicable;
 - conformance is declared `conformant` with a validation timestamp;
 - required cross-cutting Stable acceptance categories for the declared component class have passing evidence; and
 - published release evidence exists.
