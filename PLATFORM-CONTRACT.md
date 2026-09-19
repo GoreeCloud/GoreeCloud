@@ -6,7 +6,7 @@
 - Repository role: platform-wide implementation and conformance reference
 - Manifest filename: `goreecloud.platform.yaml`
 - Computed result filename: `goreecloud.conformance-result.json`
-- Applies to: GoreeCloud application and service repositories
+- Applies to: GoreeCloud application, service, and governance-recognized shared-library repositories
 - Canonical governance: GoreeCloud Google Drive instructions, policies, standards, rules, preferences, and project specifications
 - Integral Platform System authority: **Instructions — Integral Platform Systems v3.0**
 - Current Stable Glaze UI consumer target: `1.5.1` (`GLAZE UI V1.5 — Contextual + Capability Awareness`)
@@ -33,16 +33,16 @@ The authoritative platform baseline contains exactly nine Integral Platform Syst
 8. **GoreeCloud Policy** — shared policy representation, evaluation, decisions, distribution, enforcement coordination, explanation, version/freshness, precedence/composition, and policy evidence while preserving domain rule ownership.
 9. **GoreeCloud Observability** — operational health, metrics, logs, events, traces, diagnostics, performance, availability, dependency health, correlation, freshness, provenance, and operational evidence.
 
-Every application and service must be evaluated explicitly against all nine. Genuine non-applicability must be justified with evidence. Cosmetic presence, metadata, documentation, a Manager card, Mesh registration, policy label, dashboard, or source-only placeholder does not establish implementation or acceptance.
+Every in-scope component must be evaluated explicitly against all nine. Genuine non-applicability must be justified with evidence. Cosmetic presence, metadata, documentation, a Manager card, Mesh registration, policy label, dashboard, or source-only placeholder does not establish implementation or acceptance.
 
 **GoreeCloud Sync is not a tenth Integral Platform System.** It remains a separately governed application/service capability. A consumer that uses Sync must document and validate the relevant synchronization dataset, authorization boundary, change/version model, conflict reconciliation, replication, offline-resume, and cross-device behavior independently. Sync is not a key under Contract `0.4` `platform_systems`.
 
 ## Required manifest areas
 
-Every application or service manifest must declare:
+Every in-scope component manifest must declare:
 
 - Contract schema version.
-- Component type, stable application/service identifier, product name, and authoritative repository.
+- Component type, stable component identifier, product name, and authoritative repository.
 - Lifecycle state and current version.
 - Supported platforms.
 - API versions and declared endpoints.
@@ -56,7 +56,21 @@ Every application or service manifest must declare:
 - Structured release evidence references.
 - Declared conformance status, blockers, validation time, and evidence references.
 
-Unknown fields are rejected. Applications and services must not invent incompatible local Platform Contract extensions. Breaking contract changes belong in a new version of the central contract with an explicit migration path.
+Unknown fields are rejected. In-scope components must not invent incompatible local Platform Contract extensions. Breaking contract changes belong in a new version of the central contract with an explicit migration path.
+
+## Supported component classes
+
+Contract `0.4` recognizes these machine-readable component classes:
+
+- `application`
+- `service`
+- `shared-library`
+
+`shared-library` is the governed representation for reusable GoreeCloud platform libraries, design systems, frameworks, and comparable shared components that are not themselves deployable applications or services. This is a backward-compatible Contract `0.4` extension: existing application and service manifests remain valid without reclassification.
+
+All supported component classes still evaluate all nine Integral Platform Systems. A shared-library declaration does not waive security, privacy, lifecycle, evidence, release, authority-boundary, or other applicable governance. Genuine non-applicability must remain evidence-backed.
+
+Stable acceptance requirements are component-aware. Applications and services retain the existing cross-cutting Stable acceptance baseline: API, accessibility, supported-platform, backup, restore, export/portability, security, privacy, documentation, integration, and release evidence. A shared library has the class baseline of accessibility, supported-platform, security, privacy, documentation, integration, and release evidence. API, backup, restore, and export/portability evidence remain required for a shared library whenever its actual Role and Purpose or another governing requirement makes those capabilities applicable; omission from the class baseline is not a waiver or an automatic not-applicable determination.
 
 ## Platform-System result vocabulary
 
@@ -104,7 +118,7 @@ A `stable` lifecycle declaration fails validation unless:
 - each applicable-conformant Integral Platform System has passing structured system acceptance evidence;
 - the current required Glaze UI target is `1.5.1` where applicable;
 - conformance is declared `conformant` with a validation timestamp;
-- required cross-cutting Stable acceptance categories have passing evidence; and
+- required cross-cutting Stable acceptance categories for the declared component class have passing evidence; and
 - published release evidence exists.
 
 Unknown, stale, missing, denied, failed, blocked, migration-required, or unverified mandatory state does not become passing state through aggregation, absence of observed failure, or metadata alone.
