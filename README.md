@@ -29,7 +29,7 @@ GoreeCloud is more than a homelab or a collection of self-hosted applications. I
 
 ## Platform systems
 
-GoreeCloud uses nine Integral Platform Systems to keep applications and services cohesive without making them unnecessarily dependent on one another. **GoreeCloud Suite** is the integrated user-facing product experience built across the ecosystem; it is distinct from the nine functional platform systems below.
+GoreeCloud uses nine Integral Platform Systems to keep applications, services, and shared platform components cohesive without making them unnecessarily dependent on one another. **GoreeCloud Suite** is the integrated user-facing product experience built across the ecosystem; it is distinct from the nine functional platform systems below.
 
 | Integral Platform System | Role |
 | --- | --- |
@@ -43,7 +43,7 @@ GoreeCloud uses nine Integral Platform Systems to keep applications and services
 | **GoreeCloud Policy** | Shared policy-definition, evaluation, decision, distribution, enforcement-coordination, explanation, precedence/composition, freshness, and policy-evidence framework while domain systems retain ownership of their substantive rules. |
 | **GoreeCloud Observability** | Shared operational-health, metrics, logs, events, traces, diagnostics, performance, availability, dependency-health, correlation, freshness, provenance, and operational-evidence foundation. |
 
-These are functional platform systems rather than decorative labels. Application and service repositories must represent required integrations through real behavior, contracts, authority boundaries, validation, and user-visible state where applicable. A project that has not completed required integration and acceptance must not be presented as Stable or production-ready merely because it builds successfully.
+These are functional platform systems rather than decorative labels. In-scope application, service, and governance-recognized shared-component repositories must represent required integrations through real behavior, contracts, authority boundaries, validation, and user-visible state where applicable. A project that has not completed required integration and acceptance must not be presented as Stable or production-ready merely because it builds successfully.
 
 **GoreeCloud Sync remains a separately governed synchronization application/service capability and is not a tenth Integral Platform System.**
 

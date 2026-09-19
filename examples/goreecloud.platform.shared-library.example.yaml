@@ -1,0 +1,111 @@
+schema_version: "0.4"
+
+component:
+  type: shared-library
+  id: example-goreecloud-shared-library
+  product_name: GoreeCloud Example Shared Library
+  repository: GoreeCloud/example-goreecloud-shared-library
+
+lifecycle: development
+version: 0.4.0-dev
+
+supported_platforms:
+  - cross-platform
+
+api:
+  versions: []
+  endpoints: []
+
+platform_systems:
+  manager:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; shared-library management applicability has not been accepted.
+  privacy_shield:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; privacy requirements have not been accepted.
+  wardveil_security:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; security requirements have not been accepted.
+  everkeep:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; continuity applicability has not been accepted.
+  glaze_ui:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; Glaze UI applicability has not been accepted.
+  mesh:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; Mesh applicability has not been accepted.
+    capabilities: []
+    dependencies: []
+    published_events: []
+    consumed_events: []
+  identity:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; Identity applicability has not been accepted.
+  policy:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; Policy applicability has not been accepted.
+  observability:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; Observability applicability has not been accepted.
+
+health:
+  health_endpoint: null
+  readiness_endpoint: null
+
+continuity:
+  backup:
+    required: false
+    requirements: []
+  restore:
+    required: false
+    requirements: []
+  export:
+    required: false
+    requirements: []
+  portability:
+    required: false
+    requirements: []
+
+external_dependencies: []
+
+compatibility:
+  platform_contract: "0.4"
+  glaze_ui_required: null
+  requires:
+    - goreecloud-platform-contract==0.4
+  provides:
+    - example-shared-library
+
+evidence:
+  acceptance_tests: []
+  release: []
+
+conformance:
+  status: nonconformant
+  validated_at: null
+  evidence: []
+  blockers:
+    - All nine Integral Platform Systems require component-specific applicability review.
+    - Shared-library Stable acceptance and release evidence has not been produced.
+
+# This example proves Contract 0.4 can represent a governance-recognized shared library
+# without misclassifying it as an application or service. Development state is intentional.

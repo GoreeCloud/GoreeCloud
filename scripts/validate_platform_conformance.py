@@ -38,7 +38,7 @@ REQUIRED_CONFORMANCE_BOUNDARIES = (
 )
 
 REQUIRED_README_BOUNDARIES = (
-    "applications and services cohesive",
+    "applications, services, and shared platform components cohesive",
     "original, native, GoreeCloud-owned destination",
     "Existing complete-product forks or adopted implementations may remain temporarily",
     "Required GoreeCloud Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze UI, GoreeCloud Mesh, GoreeCloud Identity, GoreeCloud Policy, and GoreeCloud Observability integrations",
@@ -52,6 +52,7 @@ REQUIRED_CONTRACT_BOUNDARIES = (
     "GoreeCloud Sync is not a tenth Integral Platform System",
     "Pull-request validation must evaluate the exact PR head",
     "Migration from Contract 0.2",
+    "`shared-library`",
 )
 
 FORBIDDEN_STALE_PHRASES = (
@@ -116,6 +117,7 @@ def check_workflow_provenance() -> None:
             '--evaluator-revision "$CANDIDATE_REVISION"',
             "uses: ./.github/workflows/reusable-platform-manifest.yml",
             "manifest-path: examples/goreecloud.platform.example.yaml",
+            "examples/goreecloud.platform.shared-library.example.yaml",
         ),
     )
     if reusable.count(CHECKOUT_PIN) != 2:
@@ -158,6 +160,7 @@ def main() -> None:
     print("platform-conformance: nine-system native/platform baseline validated")
     print("platform-conformance: Policy/Observability inclusion, Sync separation, and Glaze UI 1.5.1 target validated")
     print("platform-conformance: exact PR-head workflow provenance validated")
+    print("platform-conformance: shared-library Contract 0.4 applicability validated")
 
 
 if __name__ == "__main__":

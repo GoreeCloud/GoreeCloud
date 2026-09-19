@@ -8,6 +8,8 @@ on:
       - PLATFORM-CONTRACT.md
       - repositories.public.json
       - examples/goreecloud.platform.example.yaml
+      - examples/goreecloud.platform.shared-library.example.yaml
+      - examples/goreecloud.platform.shared-library.example.yaml
       - schemas/goreecloud.platform.schema.json
       - schemas/goreecloud.conformance-result.schema.json
       - scripts/validate_platform_conformance.py
@@ -73,8 +75,40 @@ jobs:
           python3 -m json.tool schemas/goreecloud.platform.schema.json >/dev/null
           python3 -m json.tool schemas/goreecloud.conformance-result.schema.json >/dev/null
 
-      - name: Validate Platform Contract example manifest
-        run: python3 scripts/validate_platform_manifest.py examples/goreecloud.platform.example.yaml
+      - name: Validate Platform Contract example manifests
+        run: |
+          python3 scripts/validate_platform_manifest.py examples/goreecloud.platform.example.yaml
+          python3 scripts/validate_platform_manifest.py examples/goreecloud.platform.shared-library.example.yaml
+
+      - name: Validate shared-library Stable acceptance profile
+        run: |
+          python3 - <<'PY'
+          import importlib.util
+          from pathlib import Path
+
+          path = Path("scripts/validate_platform_manifest.py")
+          spec = importlib.util.spec_from_file_location("platform_validator", path)
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+
+          shared = module.stable_acceptance_categories({"component": {"type": "shared-library"}})
+          expected = {
+              "accessibility",
+              "supported-platform",
+              "security",
+              "privacy",
+              "documentation",
+              "integration",
+              "release",
+          }
+          if shared != expected:
+              raise SystemExit(f"unexpected shared-library Stable profile: {sorted(shared)}")
+
+          application = module.stable_acceptance_categories({"component": {"type": "application"}})
+          if application != module.STABLE_ACCEPTANCE_CATEGORIES:
+              raise SystemExit("application Stable profile changed unexpectedly")
+          print("platform-contract: shared-library Stable profile validated")
+          PY
 
       - name: Compute example conformance result
         run: |
