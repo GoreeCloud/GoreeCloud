@@ -97,7 +97,7 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
             blockers.append(f"Glaze UI compatibility target is not current Stable {validator.CURRENT_GLAZE_UI_VERSION}")
 
     passed_categories = {item["category"] for item in acceptance if item["result"] == "passed"}
-    missing_acceptance = sorted(validator.STABLE_ACCEPTANCE_CATEGORIES - passed_categories)
+    missing_acceptance = sorted(validator.stable_acceptance_categories(manifest) - passed_categories)
     checks.append({
         "id": "evidence:stable-acceptance",
         "category": "evidence",
