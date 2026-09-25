@@ -1,4 +1,4 @@
-schema_version: "0.4"
+schema_version: "2.0"
 
 component:
   type: shared-library
@@ -6,8 +6,18 @@ component:
   product_name: GoreeCloud Example Shared Library
   repository: GoreeCloud/example-goreecloud-shared-library
 
-lifecycle: development
-version: 0.4.0-dev
+lifecycle: forge
+lifecycle_metadata:
+  flags:
+    - blocked
+    - migration-required
+  deployment_state: development
+  qualification_state: not-started
+  next_gate: weave
+  candidate_identity: null
+  last_transition: null
+  evidence: []
+version: 2.0.0-forge.1
 
 supported_platforms:
   - cross-platform
@@ -88,10 +98,10 @@ continuity:
 external_dependencies: []
 
 compatibility:
-  platform_contract: "0.4"
+  platform_contract: "2.0"
   glaze_ui_required: null
   requires:
-    - goreecloud-platform-contract==0.4
+    - goreecloud-platform-contract==2.0
   provides:
     - example-shared-library
 
@@ -105,7 +115,7 @@ conformance:
   evidence: []
   blockers:
     - All nine Integral Platform Systems require component-specific applicability review.
-    - Shared-library Stable acceptance and release evidence has not been produced.
+    - Shared-library Anchor acceptance and release evidence has not been produced.
 
-# This example proves Contract 0.4 can represent a governance-recognized shared library
-# without misclassifying it as an application or service. Development state is intentional.
+# This example proves Contract 2.0 can represent a governance-recognized shared library
+# without misclassifying it as an application or service. Forge state is intentional.
