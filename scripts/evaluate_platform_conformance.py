@@ -101,7 +101,7 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
     passed_categories = {item["category"] for item in acceptance if item["result"] == "passed"}
     missing_acceptance = sorted(validator.anchor_acceptance_categories(manifest) - passed_categories)
     checks.append({
-        "id": "evidence:stable-acceptance",
+        "id": "evidence:anchor-acceptance",
         "category": "evidence",
         "result": "passed" if not missing_acceptance else "failed",
         "evidence": [item["id"] for item in acceptance if item["result"] == "passed"],
@@ -140,8 +140,25 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
     declared = manifest["conformance"]
     if declared["status"] != "conformant":
         blockers.extend(declared["blockers"])
-    blockers = list(dict.fromkeys(blockers))
+    qualification_ready = (
+        lifecycle_metadata["qualification_state"] == "passed"
+        and bool(lifecycle_metadata["evidence"])
+    )
+    checks.append({
+        "id": "lifecycle:anchor-qualification",
+        "category": "evidence",
+        "result": "passed" if qualification_ready else "failed",
+        "evidence": lifecycle_metadata["evidence"],
+        "message": (
+            "Anchor qualification state is passed with traceable lifecycle evidence."
+            if qualification_ready else
+            "Anchor eligibility requires qualification_state=passed and traceable lifecycle evidence."
+        ),
+    })
+    if not qualification_ready:
+        blockers.append("Anchor qualification has not passed with traceable lifecycle evidence")
 
+    blockers = list(dict.fromkeys(blockers))
     anchor_eligible = not blockers and declared["status"] == "conformant" and declared["validated_at"] is not None
     if anchor_eligible:
         computed = "conformant"
