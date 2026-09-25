@@ -43,11 +43,11 @@ GoreeCloud uses nine Integral Platform Systems to keep applications, services, a
 | **GoreeCloud Policy** | Shared policy-definition, evaluation, decision, distribution, enforcement-coordination, explanation, precedence/composition, freshness, and policy-evidence framework while domain systems retain ownership of their substantive rules. |
 | **GoreeCloud Observability** | Shared operational-health, metrics, logs, events, traces, diagnostics, performance, availability, dependency-health, correlation, freshness, provenance, and operational-evidence foundation. |
 
-These are functional platform systems rather than decorative labels. In-scope application, service, and governance-recognized shared-component repositories must represent required integrations through real behavior, contracts, authority boundaries, validation, and user-visible state where applicable. A project that has not completed required integration and acceptance must not be presented as Stable or production-ready merely because it builds successfully.
+These are functional platform systems rather than decorative labels. In-scope application, service, and governance-recognized shared-component repositories must represent required integrations through real behavior, contracts, authority boundaries, validation, and user-visible state where applicable. A project that has not completed required integration and acceptance must not be presented as Anchor or production-ready merely because it builds successfully.
 
 **GoreeCloud Sync remains a separately governed synchronization application/service capability and is not a tenth Integral Platform System.**
 
-The versioned **GoreeCloud Platform Contract** provides a machine-readable declaration and validation foundation for these relationships through repository-root `goreecloud.platform.yaml` manifests. A valid manifest records declared state and evidence references; it does not independently prove that an integration is implemented, accepted, production-ready, or Stable. See [`PLATFORM-CONTRACT.md`](./PLATFORM-CONTRACT.md) for the current repository-local implementation reference.
+The versioned **GoreeCloud Platform Contract** provides a machine-readable declaration and validation foundation for these relationships through repository-root `goreecloud.platform.yaml` manifests. Contract `2.0` adds the canonical eight-stage lifecycle and keeps lifecycle, deployment, qualification, flags, and conformance separate. A valid manifest records declared state and evidence references; it does not independently prove that an integration is implemented, accepted, production-ready, or Anchor. See [`PLATFORM-CONTRACT.md`](./PLATFORM-CONTRACT.md) for the current repository-local implementation reference.
 
 ## Selected public projects
 
@@ -97,9 +97,9 @@ The versioned **GoreeCloud Platform Contract** provides a machine-readable decla
 
 ## Project status and source of truth
 
-GoreeCloud repositories exist at different lifecycle states. Some projects are active development work, some are release candidates or transitional replacements, and some have accepted Stable releases.
+GoreeCloud repositories exist at different lifecycle states. Current authoritative records are migrating to the canonical Seed → Lab → Forge → Weave → Seal → Anchor → Sunset → Archive model. Historical records may retain older lifecycle vocabulary for provenance until each governed unit is explicitly reclassified from verified evidence.
 
-A project's own repository, release records, project specification, and acceptance evidence remain authoritative for its current implementation, packaging, deployment, and lifecycle state. **Being listed on this profile does not by itself mean a project is released, deployed to production, or Stable.**
+A project's own repository, release records, project specification, and acceptance evidence remain authoritative for its current implementation, packaging, deployment, and lifecycle state. **Being listed on this profile does not by itself mean a project is released, deployed to production, or Anchor.**
 
 Branding is governed separately: **`GoreeCloud/goreecloud-branding-assets` is the canonical source for GoreeCloud logos, icons, artwork, wordmarks, and approved brand derivatives.** Product-local artwork is a synchronized packaging or presentation derivative, not an independent branding source of truth.
 
