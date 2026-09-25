@@ -67,7 +67,7 @@ FORBIDDEN_STALE_PHRASES = (
     "sync is explicitly the eighth",
 )
 
-FORBIDDEN_README_REFERENCES = ("https://github.com/GoreeCloud/glaze-ui",)
+FORBIDDEN_README_REFERENCES = ("https://github.com/GoreeCloud/goreecloud-glaze-ui",)
 CHECKOUT_PIN = "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803"
 PR_REVISION_EXPRESSION = "${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}"
 
