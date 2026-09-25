@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate GoreeCloud goreecloud.platform.yaml manifests against Platform Contract 0.4."""
+"""Validate GoreeCloud goreecloud.platform.yaml manifests against Platform Contract 2.0."""
 
 from __future__ import annotations
 
@@ -13,8 +13,9 @@ from typing import Any
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 
-SCHEMA_VERSION = "0.4"
+SCHEMA_VERSION = "2.0"
 CURRENT_GLAZE_UI_VERSION = "1.6.0"
+LIFECYCLE_STAGES = ("seed", "lab", "forge", "weave", "seal", "anchor", "sunset", "archive")
 PLATFORM_SYSTEMS = (
     "manager",
     "privacy_shield",
@@ -38,7 +39,7 @@ SYSTEM_ACCEPTANCE_CATEGORIES = {
     "policy": "policy",
     "observability": "observability",
 }
-STABLE_ACCEPTANCE_CATEGORIES = {
+ANCHOR_ACCEPTANCE_CATEGORIES = {
     "api",
     "accessibility",
     "supported-platform",
@@ -51,7 +52,7 @@ STABLE_ACCEPTANCE_CATEGORIES = {
     "integration",
     "release",
 }
-SHARED_LIBRARY_STABLE_ACCEPTANCE_CATEGORIES = {
+SHARED_LIBRARY_ANCHOR_ACCEPTANCE_CATEGORIES = {
     "accessibility",
     "supported-platform",
     "security",
@@ -62,11 +63,11 @@ SHARED_LIBRARY_STABLE_ACCEPTANCE_CATEGORIES = {
 }
 
 
-def stable_acceptance_categories(manifest: dict[str, Any]) -> set[str]:
-    """Return the class-level Stable acceptance baseline for a manifest."""
+def anchor_acceptance_categories(manifest: dict[str, Any]) -> set[str]:
+    """Return the class-level Anchor acceptance baseline for a manifest."""
     if manifest["component"]["type"] == "shared-library":
-        return SHARED_LIBRARY_STABLE_ACCEPTANCE_CATEGORIES
-    return STABLE_ACCEPTANCE_CATEGORIES
+        return SHARED_LIBRARY_ANCHOR_ACCEPTANCE_CATEGORIES
+    return ANCHOR_ACCEPTANCE_CATEGORIES
 
 
 class ValidationError(Exception):
@@ -128,8 +129,22 @@ def _validate_platform_semantics(manifest: dict[str, Any]) -> None:
                 fail(f"platform_systems.{name} declares not-applicable-justified but has no justification")
 
 
-def _validate_stable_gate(manifest: dict[str, Any]) -> None:
-    if manifest["lifecycle"] != "stable":
+def _validate_lifecycle_semantics(manifest: dict[str, Any]) -> None:
+    lifecycle = manifest["lifecycle"]
+    metadata = manifest["lifecycle_metadata"]
+    if lifecycle not in LIFECYCLE_STAGES:
+        fail(f"unsupported lifecycle {lifecycle!r}")
+    if lifecycle == "seal" and metadata["candidate_identity"] is None:
+        fail("Seal lifecycle requires exact lifecycle_metadata.candidate_identity")
+    if lifecycle == "anchor":
+        if metadata["qualification_state"] != "passed":
+            fail("Anchor lifecycle requires lifecycle_metadata.qualification_state=passed")
+        if not metadata["evidence"]:
+            fail("Anchor lifecycle requires traceable lifecycle_metadata.evidence")
+
+
+def _validate_anchor_gate(manifest: dict[str, Any]) -> None:
+    if manifest["lifecycle"] != "anchor":
         return
 
     systems = manifest["platform_systems"]
@@ -138,36 +153,36 @@ def _validate_stable_gate(manifest: dict[str, Any]) -> None:
         if systems[name]["result"] not in PASSING_PLATFORM_RESULTS
     ]
     if failing:
-        fail("Stable lifecycle requires passing results for all nine Integral Platform Systems; failing: " + ", ".join(failing))
+        fail("Anchor lifecycle requires passing results for all nine Integral Platform Systems; failing: " + ", ".join(failing))
 
     conformance = manifest["conformance"]
     if conformance["status"] != "conformant":
-        fail("Stable lifecycle requires conformance.status=conformant")
+        fail("Anchor lifecycle requires conformance.status=conformant")
     if conformance["validated_at"] is None:
-        fail("Stable lifecycle requires conformance.validated_at")
+        fail("Anchor lifecycle requires conformance.validated_at")
     _validate_iso_datetime(conformance["validated_at"], "conformance.validated_at")
 
     glaze = systems["glaze_ui"]
     if glaze["result"] != "not-applicable-justified":
         required = manifest["compatibility"]["glaze_ui_required"]
         if required != CURRENT_GLAZE_UI_VERSION:
-            fail(f"Stable lifecycle requires compatibility.glaze_ui_required={CURRENT_GLAZE_UI_VERSION!r}")
+            fail(f"Anchor lifecycle requires compatibility.glaze_ui_required={CURRENT_GLAZE_UI_VERSION!r}")
         if glaze["result"] == "applicable-conformant" and glaze["version"] != required:
-            fail("Stable lifecycle requires the conformant Glaze UI version to equal the required Stable target")
+            fail("Anchor lifecycle requires the conformant Glaze UI version to equal the required approved target")
 
     acceptance = manifest["evidence"]["acceptance_tests"]
     passed_categories = {item["category"] for item in acceptance if item["result"] == "passed"}
-    missing = sorted(stable_acceptance_categories(manifest) - passed_categories)
+    missing = sorted(anchor_acceptance_categories(manifest) - passed_categories)
     if missing:
-        fail("Stable lifecycle missing passing acceptance categories: " + ", ".join(missing))
+        fail("Anchor lifecycle missing passing acceptance categories: " + ", ".join(missing))
 
     for system, category in SYSTEM_ACCEPTANCE_CATEGORIES.items():
         if systems[system]["result"] == "applicable-conformant" and category not in passed_categories:
-            fail(f"Stable lifecycle requires passing {category!r} acceptance evidence for applicable-conformant platform_systems.{system}")
+            fail(f"Anchor lifecycle requires passing {category!r} acceptance evidence for applicable-conformant platform_systems.{system}")
 
     releases = manifest["evidence"]["release"]
     if not any(item["result"] == "published" for item in releases):
-        fail("Stable lifecycle requires published release evidence")
+        fail("Anchor lifecycle requires published release evidence")
 
 
 def validate_manifest(path: Path) -> dict[str, Any]:
@@ -190,7 +205,8 @@ def validate_manifest(path: Path) -> dict[str, Any]:
     _validate_unique_ids(parsed["evidence"]["acceptance_tests"], "evidence.acceptance_tests")
     _validate_unique_ids(parsed["evidence"]["release"], "evidence.release")
     _validate_platform_semantics(parsed)
-    _validate_stable_gate(parsed)
+    _validate_lifecycle_semantics(parsed)
+    _validate_anchor_gate(parsed)
     return parsed
 
 
@@ -207,7 +223,7 @@ def main() -> int:
     print(
         "platform-contract: valid declaration "
         f"for {manifest['component']['repository']} at schema {manifest['schema_version']} "
-        "with exactly nine Integral Platform Systems declared"
+        "with the canonical eight-stage lifecycle and exactly nine Integral Platform Systems declared"
     )
     return 0
 
