@@ -1,5 +1,5 @@
 <div align="center">
-  <!-- Canonical branding source: GoreeCloud/goreecloud-branding-assets/official/goreecloud-logo.svg -->
+  <!-- Canonical branding source: GoreeCloud/branding-assets/official/goreecloud-logo.svg -->
   <img src="./assets/goreecloud-logo.svg" alt="GoreeCloud" width="160">
 
 # GoreeCloud
@@ -101,7 +101,7 @@ GoreeCloud repositories exist at different lifecycle states. Current authoritati
 
 A project's own repository, release records, project specification, and acceptance evidence remain authoritative for its current implementation, packaging, deployment, and lifecycle state. **Being listed on this profile does not by itself mean a project is released, deployed to production, or Anchor.**
 
-Branding is governed separately: **`GoreeCloud/goreecloud-branding-assets` is the canonical source for GoreeCloud logos, icons, artwork, wordmarks, and approved brand derivatives.** Product-local artwork is a synchronized packaging or presentation derivative, not an independent branding source of truth.
+Branding is governed separately: **`GoreeCloud/branding-assets` is the canonical source for GoreeCloud logos, icons, artwork, wordmarks, and approved brand derivatives.** Product-local artwork is a synchronized packaging or presentation derivative, not an independent branding source of truth.
 
 ## Development approach
 
