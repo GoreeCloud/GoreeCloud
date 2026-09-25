@@ -80,6 +80,68 @@ jobs:
           python3 scripts/validate_platform_manifest.py examples/goreecloud.platform.example.yaml
           python3 scripts/validate_platform_manifest.py examples/goreecloud.platform.shared-library.example.yaml
 
+      - name: Validate Contract 2.0 lifecycle fail-closed semantics
+        run: |
+          python3 - <<'PY'
+          import copy
+          import importlib.util
+          from pathlib import Path
+          import tempfile
+
+          import yaml
+
+          module_path = Path("scripts/validate_platform_manifest.py")
+          spec = importlib.util.spec_from_file_location("platform_validator_lifecycle", module_path)
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+
+          base = yaml.safe_load(Path("examples/goreecloud.platform.example.yaml").read_text())
+
+          def validate_payload(payload):
+              with tempfile.NamedTemporaryFile("w", suffix=".yaml", delete=False) as handle:
+                  yaml.safe_dump(payload, handle, sort_keys=False)
+                  path = Path(handle.name)
+              try:
+                  return module.validate_manifest(path)
+              finally:
+                  path.unlink(missing_ok=True)
+
+          def expect_failure(payload, label):
+              try:
+                  validate_payload(payload)
+              except module.ValidationError:
+                  return
+              raise SystemExit(f"{label} unexpectedly passed Contract 2.0 validation")
+
+          legacy = copy.deepcopy(base)
+          legacy["lifecycle"] = "development"
+          expect_failure(legacy, "legacy development lifecycle")
+
+          seal_missing_identity = copy.deepcopy(base)
+          seal_missing_identity["lifecycle"] = "seal"
+          seal_missing_identity["lifecycle_metadata"]["next_gate"] = "anchor"
+          seal_missing_identity["lifecycle_metadata"]["candidate_identity"] = None
+          expect_failure(seal_missing_identity, "Seal without exact candidate identity")
+
+          seal = copy.deepcopy(base)
+          seal["lifecycle"] = "seal"
+          seal["lifecycle_metadata"]["next_gate"] = "anchor"
+          seal["lifecycle_metadata"]["qualification_state"] = "in-progress"
+          seal["lifecycle_metadata"]["candidate_identity"] = {
+              "source_revision": "0" * 40,
+          }
+          validate_payload(seal)
+
+          anchor_without_qualification = copy.deepcopy(base)
+          anchor_without_qualification["lifecycle"] = "anchor"
+          anchor_without_qualification["lifecycle_metadata"]["next_gate"] = "sunset"
+          anchor_without_qualification["lifecycle_metadata"]["qualification_state"] = "in-progress"
+          anchor_without_qualification["lifecycle_metadata"]["evidence"] = []
+          expect_failure(anchor_without_qualification, "Anchor without passed qualification")
+
+          print("platform-contract: lifecycle fail-closed semantics validated")
+          PY
+
       - name: Validate shared-library Anchor acceptance profile
         run: |
           python3 - <<'PY'
