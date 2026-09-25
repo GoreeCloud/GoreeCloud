@@ -37,6 +37,7 @@ on:
       - scripts/validate_platform_manifest.py
       - scripts/evaluate_platform_conformance.py
       - scripts/validate_public_repository_registry.py
+      - scripts/audit_platform_manifest_portfolio.py
       - .github/workflows/platform-conformance.yml
       - .github/workflows/reusable-platform-manifest.yml
   workflow_dispatch:
