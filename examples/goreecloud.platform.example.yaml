@@ -147,7 +147,7 @@ conformance:
     - GoreeCloud Identity runtime acceptance remains blocked.
     - GoreeCloud Policy applicability, decision, enforcement, and evidence acceptance remain blocked.
     - GoreeCloud Observability operational-health, telemetry, and evidence acceptance remain blocked.
-    - Required Anchor acceptance-test and release evidence has not been produced for this Development example.
+    - Required Anchor acceptance-test and release evidence has not been produced for this Forge example.
 
 # GoreeCloud Sync remains a separate application/service capability and is intentionally
 # not represented as a tenth key under platform_systems.
