@@ -1,4 +1,4 @@
-schema_version: "0.4"
+schema_version: "2.0"
 
 component:
   type: application
@@ -6,8 +6,18 @@ component:
   product_name: GoreeCloud Example Application
   repository: GoreeCloud/example-goreecloud-application
 
-lifecycle: development
-version: 0.4.0-dev
+lifecycle: forge
+lifecycle_metadata:
+  flags:
+    - blocked
+    - migration-required
+  deployment_state: development
+  qualification_state: not-started
+  next_gate: weave
+  candidate_identity: null
+  last_transition: null
+  evidence: []
+version: 2.0.0-forge.1
 
 supported_platforms:
   - web
@@ -48,7 +58,7 @@ platform_systems:
     version: "1.3.0"
     evidence:
       - evidence/glaze-ui/example-source-mapping.json
-    notes: Example source intentionally represents an older implemented Glaze UI line and must migrate to current Stable 1.6.0 before conformance.
+    notes: Example source intentionally represents an older implemented Glaze UI line and must migrate to current approved 1.6.0 before conformance.
   mesh:
     result: applicable-blocked
     version: null
@@ -94,7 +104,7 @@ continuity:
   restore:
     required: true
     requirements:
-      - Validate restoration into a clean environment before Stable acceptance.
+      - Validate restoration into a clean environment before Anchor acceptance.
   export:
     required: true
     requirements:
@@ -111,10 +121,10 @@ external_dependencies:
     version_constraint: ">=1.0"
 
 compatibility:
-  platform_contract: "0.4"
+  platform_contract: "2.0"
   glaze_ui_required: "1.6.0"
   requires:
-    - goreecloud-platform-contract==0.4
+    - goreecloud-platform-contract==2.0
     - glaze-ui==1.6.0
   provides:
     - example-api-v1
@@ -132,12 +142,12 @@ conformance:
     - Privacy Shield integration remains blocked pending accepted runtime evidence.
     - Wardveil Security integration remains blocked pending accepted runtime evidence.
     - Everkeep integration remains blocked pending backup and restore acceptance.
-    - Glaze UI migration from implemented 1.3.0 to current Stable 1.6.0 remains required.
+    - Glaze UI migration from implemented 1.3.0 to current approved 1.6.0 remains required.
     - GoreeCloud Mesh runtime publication and acceptance remain blocked.
     - GoreeCloud Identity runtime acceptance remains blocked.
     - GoreeCloud Policy applicability, decision, enforcement, and evidence acceptance remain blocked.
     - GoreeCloud Observability operational-health, telemetry, and evidence acceptance remain blocked.
-    - Required Stable acceptance-test and release evidence has not been produced for this Development example.
+    - Required Anchor acceptance-test and release evidence has not been produced for this Development example.
 
 # GoreeCloud Sync remains a separate application/service capability and is intentionally
 # not represented as a tenth key under platform_systems.
