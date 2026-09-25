@@ -1,280 +1,153 @@
-# GoreeCloud Platform Conformance Inventory — Historical Snapshot
+# GoreeCloud Platform Conformance Inventory
 
 ## Status
 
-- **Record type:** Historical portfolio audit snapshot; not current lifecycle or conformance authority
-- **Observed portfolio baseline:** September 4, 2026 — September 3 portfolio baseline with September 4 verified networking and Search adoption updates
-- **Last bounded refresh represented here:** September 8, 2026 — Glaze UI consumer target only; no later full-estate re-audit is represented
-- **Historical repository footprint:** 62 owned repositories — 59 public, 3 private
-- **Historical Platform Contract baseline represented by the detailed audit:** `0.2`
-- **Current central Platform Contract implementation:** `2.0`; this file has not been re-audited as a v2.0 portfolio inventory
-- **Manifest filename:** `goreecloud.platform.yaml`
-- **Historical schema component types in this snapshot:** `application`, `service`
-- **Historical Glaze UI target in the September 8 bounded refresh:** `1.3.0`
+- **Observed:** September 25, 2026
+- **Record type:** Current public Platform Contract adoption and lifecycle-vocabulary diagnostic
+- **Central Platform Contract implementation:** `2.0`
+- **Central implementation authority:** `GoreeCloud/GoreeCloud` `main` at merge commit `9f44b25d4ff461858c124b687e494edcdf43a226`
+- **Public repository registry:** 93 repositories
+- **Private repository count:** 4; identities intentionally omitted from this public record
+- **Lifecycle authority:** repository/project governance and verified component evidence, not this inventory
 
-This document preserves the September 3–8 Platform Contract adoption audit as historical evidence. It must not be used as the current repository count, current manifest-adoption count, current lifecycle registry, current repository-name registry, or current Platform Contract rollout status.
+This inventory supersedes the September 3–8 historical snapshot as the current operational diagnostic. Git history preserves the earlier snapshot and its dated evidence.
 
-Legacy `Development`, `Release Candidate`, `Stable`, `Deprecated`, and `Retired` wording below is retained with the historical snapshot and must not be mechanically translated to Contract `2.0` lifecycle values. Current reclassification requires component-specific evidence under the canonical Seed → Lab → Forge → Weave → Seal → Anchor → Sunset → Archive lifecycle.
+This file is **diagnostic only**. It records what default-branch root manifests declare; it does not translate legacy lifecycle vocabulary, establish implementation completeness, qualify a release, authorize deployment, or promote any component to a Contract 2.0 stage.
 
-For current migration planning, use the live repositories, current `PLATFORM-CONTRACT.md`, current schemas/validators, and the authoritative GoreeCloud task/project records. A new portfolio audit is required before publishing new current adoption totals.
+## Current audit summary
 
-It is intentionally **derivative**, not a competing source of truth. Repository membership and public/private counts remain governed by `REPOSITORIES.md` and `repositories.public.json`. The Platform Contract and schema remain governed by `PLATFORM-CONTRACT.md` and `schemas/goreecloud.platform.schema.json`. Repository-local manifests remain declarations owned by their repositories and do not by themselves establish implementation, acceptance, Stable qualification, or production readiness.
+The September 25 live audit of all **93 registered public repositories** found:
 
-Private repository identities are intentionally omitted from this public inventory. Only aggregate private-repository adoption counts are recorded here.
-
-## Audit method
-
-The September 3, 2026 portfolio baseline checked every repository in the owned-repository inventory directly for a repository-root `goreecloud.platform.yaml` on its verified default branch. On September 4, the authoritative default branches for `GoreeCloud/goreecloud-gateway`, `GoreeCloud/goreecloud-dns`, `GoreeCloud/goreecloud-network`, and `GoreeCloud/goreecloud-search` were re-checked after their adoption changes merged, and the counts and lists below were updated from those verified deltas. This is not represented as a fresh full-estate re-audit.
-
-The September 8 contract-baseline refresh updates the current Platform Contract Glaze UI consumer target to `1.3.0` alongside the central validator/documentation change. It does not retroactively rewrite the Glaze baseline used by earlier September 3-4 repository adoption checkpoints, and it does not claim that the portfolio was re-audited for V1.3 migration or acceptance.
-
-The audit distinguishes:
-
-- **Current v0.2** — a root manifest declares `schema_version: "0.2"`.
-- **Legacy v0.1** — a root manifest exists but uses superseded Platform Contract schema `0.1`; migration is required before it can represent current contract adoption.
-- **Missing** — no root manifest exists on the verified default branch.
-- **Scope/model review** — repository purpose does not map cleanly to the current v0.2 schema's single `application` or `service` component model and requires an explicit contract-model decision before adoption is enforced.
-- **Not required by current v0.2 contract** — the repository is not currently an application or service repository under the current schema boundary. Other GoreeCloud governance and conformance requirements may still apply.
-
-Manifest presence is not treated as conformance evidence. A current manifest may truthfully declare `nonconformant`, blocked integrations, missing evidence, or Development lifecycle state.
-
-## Portfolio adoption summary
-
-| Adoption state | Total | Public | Private |
-| --- | ---: | ---: | ---: |
-| Current v0.2 manifest | 14 | 11 | 3 |
-| Legacy v0.1 manifest | 0 | 0 | 0 |
-| Missing root manifest | 48 | 48 | 0 |
-| **Owned repositories** | **62** | **59** | **3** |
-
-Fourteen owned repositories now have a repository-root manifest on the current Platform Contract schema. No repository in the observed portfolio remains on the superseded v0.1 schema.
-
-## Confirmed current-contract application/service scope
-
-Role and repository-manifest evidence identify **55 repositories** as confirmed application or service repositories under the current v0.2 component model: **52 public** and **3 private**.
-
-| Confirmed application/service adoption state | Count |
+| Measurement | Count |
 | --- | ---: |
-| Current v0.2 manifest | 14 |
-| Legacy v0.1 manifest requiring migration | 0 |
-| Missing root manifest | 41 |
-| **Confirmed application/service repositories** | **55** |
+| Public repositories audited | 93 |
+| Root `goreecloud.platform.yaml` present | 46 |
+| Root manifest absent | 47 |
+| Versioned Platform Contract manifests | 45 |
+| Contract 2.0 consumer manifests | 0 |
+| Legacy versioned Contract manifests | 45 |
+| Legacy non-contract manifests | 1 |
 
-Accordingly, **41 of 55 confirmed application/service repositories still require initial Platform Contract adoption work**, all of them public under the observed inventory. Current manifest adoption does not automatically establish Platform conformance; each declaration retains its repository-specific lifecycle, result, blockers, and evidence state.
+Versioned contract generations currently declared:
 
-## Current v0.2 repositories
+| Contract version | Manifests |
+| --- | ---: |
+| 0.2 | 20 |
+| 0.3 | 2 |
+| 0.4 | 23 |
+| 2.0 | 0 |
 
-The following public repositories have a current v0.2 manifest on their verified default branch:
+Legacy lifecycle strings in the 45 versioned manifests are retained verbatim:
 
-1. `GoreeCloud/goreecloud-containers`
-2. `GoreeCloud/goreecloud-dns`
-3. `GoreeCloud/goreecloud-gateway`
-4. `GoreeCloud/goreecloud-identity`
-5. `GoreeCloud/goreecloud-manager`
-6. `GoreeCloud/goreecloud-mesh`
-7. `GoreeCloud/goreecloud-metrics`
-8. `GoreeCloud/goreecloud-network`
-9. `GoreeCloud/goreecloud-search`
-10. `GoreeCloud/goreecloud-tasks`
-11. `GoreeCloud/goreecloud-website`
+| Declared lifecycle | Manifests |
+| --- | ---: |
+| `development` | 40 |
+| `release-candidate` | 2 |
+| `stable` | 1 |
+| `concept` | 1 |
+| `experimental` | 1 |
 
-Three additional private application/service repositories have current v0.2 manifests. Their identities are intentionally not centralized in this public inventory.
+`GoreeCloud/goreecloud-network` has a root manifest using the older non-contract `goreecloud.platform/v1` structure and declares `Development`. It therefore requires an explicit contract migration rather than version-string substitution.
 
-All fourteen current manifests retain Development/non-Stable boundaries appropriate to their repository evidence. Current manifest adoption must not be interpreted as Stable qualification, production approval, or complete integration with all seven Integral Platform Systems.
+An authorized non-public aggregate check found four private repositories: three had Contract 0.4 / `development` root manifests and one had no root manifest. Private repository identities are not centralized here.
 
-### `GoreeCloud/goreecloud-containers`
+## Contract 2.0 migration boundary
 
-- Root manifest: present
-- Schema: `0.2`
-- Component type: `application`
-- Lifecycle declaration: `development`
-- Version declaration: `0.1.0-dev.0`
-- Declared conformance: `nonconformant`
-- Acceptance-test evidence entries: none
-- Release evidence entries: none
-- GoreeCloud Manager: `applicable-blocked`
-- Privacy Shield: `applicable-blocked`
-- Wardveil Security: `applicable-blocked`
-- Everkeep: `applicable-blocked`
-- Glaze UI: `applicable-blocked`
-- GoreeCloud Mesh: `applicable-blocked`
-- GoreeCloud Identity: `applicable-blocked`
+The canonical Contract 2.0 lifecycle is:
 
-This is a truthful Development-state v0.2 declaration. Its presence establishes current manifest adoption, not Platform conformance or Stable eligibility.
+**Seed → Lab → Forge → Weave → Seal → Anchor → Sunset → Archive**
 
-## September 3 v0.1 migration checkpoint
+The audit does not translate older values. Migration must remain evidence-based:
 
-The five repositories that carried legacy v0.1 manifests at the initial September 3 audit have now been migrated to v0.2 on their authoritative default branches.
+- `concept` normally requires current-state verification before Seed.
+- `experimental` normally requires current-state verification before Lab.
+- `development` must be evaluated between Forge and Weave.
+- `release-candidate` may become Seal only for an exact candidate identity.
+- `stable` may become Anchor only when current Anchor qualification remains valid.
+- `deprecated` normally maps toward Sunset.
+- `retired` may become Archive only after preservation, recovery, migration, and historical-record obligations are complete.
 
-The migration work followed these constraints:
+Version identity, deployment state, qualification state, stabilization mode, operational health, temporary flags, and conformance remain separate controls.
 
-- legacy `partial`, `planned`, and similar states were mapped conservatively rather than upgraded into positive current conformance;
-- genuine self-authority relationships were retained only as evidence-backed `not-applicable-justified` results;
-- required but unaccepted integrations remain `applicable-migration-required`, `applicable-blocked`, or otherwise non-positive as supported by repository evidence;
-- structured v0.2 acceptance and release evidence collections were not populated with invented evidence;
-- each migrated repository remains below Stable where required implementation or acceptance is incomplete;
-- reusable Platform Contract validation was pinned to an immutable central contract revision rather than a moving branch;
-- repository-specific validation was allowed to fail closed and was corrected where a stale v0.1 consumer validator conflicted with the v0.2 implemented-version versus required-baseline model.
+## Present public manifests
 
-The four public migrations were:
+The table below records each public root manifest observed in this audit. The lifecycle column is the repository's **verbatim legacy declaration**, not a Contract 2.0 reclassification.
 
-1. `GoreeCloud/goreecloud-manager`
-2. `GoreeCloud/goreecloud-mesh`
-3. `GoreeCloud/goreecloud-tasks`
-4. `GoreeCloud/goreecloud-website`
+| Repository | Contract / format | Declared lifecycle | Component type |
+| --- | --- | --- | --- |
+| `GoreeCloud/advanced-download-manager` | `0.2` | `development` | application |
+| `GoreeCloud/backups` | `0.4` | `development` | application |
+| `GoreeCloud/browser` | `0.4` | `development` | application |
+| `GoreeCloud/dialer` | `0.4` | `development` | application |
+| `GoreeCloud/drive` | `0.2` | `development` | application |
+| `GoreeCloud/feeds-server` | `0.4` | `development` | server |
+| `GoreeCloud/feeds-web` | `0.4` | `development` | application |
+| `GoreeCloud/file-manager` | `0.2` | `development` | application |
+| `GoreeCloud/gallery` | `0.4` | `development` | application |
+| `GoreeCloud/glaze-ui` | `0.4` | `stable` | shared-library |
+| `GoreeCloud/goreecloud-bookmarks` | `0.4` | `development` | application |
+| `GoreeCloud/goreecloud-camera` | `0.2` | `concept` | application |
+| `GoreeCloud/goreecloud-containers` | `0.2` | `development` | application |
+| `GoreeCloud/goreecloud-design-center` | `0.3` | `development` | application |
+| `GoreeCloud/goreecloud-dns` | `0.2` | `development` | service |
+| `GoreeCloud/goreecloud-gateway` | `0.4` | `development` | service |
+| `GoreeCloud/goreecloud-health` | `0.2` | `development` | application |
+| `GoreeCloud/goreecloud-identity` | `0.2` | `development` | service |
+| `GoreeCloud/goreecloud-maps` | `0.2` | `development` | application |
+| `GoreeCloud/goreecloud-memos` | `0.4` | `development` | application |
+| `GoreeCloud/goreecloud-network` | `goreecloud.platform/v1` | `Development` | legacy-non-contract |
+| `GoreeCloud/goreecloud-photos` | `0.4` | `experimental` | application |
+| `GoreeCloud/goreecloud-research-library` | `0.2` | `development` | application |
+| `GoreeCloud/goreecloud-router-os` | `0.2` | `development` | service |
+| `GoreeCloud/index` | `0.4` | `development` | application |
+| `GoreeCloud/keyboard` | `0.4` | `development` | application |
+| `GoreeCloud/launcher` | `0.4` | `development` | application |
+| `GoreeCloud/location` | `0.2` | `development` | application |
+| `GoreeCloud/mail` | `0.4` | `development` | application |
+| `GoreeCloud/manager` | `0.4` | `development` | application |
+| `GoreeCloud/mesh` | `0.4` | `development` | service |
+| `GoreeCloud/messenger` | `0.4` | `development` | application |
+| `GoreeCloud/metrics` | `0.2` | `development` | application |
+| `GoreeCloud/monitor` | `0.4` | `release-candidate` | application |
+| `GoreeCloud/music` | `0.2` | `development` | application |
+| `GoreeCloud/notify` | `0.4` | `release-candidate` | application |
+| `GoreeCloud/observability` | `0.4` | `development` | service |
+| `GoreeCloud/plugin` | `0.2` | `development` | application |
+| `GoreeCloud/policy` | `0.4` | `development` | service |
+| `GoreeCloud/reader` | `0.2` | `development` | application |
+| `GoreeCloud/search` | `0.4` | `development` | service |
+| `GoreeCloud/social` | `0.2` | `development` | application |
+| `GoreeCloud/sync` | `0.3` | `development` | platform-system |
+| `GoreeCloud/tasks` | `0.2` | `development` | application |
+| `GoreeCloud/vault` | `0.2` | `development` | service |
+| `GoreeCloud/youtube-player` | `0.2` | `development` | application |
 
-The fifth migration occurred in a private repository whose identity remains intentionally omitted from this public inventory.
+## Corrective finding resolved during audit
 
-This checkpoint records Platform Contract migration and validation only. It does not establish product Stable qualification, production deployment, or producer-system acceptance.
+The audit initially identified `GoreeCloud/backups/goreecloud.platform.yaml` as malformed YAML because several existing Privacy Shield evidence entries were misindented. The repair preserved current Contract 0.4, `development`, version `0.1.0-dev.0`, conformance, evidence, and blocker semantics. It merged through Backups PR #7 to authoritative `main` commit `a08e4557e9159ca57a521175260944947e21f628`; exact-head Rust Foundation #10 and post-merge push Rust Foundation #11 passed, including the new manifest YAML/identity regression gate.
 
-## September 3 initial-adoption wave checkpoint
+## Missing manifests
 
-`GoreeCloud/goreecloud-identity` and two additional private Integral Platform System repositories now have v0.2 declarations on their authoritative default branches.
+Forty-seven public repositories have no root `goreecloud.platform.yaml` at their current default branch. Absence is not automatically a defect or lifecycle judgment: repository purpose and component applicability must be verified before a manifest is required. Where a governed application, service, shared library, server, or other supported component requires Contract participation, initial adoption must use the current Contract 2.0 model rather than creating a new legacy manifest.
 
-`GoreeCloud/goreecloud-identity` declares itself as a Development service in active native migration. Its substantial inherited runtime remains transitional, its native Identity Center and several Integral Platform System relationships remain blocked, and its GoreeCloud Mesh relationship is migration-required rather than production-accepted. The repository's dedicated Platform Contract validation passed on the adoption revision. Broader inherited repository CI remains an independent source-quality concern and does not convert the manifest into a positive conformance claim.
+## Verification model
 
-The two additional private adoptions are recorded only in aggregate in this public inventory. Their repository-local manifests remain authoritative for lifecycle, integration states, evidence, and blockers.
+The repeatable audit is implemented by `scripts/audit_platform_manifest_portfolio.py` and runs from the central Platform conformance workflow. It:
 
-None of these three adoptions adds acceptance-test or release evidence merely because a v0.2 declaration exists. They remain non-Stable and nonconformant at the Platform Contract level.
+- reads only repositories in the privacy-bounded public registry;
+- checks each authoritative default branch;
+- records root-manifest presence and exact manifest blob identity;
+- parses both YAML and JSON-shaped manifests;
+- distinguishes Contract 0.2, 0.3, 0.4, Contract 2.0, and legacy non-contract formats;
+- retains declared lifecycle values verbatim;
+- marks migration state without deciding the replacement lifecycle;
+- fails closed if a Contract 2.0 manifest itself declares a non-canonical lifecycle value; and
+- publishes an exact-head JSON diagnostic artifact.
 
-## September 3 Metrics adoption checkpoint
+## Remaining work
 
-`GoreeCloud/goreecloud-metrics` now has a v0.2 manifest on its authoritative default branch at source version `0.1.0-dev.2`.
-
-The declaration records Metrics as a Development application. Privacy Shield and Wardveil Security are migration-required because application-local minimization, retention, credential, transport, and validation groundwork exists without accepted platform integration. Manager, Everkeep, Glaze UI, GoreeCloud Mesh, and GoreeCloud Identity remain blocked. The manifest contains no acceptance-test or release evidence and declares overall conformance `nonconformant`.
-
-The Metrics adoption candidate passed both its existing exact-head source-validation workflow and the pinned central Platform Contract workflow before merge. Repository documentation that had described the shared Platform Contract as unfinished was reconciled to the now-current central v0.2 contract without broadening runtime capability claims.
-
-This checkpoint establishes machine-readable Platform Contract participation only. Metrics remains Development source and is not thereby Stable, production-ready, production-deployed, or accepted for any unfinished Integral Platform System relationship.
-
-## September 4 networking adoption checkpoint
-
-`GoreeCloud/goreecloud-gateway`, `GoreeCloud/goreecloud-dns`, and `GoreeCloud/goreecloud-network` now have current v0.2 manifests on their authoritative default branches. Each repository's adoption candidate passed the pinned central Platform Contract workflow at its exact pull-request head before merge. The authoritative default branches were then directly re-checked for the merged root manifest.
-
-All three declarations remain `development` and `nonconformant`. They contain no acceptance-test or release evidence merely because manifest adoption succeeded, and at that September 4 checkpoint they required the then-current Stable Glaze UI consumer baseline `1.1.0` without claiming that current-Stable UI conformance had been accepted.
-
-- **Gateway** records Caddy as remaining production-authoritative and keeps Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze UI, Mesh, and Identity blocked on accepted default-branch evidence.
-- **DNS** records its AdGuard Home-derived compatibility foundation and keeps production DNS migration unapproved; its inherited administration surface is `applicable-migration-required` for the applicable Glaze UI baseline at that checkpoint, while the other unaccepted Integral Platform System relationships remain blocked.
-- **Network** records NetBird as remaining production-authoritative; product-local privacy hardening and the partial inherited administration-shell migration are `applicable-migration-required`, while unaccepted Manager, Wardveil Security, Everkeep, Mesh, and Identity relationships remain blocked.
-
-No production listener, DNS, VPN, route, peer, certificate, firewall, credential, persistent runtime, or cutover authority changed as part of this adoption wave. Broader inherited repository CI is evaluated independently and is not converted into Platform acceptance evidence by a green manifest-validation workflow.
-
-## September 4 Search adoption checkpoint
-
-`GoreeCloud/goreecloud-search` now has a current v0.2 manifest on verified authoritative `master` commit `4efe4cd5f6d7f8c4dd3d60dde9e0dfecc5636f3c`. The exact PR #110 head `d56daa5d8cdf2fec3b19930e7fa7f988cb5cdaaf` passed Platform Contract #2, Runtime Smoke #1204, Container Build #1200, Browser Acceptance #1293, Documentation #451, Upstream Container Boundary #580, Platform Integrations #583, Foundation #1300, and Integration #451 across Theme and Python 3.11 through 3.14 before expected-head squash merge. The merged default-branch manifest was then directly re-checked.
-
-The declaration records Search as a `development` application with version `unreleased-development` and overall conformance `nonconformant`. Acceptance-test and release evidence collections remain empty. Manager, Privacy Shield, Wardveil Security, Everkeep, GoreeCloud Mesh, and GoreeCloud Identity are `applicable-blocked`; at that September 4 checkpoint GLAZE UI was `applicable-migration-required` against the then-current Stable consumer target `1.1.0`. The external-provider entry is an unselected production-provider requirement rather than an approval of any specific provider.
-
-Search's native provider runtime and deterministic General, Images, Videos, News, and Files source-level acceptance are repository implementation evidence only. They do not establish live approved-provider acceptance, production credentials or provider policy, producer-authoritative platform runtime evidence, whole-application GLAZE UI acceptance, recovery, migration/cutover, release provenance, exact production deployment, or Stable qualification.
-
-## Confirmed public application/service repositories missing a manifest
-
-The following **41 public repositories** are confirmed application/service repositories and have no repository-root `goreecloud.platform.yaml` on their verified default branch under the updated inventory:
-
-1. `GoreeCloud/goreecloud-ai`
-2. `GoreeCloud/goreecloud-app-store`
-3. `GoreeCloud/goreecloud-backup`
-4. `GoreeCloud/goreecloud-bookmark-browser-extension`
-5. `GoreeCloud/goreecloud-bookmarks`
-6. `GoreeCloud/goreecloud-boot`
-7. `GoreeCloud/goreecloud-browser`
-8. `GoreeCloud/goreecloud-calendar`
-9. `GoreeCloud/goreecloud-changelogs`
-10. `GoreeCloud/goreecloud-code`
-11. `GoreeCloud/goreecloud-contacts`
-12. `GoreeCloud/goreecloud-dav`
-13. `GoreeCloud/goreecloud-documents`
-14. `GoreeCloud/goreecloud-drive`
-15. `GoreeCloud/goreecloud-file-manager`
-16. `GoreeCloud/goreecloud-gallery`
-17. `GoreeCloud/goreecloud-github-dashboard`
-18. `GoreeCloud/goreecloud-index`
-19. `GoreeCloud/goreecloud-keyboard`
-20. `GoreeCloud/goreecloud-launcher`
-21. `GoreeCloud/goreecloud-location`
-22. `GoreeCloud/goreecloud-mail`
-23. `GoreeCloud/goreecloud-maps`
-24. `GoreeCloud/goreecloud-memos`
-25. `GoreeCloud/goreecloud-messenger`
-26. `GoreeCloud/goreecloud-monitor`
-27. `GoreeCloud/goreecloud-music`
-28. `GoreeCloud/goreecloud-network-android`
-29. `GoreeCloud/goreecloud-network-dashboard`
-30. `GoreeCloud/goreecloud-notes`
-31. `GoreeCloud/goreecloud-notify`
-32. `GoreeCloud/goreecloud-photos`
-33. `GoreeCloud/goreecloud-quill`
-34. `GoreeCloud/goreecloud-redirector`
-35. `GoreeCloud/goreecloud-rss`
-36. `GoreeCloud/goreecloud-source-resync`
-37. `GoreeCloud/goreecloud-sync`
-38. `GoreeCloud/goreecloud-terminal`
-39. `GoreeCloud/goreecloud-vault-server`
-40. `GoreeCloud/goreecloud-video`
-41. `GoreeCloud/goreecloud-waypoint`
-
-No private confirmed application/service repository remains without a current root manifest under the observed inventory. Private repository identities remain intentionally omitted from this public record.
-
-## Scope/model review
-
-These repositories require an explicit current-contract modeling decision rather than an automatic exemption or an invented component type:
-
-| Repository | Root manifest | Review reason |
-| --- | --- | --- |
-| `GoreeCloud/goreecloud-firefox-extensions` | Missing | Canonical monorepository containing multiple independently identified Firefox extension applications and release boundaries; current v0.2 schema models one `application` or `service` component per manifest. |
-| `GoreeCloud/goreecloud-suite` | Missing | Repository owns the public Suite website/application-service directory, but no existing manifest establishes whether the repository itself should be modeled as one `application`, one `service`, or whether the contract needs an explicit portfolio/website model. |
-
-Until that modeling decision is made, these repositories must not be marked `Not Applicable` merely to avoid implementation, and they must not invent local schema extensions that conflict with the central contract.
-
-## Not required by the current v0.2 manifest contract
-
-The following public repositories are currently outside the application/service manifest boundary:
-
-| Repository | Current role | Manifest state |
-| --- | --- | --- |
-| `GoreeCloud/GoreeCloud` | Central platform governance, schemas, validation, inventory, and implementation reference | Missing / not required |
-| `GoreeCloud/goreecloud-autobiography` | Continuously updated autobiography/content repository | Missing / not required |
-| `GoreeCloud/goreecloud-branding-assets` | Canonical branding and visual-asset authority | Missing / not required |
-| `GoreeCloud/goreecloud-concepts` | Concept/review artifact workspace | Missing / not required |
-| `GoreeCloud/goreecloud-glaze-ui` | Shared visual and interaction design system authority | Missing / not required under current application/service-only schema |
-
-This classification is limited to the **current Platform Contract manifest schema**. It does not exempt these repositories from repository governance, security, privacy, documentation, lifecycle truthfulness, source-control, or other applicable GoreeCloud requirements.
-
-## Discrepancies discovered during the audit
-
-The September 3-4 audit found cross-repository statements that conflicted with the central/canonical baseline at that checkpoint and should be corrected through repository-specific work rather than silently normalized here:
-
-1. `GoreeCloud/goreecloud-suite` stated that Glaze UI `2.1.0` was the current Stable design-system target.
-2. `GoreeCloud/goreecloud-website` stated that Glaze UI `2.2.0` was the current GoreeCloud platform target and that its accepted implementation was `2.1.0`.
-3. At the September 3-4 audit checkpoint, the central Platform Contract and canonical Glaze UI authority used `1.1.0` as the Stable consumer target. The current central Platform Contract target has since advanced and these historical adoption observations must not be rewritten as though they were originally validated against the newer baseline.
-4. `GoreeCloud/goreecloud-website` also contained an older repository-portfolio statement of `57 repositories — 40 public, 17 private` and described `GoreeCloud/goreecloud-index` as private. The September 3 canonical repository inventory is `62 — 59 public, 3 private`, and current GitHub metadata identifies `GoreeCloud/goreecloud-index` as public.
-
-These discrepancies are documentation/source-integrity findings. They do not alter the authoritative September 3 repository inventory or upgrade/downgrade application conformance by themselves.
-
-## Historical rollout work recorded by this snapshot
-
-The items below preserve the rollout plan that accompanied the September 3–8 audit. They are not a current v2.0 task list and must not override current authoritative task records. At the time of this snapshot, the rollout was intended to proceed without manufacturing positive states:
-
-1. **Completed:** migrate the five legacy v0.1 manifests to v0.2 using current evidence and the governed five-result Platform System vocabulary.
-2. Add truthful v0.2 manifests to the **41 confirmed in-scope repositories** that currently lack one. Under the observed inventory, all remaining initial-adoption repositories are public; private identities remain omitted regardless of future state changes.
-3. Resolve the component-model decision for the **2 scope/model-review repositories** before enforcing v0.2 adoption there.
-4. For every new manifest, evaluate all seven Integral Platform Systems and preserve blocked, migration-required, nonconformant, or justified-not-applicable states when that is the supported truth.
-5. Add repository CI that calls the central reusable Platform Contract workflow by immutable commit SHA where practical.
-6. Do not represent a repository as Stable or Platform-conformant unless required implementation and acceptance evidence independently supports that claim.
-7. Correct identified stale cross-repository Glaze UI and repository-inventory statements through their own authoritative repository workflows, and migrate application manifests to the current Glaze baseline without upgrading incomplete conformance claims.
-
-## Maintenance
-
-Do not incrementally refresh this historical snapshot as though it were current. A new current portfolio audit should be generated from live authoritative repositories when the v2.0 migration reaches the portfolio-audit phase.
-
-Historical maintenance triggers recorded by the original audit were:
-
-- the owned repository set changes;
-- repository visibility or default branches change;
-- a root Platform Contract manifest is added, removed, or migrated;
-- the central Platform Contract schema or current required consumer baseline changes;
-- a repository's role changes enough to affect contract applicability;
-- a scope/model-review decision is resolved; or
-- a private/public boundary changes.
-
-When refreshing, re-check the root file on each repository's actual default branch. Do not rely solely on code-search indexing for manifest presence. Preserve private repository identities outside this public central inventory.
+1. Reclassify each governed component from verified implementation and release evidence before changing its lifecycle.
+2. Migrate repository manifests to Contract 2.0 in controlled component-specific changes.
+3. Synchronize each component's project/service lifecycle record, manifest, release records, inventories, and operational views.
+4. Reconcile the Drive lifecycle inventories only after the underlying components have been evaluated.
+5. Repeat this portfolio audit as migrations land; do not infer progress from repository presence alone.
