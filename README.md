@@ -33,12 +33,12 @@ GoreeCloud uses nine Integral Platform Systems to keep applications, services, a
 
 | Integral Platform System | Role |
 | --- | --- |
-| **[GoreeCloud Manager](https://github.com/GoreeCloud/goreecloud-manager)** | Bounded platform management and administration, including application and service inventory, configuration, lifecycle, operational visibility, approvals, remediation, governance implementation, and authorized control-plane workflows. |
+| **[GoreeCloud Manager](https://github.com/GoreeCloud/manager)** | Bounded platform management and administration, including application and service inventory, configuration, lifecycle, operational visibility, approvals, remediation, governance implementation, and authorized control-plane workflows. |
 | **GoreeCloud Privacy Shield** | Shared privacy authority and privacy-control foundation for consent, purpose limitation, minimization, retention, sharing, processing boundaries, tracking/telemetry privacy, privacy-safe diagnostics, and applicable content protection. |
 | **Wardveil Security by GoreeCloud** | Shared security authority and integration framework for protection, hardening, integrity, diagnostics, trust boundaries, verification, threat response, and evidence-backed security experiences. |
 | **Everkeep** | Resilience, recovery, preservation, portability, continuity, migration readiness, succession, and long-term information-survival system. |
 | **[Glaze UI](https://github.com/GoreeCloud/glaze-ui)** | Shared design and interaction language, including semantic tokens, reusable interface primitives, accessibility behavior, responsive behavior, policy/health/evidence state presentation, and conformance guidance. |
-| **[GoreeCloud Mesh](https://github.com/GoreeCloud/goreecloud-mesh)** | Bounded first-party capability discovery, dependency awareness, coordination, integration, governance, event/capability exchange, and evidence routing where applicable. |
+| **[GoreeCloud Mesh](https://github.com/GoreeCloud/mesh)** | Bounded first-party capability discovery, dependency awareness, coordination, integration, governance, event/capability exchange, and evidence routing where applicable. |
 | **[GoreeCloud Identity](https://github.com/GoreeCloud/goreecloud-identity)** | Central identity, account, device, workload, credential, claim, session, authentication, authorization-integration, and trust foundation while application-specific authorization remains appropriately scoped. |
 | **GoreeCloud Policy** | Shared policy-definition, evaluation, decision, distribution, enforcement-coordination, explanation, precedence/composition, freshness, and policy-evidence framework while domain systems retain ownership of their substantive rules. |
 | **GoreeCloud Observability** | Shared operational-health, metrics, logs, events, traces, diagnostics, performance, availability, dependency-health, correlation, freshness, provenance, and operational-evidence foundation. |
@@ -53,7 +53,7 @@ The versioned **GoreeCloud Platform Contract** provides a machine-readable decla
 
 ### Platform, administration, and developer tools
 
-- **[GoreeCloud Manager](https://github.com/GoreeCloud/goreecloud-manager)** — native administration and operations console for GoreeCloud.
+- **[GoreeCloud Manager](https://github.com/GoreeCloud/manager)** — native administration and operations console for GoreeCloud.
 - **[GoreeCloud Terminal](https://github.com/GoreeCloud/goreecloud-terminal)** — GoreeCloud-maintained Linux terminal experience with controlled fork-to-native evolution.
 - **[GoreeCloud Search](https://github.com/GoreeCloud/goreecloud-search)** — privacy-focused, self-hosted search and metasearch gateway.
 - **[GoreeCloud Browser](https://github.com/GoreeCloud/goreecloud-browser)** — GoreeCloud-maintained browser project with a controlled migration path toward the native GoreeCloud application model.
