@@ -1,5 +1,5 @@
 <div align="center">
-  <!-- Canonical branding source: GoreeCloud/goreecloud-branding-assets/official/goreecloud-logo.svg -->
+  <!-- Canonical branding source: GoreeCloud/branding-assets/official/goreecloud-logo.svg -->
   <img src="./assets/goreecloud-logo.svg" alt="GoreeCloud" width="160">
 
 # GoreeCloud
@@ -33,27 +33,27 @@ GoreeCloud uses nine Integral Platform Systems to keep applications, services, a
 
 | Integral Platform System | Role |
 | --- | --- |
-| **[GoreeCloud Manager](https://github.com/GoreeCloud/goreecloud-manager)** | Bounded platform management and administration, including application and service inventory, configuration, lifecycle, operational visibility, approvals, remediation, governance implementation, and authorized control-plane workflows. |
+| **[GoreeCloud Manager](https://github.com/GoreeCloud/manager)** | Bounded platform management and administration, including application and service inventory, configuration, lifecycle, operational visibility, approvals, remediation, governance implementation, and authorized control-plane workflows. |
 | **GoreeCloud Privacy Shield** | Shared privacy authority and privacy-control foundation for consent, purpose limitation, minimization, retention, sharing, processing boundaries, tracking/telemetry privacy, privacy-safe diagnostics, and applicable content protection. |
 | **Wardveil Security by GoreeCloud** | Shared security authority and integration framework for protection, hardening, integrity, diagnostics, trust boundaries, verification, threat response, and evidence-backed security experiences. |
 | **Everkeep** | Resilience, recovery, preservation, portability, continuity, migration readiness, succession, and long-term information-survival system. |
-| **[Glaze UI](https://github.com/GoreeCloud/goreecloud-glaze-ui)** | Shared design and interaction language, including semantic tokens, reusable interface primitives, accessibility behavior, responsive behavior, policy/health/evidence state presentation, and conformance guidance. |
-| **[GoreeCloud Mesh](https://github.com/GoreeCloud/goreecloud-mesh)** | Bounded first-party capability discovery, dependency awareness, coordination, integration, governance, event/capability exchange, and evidence routing where applicable. |
+| **[Glaze UI](https://github.com/GoreeCloud/glaze-ui)** | Shared design and interaction language, including semantic tokens, reusable interface primitives, accessibility behavior, responsive behavior, policy/health/evidence state presentation, and conformance guidance. |
+| **[GoreeCloud Mesh](https://github.com/GoreeCloud/mesh)** | Bounded first-party capability discovery, dependency awareness, coordination, integration, governance, event/capability exchange, and evidence routing where applicable. |
 | **[GoreeCloud Identity](https://github.com/GoreeCloud/goreecloud-identity)** | Central identity, account, device, workload, credential, claim, session, authentication, authorization-integration, and trust foundation while application-specific authorization remains appropriately scoped. |
 | **GoreeCloud Policy** | Shared policy-definition, evaluation, decision, distribution, enforcement-coordination, explanation, precedence/composition, freshness, and policy-evidence framework while domain systems retain ownership of their substantive rules. |
 | **GoreeCloud Observability** | Shared operational-health, metrics, logs, events, traces, diagnostics, performance, availability, dependency-health, correlation, freshness, provenance, and operational-evidence foundation. |
 
-These are functional platform systems rather than decorative labels. In-scope application, service, and governance-recognized shared-component repositories must represent required integrations through real behavior, contracts, authority boundaries, validation, and user-visible state where applicable. A project that has not completed required integration and acceptance must not be presented as Stable or production-ready merely because it builds successfully.
+These are functional platform systems rather than decorative labels. In-scope application, service, and governance-recognized shared-component repositories must represent required integrations through real behavior, contracts, authority boundaries, validation, and user-visible state where applicable. A project that has not completed required integration and acceptance must not be presented as Anchor or production-ready merely because it builds successfully.
 
 **GoreeCloud Sync remains a separately governed synchronization application/service capability and is not a tenth Integral Platform System.**
 
-The versioned **GoreeCloud Platform Contract** provides a machine-readable declaration and validation foundation for these relationships through repository-root `goreecloud.platform.yaml` manifests. A valid manifest records declared state and evidence references; it does not independently prove that an integration is implemented, accepted, production-ready, or Stable. See [`PLATFORM-CONTRACT.md`](./PLATFORM-CONTRACT.md) for the current repository-local implementation reference.
+The versioned **GoreeCloud Platform Contract** provides a machine-readable declaration and validation foundation for these relationships through repository-root `goreecloud.platform.yaml` manifests. Contract `2.0` adds the canonical eight-stage lifecycle and keeps lifecycle, deployment, qualification, flags, and conformance separate. A valid manifest records declared state and evidence references; it does not independently prove that an integration is implemented, accepted, production-ready, or Anchor. See [`PLATFORM-CONTRACT.md`](./PLATFORM-CONTRACT.md) for the current repository-local implementation reference.
 
 ## Selected public projects
 
 ### Platform, administration, and developer tools
 
-- **[GoreeCloud Manager](https://github.com/GoreeCloud/goreecloud-manager)** — native administration and operations console for GoreeCloud.
+- **[GoreeCloud Manager](https://github.com/GoreeCloud/manager)** — native administration and operations console for GoreeCloud.
 - **[GoreeCloud Terminal](https://github.com/GoreeCloud/goreecloud-terminal)** — GoreeCloud-maintained Linux terminal experience with controlled fork-to-native evolution.
 - **[GoreeCloud Search](https://github.com/GoreeCloud/goreecloud-search)** — privacy-focused, self-hosted search and metasearch gateway.
 - **[GoreeCloud Browser](https://github.com/GoreeCloud/goreecloud-browser)** — GoreeCloud-maintained browser project with a controlled migration path toward the native GoreeCloud application model.
@@ -97,11 +97,11 @@ The versioned **GoreeCloud Platform Contract** provides a machine-readable decla
 
 ## Project status and source of truth
 
-GoreeCloud repositories exist at different lifecycle states. Some projects are active development work, some are release candidates or transitional replacements, and some have accepted Stable releases.
+GoreeCloud repositories exist at different lifecycle states. Current authoritative records are migrating to the canonical Seed → Lab → Forge → Weave → Seal → Anchor → Sunset → Archive model. Historical records may retain older lifecycle vocabulary for provenance until each governed unit is explicitly reclassified from verified evidence.
 
-A project's own repository, release records, project specification, and acceptance evidence remain authoritative for its current implementation, packaging, deployment, and lifecycle state. **Being listed on this profile does not by itself mean a project is released, deployed to production, or Stable.**
+A project's own repository, release records, project specification, and acceptance evidence remain authoritative for its current implementation, packaging, deployment, and lifecycle state. **Being listed on this profile does not by itself mean a project is released, deployed to production, or Anchor.**
 
-Branding is governed separately: **`GoreeCloud/goreecloud-branding-assets` is the canonical source for GoreeCloud logos, icons, artwork, wordmarks, and approved brand derivatives.** Product-local artwork is a synchronized packaging or presentation derivative, not an independent branding source of truth.
+Branding is governed separately: **`GoreeCloud/branding-assets` is the canonical source for GoreeCloud logos, icons, artwork, wordmarks, and approved brand derivatives.** Product-local artwork is a synchronized packaging or presentation derivative, not an independent branding source of truth.
 
 ## Development approach
 

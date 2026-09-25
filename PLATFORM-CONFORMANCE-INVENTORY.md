@@ -1,16 +1,22 @@
-# GoreeCloud Platform Conformance Inventory
+# GoreeCloud Platform Conformance Inventory — Historical Snapshot
 
 ## Status
 
+- **Record type:** Historical portfolio audit snapshot; not current lifecycle or conformance authority
 - **Observed portfolio baseline:** September 4, 2026 — September 3 portfolio baseline with September 4 verified networking and Search adoption updates
-- **Current contract baseline refreshed:** September 8, 2026 — Glaze UI consumer target only; no full-estate adoption re-audit is represented by this refresh
-- **Repository footprint:** 62 owned repositories — 59 public, 3 private
-- **Current Platform Contract:** `0.2`
+- **Last bounded refresh represented here:** September 8, 2026 — Glaze UI consumer target only; no later full-estate re-audit is represented
+- **Historical repository footprint:** 62 owned repositories — 59 public, 3 private
+- **Historical Platform Contract baseline represented by the detailed audit:** `0.2`
+- **Current central Platform Contract implementation:** `2.0`; this file has not been re-audited as a v2.0 portfolio inventory
 - **Manifest filename:** `goreecloud.platform.yaml`
-- **Current schema component types:** `application`, `service`
-- **Current Stable Glaze UI consumer target used by the Platform Contract:** `1.3.0`
+- **Historical schema component types in this snapshot:** `application`, `service`
+- **Historical Glaze UI target in the September 8 bounded refresh:** `1.3.0`
 
-This document is the operational inventory for GoreeCloud Platform Contract adoption across the currently owned repository estate.
+This document preserves the September 3–8 Platform Contract adoption audit as historical evidence. It must not be used as the current repository count, current manifest-adoption count, current lifecycle registry, current repository-name registry, or current Platform Contract rollout status.
+
+Legacy `Development`, `Release Candidate`, `Stable`, `Deprecated`, and `Retired` wording below is retained with the historical snapshot and must not be mechanically translated to Contract `2.0` lifecycle values. Current reclassification requires component-specific evidence under the canonical Seed → Lab → Forge → Weave → Seal → Anchor → Sunset → Archive lifecycle.
+
+For current migration planning, use the live repositories, current `PLATFORM-CONTRACT.md`, current schemas/validators, and the authoritative GoreeCloud task/project records. A new portfolio audit is required before publishing new current adoption totals.
 
 It is intentionally **derivative**, not a competing source of truth. Repository membership and public/private counts remain governed by `REPOSITORIES.md` and `repositories.public.json`. The Platform Contract and schema remain governed by `PLATFORM-CONTRACT.md` and `schemas/goreecloud.platform.schema.json`. Repository-local manifests remain declarations owned by their repositories and do not by themselves establish implementation, acceptance, Stable qualification, or production readiness.
 
@@ -245,9 +251,9 @@ The September 3-4 audit found cross-repository statements that conflicted with t
 
 These discrepancies are documentation/source-integrity findings. They do not alter the authoritative September 3 repository inventory or upgrade/downgrade application conformance by themselves.
 
-## Required rollout work
+## Historical rollout work recorded by this snapshot
 
-The current rollout should proceed without manufacturing positive states:
+The items below preserve the rollout plan that accompanied the September 3–8 audit. They are not a current v2.0 task list and must not override current authoritative task records. At the time of this snapshot, the rollout was intended to proceed without manufacturing positive states:
 
 1. **Completed:** migrate the five legacy v0.1 manifests to v0.2 using current evidence and the governed five-result Platform System vocabulary.
 2. Add truthful v0.2 manifests to the **41 confirmed in-scope repositories** that currently lack one. Under the observed inventory, all remaining initial-adoption repositories are public; private identities remain omitted regardless of future state changes.
@@ -259,7 +265,9 @@ The current rollout should proceed without manufacturing positive states:
 
 ## Maintenance
 
-Refresh this inventory when:
+Do not incrementally refresh this historical snapshot as though it were current. A new current portfolio audit should be generated from live authoritative repositories when the v2.0 migration reaches the portfolio-audit phase.
+
+Historical maintenance triggers recorded by the original audit were:
 
 - the owned repository set changes;
 - repository visibility or default branches change;

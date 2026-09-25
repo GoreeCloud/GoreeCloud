@@ -80,7 +80,9 @@ jobs:
           expected_revision = os.environ['EVALUATED_REVISION']
           if result['evaluated_revision'] != expected_revision:
               raise SystemExit('computed result does not identify the exact checked-out caller revision')
-          print('platform-conformance-result: schema and caller revision provenance validated')
+          if 'anchor_eligible' not in result or 'stable_eligible' in result:
+              raise SystemExit('Contract 2.0 result must expose anchor_eligible and must not expose stable_eligible')
+          print('platform-conformance-result: schema, lifecycle, and caller revision provenance validated')
           PY
 
       - name: Upload platform conformance evidence

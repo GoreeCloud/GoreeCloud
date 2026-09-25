@@ -58,9 +58,9 @@ jobs:
           required_links=(
             "https://www.goreecloud.com"
             "https://github.com/GoreeCloud?tab=repositories"
-            "https://github.com/GoreeCloud/goreecloud-glaze-ui"
-            "https://github.com/GoreeCloud/goreecloud-manager"
-            "https://github.com/GoreeCloud/goreecloud-mesh"
+            "https://github.com/GoreeCloud/glaze-ui"
+            "https://github.com/GoreeCloud/manager"
+            "https://github.com/GoreeCloud/mesh"
             "https://github.com/GoreeCloud/goreecloud-identity"
           )
 
@@ -72,12 +72,15 @@ jobs:
           done
 
           required_systems=(
-            "Glaze UI"
-            "Wardveil Security"
+            "GoreeCloud Manager"
             "Privacy Shield"
+            "Wardveil Security"
             "Everkeep"
+            "Glaze UI"
             "GoreeCloud Mesh"
             "GoreeCloud Identity"
+            "GoreeCloud Policy"
+            "GoreeCloud Observability"
           )
 
           for system in "${required_systems[@]}"; do

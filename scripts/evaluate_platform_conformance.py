@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compute a GoreeCloud Platform Contract 0.4 conformance result."""
+"""Compute a GoreeCloud Platform Contract 2.0 conformance result."""
 
 from __future__ import annotations
 
@@ -51,6 +51,8 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
     acceptance = manifest["evidence"]["acceptance_tests"]
     releases = manifest["evidence"]["release"]
     lifecycle = manifest["lifecycle"]
+    lifecycle_metadata = manifest["lifecycle_metadata"]
+    candidate_identity = lifecycle_metadata["candidate_identity"]
 
     checks: list[dict[str, Any]] = []
     blockers: list[str] = []
@@ -68,7 +70,7 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
             "message": (
                 f"{DISPLAY_NAMES[name]} is {result}."
                 if passing else
-                f"{DISPLAY_NAMES[name]} remains {result} and cannot satisfy Stable eligibility."
+                f"{DISPLAY_NAMES[name]} remains {result} and cannot satisfy Anchor eligibility."
             ),
         })
         if not passing:
@@ -88,29 +90,29 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
             "declared_result": glaze["result"],
             "evidence": glaze["evidence"],
             "message": (
-                f"Glaze UI target is current Stable {validator.CURRENT_GLAZE_UI_VERSION}."
+                f"Glaze UI target is current approved {validator.CURRENT_GLAZE_UI_VERSION}."
                 if current else
-                f"Glaze UI target must be current Stable {validator.CURRENT_GLAZE_UI_VERSION}."
+                f"Glaze UI target must be current approved {validator.CURRENT_GLAZE_UI_VERSION}."
             ),
         })
         if not current:
-            blockers.append(f"Glaze UI compatibility target is not current Stable {validator.CURRENT_GLAZE_UI_VERSION}")
+            blockers.append(f"Glaze UI compatibility target is not current approved {validator.CURRENT_GLAZE_UI_VERSION}")
 
     passed_categories = {item["category"] for item in acceptance if item["result"] == "passed"}
-    missing_acceptance = sorted(validator.stable_acceptance_categories(manifest) - passed_categories)
+    missing_acceptance = sorted(validator.anchor_acceptance_categories(manifest) - passed_categories)
     checks.append({
-        "id": "evidence:stable-acceptance",
+        "id": "evidence:anchor-acceptance",
         "category": "evidence",
         "result": "passed" if not missing_acceptance else "failed",
         "evidence": [item["id"] for item in acceptance if item["result"] == "passed"],
         "message": (
-            "Required Stable acceptance evidence categories are present."
+            "Required Anchor acceptance evidence categories are present."
             if not missing_acceptance else
-            "Missing passing Stable acceptance categories: " + ", ".join(missing_acceptance)
+            "Missing passing Anchor acceptance categories: " + ", ".join(missing_acceptance)
         ),
     })
     if missing_acceptance:
-        blockers.append("Missing passing Stable acceptance categories: " + ", ".join(missing_acceptance))
+        blockers.append("Missing passing Anchor acceptance categories: " + ", ".join(missing_acceptance))
 
     for system, category in validator.SYSTEM_ACCEPTANCE_CATEGORIES.items():
         if systems[system]["result"] == "applicable-conformant" and category not in passed_categories:
@@ -138,12 +140,29 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
     declared = manifest["conformance"]
     if declared["status"] != "conformant":
         blockers.extend(declared["blockers"])
-    blockers = list(dict.fromkeys(blockers))
+    qualification_ready = (
+        lifecycle_metadata["qualification_state"] == "passed"
+        and bool(lifecycle_metadata["evidence"])
+    )
+    checks.append({
+        "id": "lifecycle:anchor-qualification",
+        "category": "evidence",
+        "result": "passed" if qualification_ready else "failed",
+        "evidence": lifecycle_metadata["evidence"],
+        "message": (
+            "Anchor qualification state is passed with traceable lifecycle evidence."
+            if qualification_ready else
+            "Anchor eligibility requires qualification_state=passed and traceable lifecycle evidence."
+        ),
+    })
+    if not qualification_ready:
+        blockers.append("Anchor qualification has not passed with traceable lifecycle evidence")
 
-    stable_eligible = not blockers and declared["status"] == "conformant" and declared["validated_at"] is not None
-    if stable_eligible:
+    blockers = list(dict.fromkeys(blockers))
+    anchor_eligible = not blockers and declared["status"] == "conformant" and declared["validated_at"] is not None
+    if anchor_eligible:
         computed = "conformant"
-    elif lifecycle == "stable":
+    elif lifecycle == "anchor":
         computed = "nonconformant"
     elif declared["status"] == "unverified":
         computed = "unverified"
@@ -160,9 +179,16 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
         "evaluator_revision": evaluator_revision,
         "evaluated_at": evaluated_at,
         "lifecycle": lifecycle,
+        "lifecycle_flags": lifecycle_metadata["flags"],
+        "deployment_state": lifecycle_metadata["deployment_state"],
+        "qualification_state": lifecycle_metadata["qualification_state"],
+        "next_gate": lifecycle_metadata["next_gate"],
+        "candidate_source_revision": candidate_identity["source_revision"] if candidate_identity else None,
+        "last_lifecycle_transition": lifecycle_metadata["last_transition"],
+        "lifecycle_evidence": lifecycle_metadata["evidence"],
         "declared_conformance": declared["status"],
         "computed_conformance": computed,
-        "stable_eligible": stable_eligible,
+        "anchor_eligible": anchor_eligible,
         "checks": checks,
         "blockers": blockers,
         "authority": {
@@ -208,8 +234,8 @@ def main() -> int:
     else:
         sys.stdout.write(rendered)
 
-    if manifest["lifecycle"] == "stable" and not result["stable_eligible"]:
-        print("platform-conformance: Stable eligibility failed closed", file=sys.stderr)
+    if manifest["lifecycle"] == "anchor" and not result["anchor_eligible"]:
+        print("platform-conformance: Anchor eligibility failed closed", file=sys.stderr)
         return 1
     return 0
 
