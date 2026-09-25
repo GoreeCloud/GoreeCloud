@@ -7,8 +7,9 @@ on:
       - NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md
       - PLATFORM-CONTRACT.md
       - repositories.public.json
+      - REPOSITORIES.md
+      - PLATFORM-CONFORMANCE-INVENTORY.md
       - examples/goreecloud.platform.example.yaml
-      - examples/goreecloud.platform.shared-library.example.yaml
       - examples/goreecloud.platform.shared-library.example.yaml
       - schemas/goreecloud.platform.schema.json
       - schemas/goreecloud.conformance-result.schema.json
@@ -16,6 +17,7 @@ on:
       - scripts/validate_platform_manifest.py
       - scripts/evaluate_platform_conformance.py
       - scripts/validate_public_repository_registry.py
+      - scripts/audit_platform_manifest_portfolio.py
       - .github/workflows/platform-conformance.yml
       - .github/workflows/reusable-platform-manifest.yml
   push:
@@ -26,6 +28,8 @@ on:
       - NATIVE-APPLICATION-AND-PLATFORM-CONFORMANCE.md
       - PLATFORM-CONTRACT.md
       - repositories.public.json
+      - REPOSITORIES.md
+      - PLATFORM-CONFORMANCE-INVENTORY.md
       - examples/goreecloud.platform.example.yaml
       - schemas/goreecloud.platform.schema.json
       - schemas/goreecloud.conformance-result.schema.json
@@ -209,7 +213,26 @@ jobs:
           PY
 
       - name: Validate privacy-bounded public repository registry
-        run: python3 scripts/validate_public_repository_registry.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/validate_public_repository_registry.py --verify-live-public
+
+      - name: Audit public Platform Contract manifest generations
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 scripts/audit_platform_manifest_portfolio.py \
+            --json-output /tmp/goreecloud-platform-portfolio-audit.json \
+            --markdown-summary "$GITHUB_STEP_SUMMARY" \
+            --fail-on-invalid-contract-2
+
+      - name: Upload public Platform Contract portfolio diagnostic
+        uses: actions/upload-artifact@v4
+        with:
+          name: goreecloud-platform-portfolio-audit-${{ env.CANDIDATE_REVISION }}
+          path: /tmp/goreecloud-platform-portfolio-audit.json
+          if-no-files-found: error
+          retention-days: 30
 
   reusable-provenance:
     name: Exercise reusable exact-revision provenance
