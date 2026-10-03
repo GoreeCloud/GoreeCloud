@@ -10,7 +10,7 @@
 - Canonical governance: GoreeCloud Google Drive instructions, policies, standards, rules, preferences, and project specifications
 - Integral Platform System authority: **Instructions — Integral Platform Systems v3.0**
 - Release-lifecycle authority: **Standard — Application and Service Release Lifecycle v0.7**
-- Current approved Glaze UI consumer target: `1.6.0` (`GLAZE UI V1.6`)
+- Current approved Glaze UI consumer target: `1.7.0` (`Glaze V1.7`)
 
 Contract `2.0` is the first Platform Contract version to implement the canonical GoreeCloud release lifecycle:
 
@@ -172,7 +172,7 @@ An `anchor` lifecycle declaration fails validation unless:
 - every applicable-conformant Integral Platform System has passing structured system acceptance evidence;
 - `lifecycle_metadata.qualification_state` is `passed`;
 - lifecycle-transition/qualification evidence is traceable through `lifecycle_metadata.evidence`;
-- the current approved Glaze UI target is `1.6.0` where applicable;
+- the current approved Glaze UI target is `1.7.0` where applicable;
 - conformance is declared `conformant` with a validation timestamp;
 - required cross-cutting Anchor acceptance categories for the component class have passing evidence; and
 - published release evidence exists.
