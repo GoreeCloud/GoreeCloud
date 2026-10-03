@@ -47,7 +47,7 @@ REQUIRED_README_BOUNDARIES = (
 
 REQUIRED_CONTRACT_BOUNDARIES = (
     "Contract version: `2.0`",
-    "Current approved Glaze UI consumer target: `1.6.0`",
+    "Current approved Glaze UI consumer target: `1.7.0`",
     "Exactly nine Integral Platform Systems",
     "Seed → Lab → Forge → Weave → Seal → Anchor → Sunset → Archive",
     "GoreeCloud Sync is not a tenth Integral Platform System",
@@ -161,7 +161,7 @@ def main() -> None:
 
     check_workflow_provenance()
     print("platform-conformance: nine-system native/platform baseline validated")
-    print("platform-conformance: Policy/Observability inclusion, Sync separation, and Glaze UI 1.6.0 target validated")
+    print("platform-conformance: Policy/Observability inclusion, Sync separation, and Glaze UI 1.7.0 target validated")
     print("platform-conformance: exact PR-head workflow provenance validated")
     print("platform-conformance: shared-library Contract 2.0 applicability validated")
 
