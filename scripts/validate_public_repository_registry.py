@@ -24,10 +24,10 @@ INVENTORY_REPOSITORY_PATTERN = re.compile(
 )
 REQUIRED_PUBLIC_REPOSITORIES = {
     "GoreeCloud/GoreeCloud",
-    "GoreeCloud/glaze-ui",
+    "GoreeCloud/glaze",
     "GoreeCloud/manager",
     "GoreeCloud/mesh",
-    "GoreeCloud/goreecloud-identity",
+    "GoreeCloud/identity",
 }
 GITHUB_PUBLIC_REPOSITORIES_URL = (
     "https://api.github.com/users/GoreeCloud/repos"
