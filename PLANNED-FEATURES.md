@@ -30,7 +30,7 @@ Current platform-wide conformance work is governed by Platform Contract 2.0 and 
 2. Privacy Shield
 3. Wardveil Security
 4. Everkeep
-5. Glaze UI
+5. Glaze
 6. GoreeCloud Mesh
 7. GoreeCloud Identity
 8. GoreeCloud Policy
