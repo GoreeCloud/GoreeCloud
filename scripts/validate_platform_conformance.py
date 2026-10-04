@@ -16,7 +16,7 @@ REQUIRED_SYSTEMS = (
     "Privacy Shield",
     "Wardveil Security",
     "Everkeep",
-    "Glaze UI",
+    "Glaze",
     "GoreeCloud Mesh",
     "GoreeCloud Identity",
     "GoreeCloud Policy",
@@ -41,13 +41,13 @@ REQUIRED_README_BOUNDARIES = (
     "applications, services, and shared platform components cohesive",
     "original, native, GoreeCloud-owned destination",
     "Existing complete-product forks or adopted implementations may remain temporarily",
-    "Required GoreeCloud Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze UI, GoreeCloud Mesh, GoreeCloud Identity, GoreeCloud Policy, and GoreeCloud Observability integrations",
+    "Required GoreeCloud Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze, GoreeCloud Mesh, GoreeCloud Identity, GoreeCloud Policy, and GoreeCloud Observability integrations",
     "must not be presented as Anchor or production-ready merely because it builds successfully",
 )
 
 REQUIRED_CONTRACT_BOUNDARIES = (
     "Contract version: `2.0`",
-    "Current approved Glaze UI consumer target: `1.6.0`",
+    "Current approved Glaze consumer target: `1.7.0`",
     "Exactly nine Integral Platform Systems",
     "Seed → Lab → Forge → Weave → Seal → Anchor → Sunset → Archive",
     "GoreeCloud Sync is not a tenth Integral Platform System",
@@ -56,6 +56,10 @@ REQUIRED_CONTRACT_BOUNDARIES = (
     "Pull-request validation evaluates the exact PR head",
     "Migration from Contract 0.4",
     "`shared-library`",
+    "Glaze identity and Contract 2.0 compatibility aliases",
+    "canonical repository is `GoreeCloud/glaze`",
+    "`platform_systems.glaze_ui`",
+    "`compatibility.glaze_ui_required`",
 )
 
 FORBIDDEN_STALE_PHRASES = (
@@ -67,7 +71,10 @@ FORBIDDEN_STALE_PHRASES = (
     "sync is explicitly the eighth",
 )
 
-FORBIDDEN_README_REFERENCES = ("https://github.com/GoreeCloud/goreecloud-glaze-ui",)
+FORBIDDEN_README_REFERENCES = (
+    "https://github.com/GoreeCloud/goreecloud-glaze-ui",
+    "https://github.com/GoreeCloud/glaze-ui",
+)
 CHECKOUT_PIN = "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803"
 PR_REVISION_EXPRESSION = "${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}"
 
@@ -161,7 +168,7 @@ def main() -> None:
 
     check_workflow_provenance()
     print("platform-conformance: nine-system native/platform baseline validated")
-    print("platform-conformance: Policy/Observability inclusion, Sync separation, and Glaze UI 1.6.0 target validated")
+    print("platform-conformance: Policy/Observability inclusion, Sync separation, and Glaze 1.7.0 target validated")
     print("platform-conformance: exact PR-head workflow provenance validated")
     print("platform-conformance: shared-library Contract 2.0 applicability validated")
 

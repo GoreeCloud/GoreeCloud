@@ -10,7 +10,7 @@
 - Canonical governance: GoreeCloud Google Drive instructions, policies, standards, rules, preferences, and project specifications
 - Integral Platform System authority: **Instructions — Integral Platform Systems v3.0**
 - Release-lifecycle authority: **Standard — Application and Service Release Lifecycle v0.7**
-- Current approved Glaze UI consumer target: `1.6.0` (`GLAZE UI V1.6`)
+- Current approved Glaze consumer target: `1.7.0` (`Glaze V1.7`)
 
 Contract `2.0` is the first Platform Contract version to implement the canonical GoreeCloud release lifecycle:
 
@@ -22,6 +22,10 @@ Contract versions are not silently reinterpreted. A `0.4` manifest retains the l
 
 A manifest is a declaration and validation input. It does not by itself prove that a capability is implemented, accepted, deployed, production-ready, or Anchor-qualified.
 
+### Glaze identity and Contract 2.0 compatibility aliases
+
+**Glaze** is the current human-facing name of the design and experience system, and the canonical repository is `GoreeCloud/glaze`. Contract `2.0` intentionally retains the legacy machine identifiers `platform_systems.glaze_ui`, `compatibility.glaze_ui_required`, acceptance category `glaze-ui`, and dependency token `glaze-ui==...` as compatibility aliases. Those identifiers do not define the current product name. Renaming or removing them requires a separately versioned Platform Contract migration with downstream compatibility evidence; current manifests must continue using the Contract `2.0` machine keys until that migration exists.
+
 ## Exactly nine Integral Platform Systems
 
 The authoritative platform baseline contains exactly nine Integral Platform Systems:
@@ -30,7 +34,7 @@ The authoritative platform baseline contains exactly nine Integral Platform Syst
 2. **Privacy Shield** — privacy protection, consent, purpose limitation, minimization, retention, tracking/telemetry privacy, sharing, and information-use controls.
 3. **Wardveil Security** — protection, integrity, trust, threat handling, defensive requirements, security posture, response, and security evidence.
 4. **Everkeep** — resilience, backup, restore, recovery, preservation, portability, continuity, migration readiness, succession, and long-term information survival.
-5. **Glaze UI** — shared visual, interaction, accessibility, adaptive, status, policy-decision, operational-health, and evidence-state presentation behavior.
+5. **Glaze** — shared visual, interaction, accessibility, adaptive, status, policy-decision, operational-health, and evidence-state presentation behavior.
 6. **GoreeCloud Mesh** — bounded first-party capability discovery, dependency/relationship awareness, private coordination, event exchange, interoperability, and evidence routing where applicable.
 7. **GoreeCloud Identity** — identity, authentication, authorization integration, accounts, sessions, devices, applications, services, credentials, claims, workload identity, and trust relationships.
 8. **GoreeCloud Policy** — shared policy representation, evaluation, decisions, distribution, enforcement coordination, explanation, version/freshness, precedence/composition, and policy evidence while preserving domain rule ownership.
@@ -137,7 +141,7 @@ Every Contract `2.0` manifest declares:
 - Health and readiness interfaces.
 - Backup, restore, export, and portability requirements.
 - Required external dependencies.
-- Compatibility requirements, including the current approved Glaze UI target where applicable.
+- Compatibility requirements, including the current approved Glaze target where applicable.
 - Structured acceptance evidence.
 - Structured release evidence.
 - Declared conformance status, blockers, validation time, and evidence references.
@@ -172,7 +176,7 @@ An `anchor` lifecycle declaration fails validation unless:
 - every applicable-conformant Integral Platform System has passing structured system acceptance evidence;
 - `lifecycle_metadata.qualification_state` is `passed`;
 - lifecycle-transition/qualification evidence is traceable through `lifecycle_metadata.evidence`;
-- the current approved Glaze UI target is `1.6.0` where applicable;
+- the current approved Glaze target is `1.7.0` where applicable;
 - conformance is declared `conformant` with a validation timestamp;
 - required cross-cutting Anchor acceptance categories for the component class have passing evidence; and
 - published release evidence exists.
