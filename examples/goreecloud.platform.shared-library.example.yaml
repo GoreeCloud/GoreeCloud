@@ -51,7 +51,7 @@ platform_systems:
     result: applicable-blocked
     version: null
     evidence: []
-    notes: Example only; Glaze UI applicability has not been accepted.
+    notes: Example only; Glaze applicability has not been accepted.
   mesh:
     result: applicable-blocked
     version: null

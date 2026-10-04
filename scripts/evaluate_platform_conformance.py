@@ -30,7 +30,7 @@ DISPLAY_NAMES = {
     "privacy_shield": "Privacy Shield",
     "wardveil_security": "Wardveil Security",
     "everkeep": "Everkeep",
-    "glaze_ui": "Glaze UI",
+    "glaze_ui": "Glaze",
     "mesh": "GoreeCloud Mesh",
     "identity": "GoreeCloud Identity",
     "policy": "GoreeCloud Policy",
@@ -90,13 +90,13 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
             "declared_result": glaze["result"],
             "evidence": glaze["evidence"],
             "message": (
-                f"Glaze UI target is current approved {validator.CURRENT_GLAZE_UI_VERSION}."
+                f"Glaze target is current approved {validator.CURRENT_GLAZE_UI_VERSION}."
                 if current else
-                f"Glaze UI target must be current approved {validator.CURRENT_GLAZE_UI_VERSION}."
+                f"Glaze target must be current approved {validator.CURRENT_GLAZE_UI_VERSION}."
             ),
         })
         if not current:
-            blockers.append(f"Glaze UI compatibility target is not current approved {validator.CURRENT_GLAZE_UI_VERSION}")
+            blockers.append(f"Glaze compatibility target is not current approved {validator.CURRENT_GLAZE_UI_VERSION}")
 
     passed_categories = {item["category"] for item in acceptance if item["result"] == "passed"}
     missing_acceptance = sorted(validator.anchor_acceptance_categories(manifest) - passed_categories)

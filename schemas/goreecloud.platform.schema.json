@@ -142,7 +142,8 @@
           "$ref": "#/$defs/integration"
         },
         "glaze_ui": {
-          "$ref": "#/$defs/integration"
+          "$ref": "#/$defs/integration",
+          "description": "Legacy Contract 2.0 machine key for the current Glaze Integral Platform System; retained as a compatibility alias until a separately versioned contract migration."
         },
         "mesh": {
           "$ref": "#/$defs/meshIntegration"
@@ -252,7 +253,8 @@
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "description": "Legacy Contract 2.0 machine key for the required Glaze consumer version; retained as a compatibility alias until a separately versioned contract migration."
         },
         "requires": {
           "$ref": "#/$defs/stringList"
@@ -641,7 +643,8 @@
             "migration",
             "rollback",
             "release"
-          ]
+          ],
+          "description": "Evidence category token. The glaze-ui token is a Contract 2.0 compatibility alias for current Glaze evidence."
         },
         "path": {
           "type": "string",
