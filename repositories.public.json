@@ -1,6 +1,6 @@
 {
   "schema": "goreecloud-public-repository-registry/v1",
-  "observedAt": "2026-10-03",
+  "observedAt": "2026-10-04",
   "authority": {
     "source": "GitHub repository metadata",
     "owner": "GoreeCloud",
@@ -52,6 +52,7 @@
     "GoreeCloud/DNS",
     "GoreeCloud/documents",
     "GoreeCloud/drive",
+    "GoreeCloud/everkeep",
     "GoreeCloud/feeds",
     "GoreeCloud/file-manager",
     "GoreeCloud/firefox-addons",
