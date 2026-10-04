@@ -168,7 +168,7 @@ def _validate_anchor_gate(manifest: dict[str, Any]) -> None:
         if required != CURRENT_GLAZE_UI_VERSION:
             fail(f"Anchor lifecycle requires compatibility.glaze_ui_required={CURRENT_GLAZE_UI_VERSION!r}")
         if glaze["result"] == "applicable-conformant" and glaze["version"] != required:
-            fail("Anchor lifecycle requires the conformant Glaze UI version to equal the required approved target")
+            fail("Anchor lifecycle requires the conformant Glaze version to equal the required approved target")
 
     acceptance = manifest["evidence"]["acceptance_tests"]
     passed_categories = {item["category"] for item in acceptance if item["result"] == "passed"}

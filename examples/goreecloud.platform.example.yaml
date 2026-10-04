@@ -57,8 +57,8 @@ platform_systems:
     result: applicable-migration-required
     version: "1.3.0"
     evidence:
-      - evidence/glaze-ui/example-source-mapping.json
-    notes: Example source intentionally represents an older implemented Glaze UI line and must migrate to current approved 1.7.0 before conformance.
+      - evidence/glaze/example-source-mapping.json
+    notes: Example source intentionally represents an older implemented Glaze line and must migrate to current approved 1.7.0 before conformance.
   mesh:
     result: applicable-blocked
     version: null
@@ -142,7 +142,7 @@ conformance:
     - Privacy Shield integration remains blocked pending accepted runtime evidence.
     - Wardveil Security integration remains blocked pending accepted runtime evidence.
     - Everkeep integration remains blocked pending backup and restore acceptance.
-    - Glaze UI migration from implemented 1.3.0 to current approved 1.7.0 remains required.
+    - Glaze migration from implemented 1.3.0 to current approved 1.7.0 remains required.
     - GoreeCloud Mesh runtime publication and acceptance remain blocked.
     - GoreeCloud Identity runtime acceptance remains blocked.
     - GoreeCloud Policy applicability, decision, enforcement, and evidence acceptance remain blocked.

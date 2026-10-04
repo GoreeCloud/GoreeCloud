@@ -58,7 +58,7 @@ jobs:
           required_links=(
             "https://www.goreecloud.com"
             "https://github.com/GoreeCloud?tab=repositories"
-            "https://github.com/GoreeCloud/glaze-ui"
+            "https://github.com/GoreeCloud/glaze"
             "https://github.com/GoreeCloud/manager"
             "https://github.com/GoreeCloud/mesh"
             "https://github.com/GoreeCloud/goreecloud-identity"
@@ -76,7 +76,7 @@ jobs:
             "Privacy Shield"
             "Wardveil Security"
             "Everkeep"
-            "Glaze UI"
+            "Glaze"
             "GoreeCloud Mesh"
             "GoreeCloud Identity"
             "GoreeCloud Policy"
