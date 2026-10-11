@@ -16,6 +16,7 @@ on:
       - scripts/validate_platform_conformance.py
       - scripts/validate_platform_manifest.py
       - scripts/evaluate_platform_conformance.py
+      - tests/test_platform_contract_gates.py
       - scripts/validate_public_repository_registry.py
       - scripts/audit_platform_manifest_portfolio.py
       - .github/workflows/platform-conformance.yml
@@ -36,6 +37,7 @@ on:
       - scripts/validate_platform_conformance.py
       - scripts/validate_platform_manifest.py
       - scripts/evaluate_platform_conformance.py
+      - tests/test_platform_contract_gates.py
       - scripts/validate_public_repository_registry.py
       - scripts/audit_platform_manifest_portfolio.py
       - .github/workflows/platform-conformance.yml
@@ -84,6 +86,9 @@ jobs:
         run: |
           python3 scripts/validate_platform_manifest.py examples/goreecloud.platform.example.yaml
           python3 scripts/validate_platform_manifest.py examples/goreecloud.platform.shared-library.example.yaml
+
+      - name: Regression-test exact-candidate, publication and hold gates
+        run: python3 -m unittest discover -s tests -p 'test_platform_contract_gates.py' -v
 
       - name: Validate Contract 2.0 lifecycle fail-closed semantics
         run: |
