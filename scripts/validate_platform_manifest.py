@@ -137,6 +137,10 @@ def _validate_lifecycle_semantics(manifest: dict[str, Any]) -> None:
     if lifecycle == "seal" and metadata["candidate_identity"] is None:
         fail("Seal lifecycle requires exact lifecycle_metadata.candidate_identity")
     if lifecycle == "anchor":
+        if metadata["flags"]:
+            fail("Anchor lifecycle cannot retain active hold, migration, or superseded flags")
+        if metadata["candidate_identity"] is None:
+            fail("Anchor lifecycle requires an exact lifecycle_metadata.candidate_identity")
         if metadata["qualification_state"] != "passed":
             fail("Anchor lifecycle requires lifecycle_metadata.qualification_state=passed")
         if not metadata["evidence"]:
@@ -181,8 +185,12 @@ def _validate_anchor_gate(manifest: dict[str, Any]) -> None:
             fail(f"Anchor lifecycle requires passing {category!r} acceptance evidence for applicable-conformant platform_systems.{system}")
 
     releases = manifest["evidence"]["release"]
-    if not any(item["result"] == "published" for item in releases):
-        fail("Anchor lifecycle requires published release evidence")
+    candidate_revision = manifest["lifecycle_metadata"]["candidate_identity"]["source_revision"]
+    if not any(
+        item["result"] == "published" and item["revision"] == candidate_revision
+        for item in releases
+    ):
+        fail("Anchor lifecycle requires published release evidence for its exact candidate revision")
 
 
 def validate_manifest(path: Path) -> dict[str, Any]:
