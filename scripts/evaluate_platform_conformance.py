@@ -57,6 +57,40 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
     checks: list[dict[str, Any]] = []
     blockers: list[str] = []
 
+    # Eligibility is bound to an exact source candidate and has no active holds.
+    # A valid declaration alone cannot authorize an Anchor transition.
+    flags = lifecycle_metadata["flags"]
+    flags_clear = not flags
+    checks.append({
+        "id": "lifecycle:hold-flags",
+        "category": "evidence",
+        "result": "passed" if flags_clear else "failed",
+        "evidence": lifecycle_metadata["evidence"],
+        "message": (
+            "No lifecycle hold or migration flags are active."
+            if flags_clear else
+            "Active lifecycle flags block Anchor eligibility: " + ", ".join(flags)
+        ),
+    })
+    if not flags_clear:
+        blockers.append("Active lifecycle flags: " + ", ".join(flags))
+
+    candidate_revision = candidate_identity["source_revision"] if candidate_identity else None
+    exact_candidate = candidate_revision == revision
+    checks.append({
+        "id": "lifecycle:exact-candidate",
+        "category": "evidence",
+        "result": "passed" if exact_candidate else "failed",
+        "evidence": lifecycle_metadata["evidence"],
+        "message": (
+            "Candidate identity matches the exact evaluated revision."
+            if exact_candidate else
+            "Anchor eligibility requires a candidate source revision matching the exact evaluated revision."
+        ),
+    })
+    if not exact_candidate:
+        blockers.append("Candidate source revision does not match the evaluated revision")
+
     for name in PLATFORM_SYSTEMS:
         entry = systems[name]
         result = entry["result"]
@@ -126,16 +160,19 @@ def evaluate(manifest: dict[str, Any], *, revision: str, evaluator_revision: str
             })
             blockers.append(f"{DISPLAY_NAMES[system]} lacks passing {category} acceptance evidence")
 
-    published = [item for item in releases if item["result"] == "published"]
+    published = [
+        item for item in releases
+        if item["result"] == "published" and item["revision"] == revision
+    ]
     checks.append({
         "id": "evidence:release",
         "category": "release",
         "result": "passed" if published else "failed",
         "evidence": [item["id"] for item in published],
-        "message": "Published release evidence is present." if published else "Published release evidence is missing.",
+        "message": "Published release evidence matches the evaluated revision." if published else "Published release evidence for the evaluated revision is missing.",
     })
     if not published:
-        blockers.append("Published release evidence is missing")
+        blockers.append("Published release evidence for the evaluated revision is missing")
 
     declared = manifest["conformance"]
     if declared["status"] != "conformant":
