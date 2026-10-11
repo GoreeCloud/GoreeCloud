@@ -179,9 +179,13 @@ An `anchor` lifecycle declaration fails validation unless:
 - the current approved Glaze target is `1.7.0` where applicable;
 - conformance is declared `conformant` with a validation timestamp;
 - required cross-cutting Anchor acceptance categories for the component class have passing evidence; and
-- published release evidence exists.
+- no lifecycle hold, migration-required, blocked, or superseded flags remain active;
+- an exact candidate source revision is recorded, and computed eligibility binds it to the evaluated Git revision; and
+- published release evidence is attributable to that exact candidate revision (and therefore to the evaluated revision at the eligibility gate).
 
 The computed result exposes `anchor_eligible`; Contract `2.0` does not expose the old `stable_eligible` field.
+
+The manifest validator checks internally consistent candidate and release revision references for Anchor declarations. The computed evaluator additionally requires those references to match the exact source revision being evaluated; neither check proves that referenced evidence exists or that runtime release gates have passed.
 
 Unknown, stale, missing, denied, failed, blocked, migration-required, or unverified mandatory state does not become passing state through aggregation, absence of observed failure, or metadata alone.
 
