@@ -140,7 +140,7 @@ conformance:
     - Privacy Shield integration remains blocked pending accepted runtime evidence.
     - Wardveil Security integration remains blocked pending accepted runtime evidence.
     - Everkeep integration remains blocked pending backup and restore acceptance.
-    - GoreeCloud UI migration from implemented 1.3.0 to scoped current foundations-v1.0.1 remains required.
+    - GC UI experience integration, supported-scope selection, runtime accessibility checks, and product-level acceptance remain unverified.
     - GoreeCloud Mesh runtime publication and acceptance remain blocked.
     - GoreeCloud Identity runtime acceptance remains blocked.
     - GoreeCloud Policy applicability, decision, enforcement, and evidence acceptance remain blocked.
