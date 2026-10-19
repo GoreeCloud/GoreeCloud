@@ -24,7 +24,8 @@
     "Repository presence does not imply application completeness, lifecycle maturity, production approval, or completed platform integration.",
     "Canonical project specifications, repository-local release evidence, acceptance records, and applicable GoreeCloud instructions, standards, and policies remain authoritative for lifecycle and acceptance state.",
     "Contract 2.0 lifecycle migration is evidence-based; repository inventory changes must not be used to mass-promote or mechanically translate lifecycle values.",
-    "October 19: verified public membership reconciliation; GC UI is Integral Platform System 5 of nine. Historical Glaze source status is not inferred from missing public repository identities."
+    "October 19: verified public membership reconciliation; GC UI is Integral Platform System 5 of nine. Historical Glaze source status is not inferred from missing public repository identities.",
+    "The previous GoreeCloud/network URL redirects to the canonical public GoreeCloud/VPN repository; only the actual current repository name is listed."
   ],
   "repositories": [
     "GoreeCloud/.github",
@@ -83,7 +84,6 @@
     "GoreeCloud/metrics",
     "GoreeCloud/monitor",
     "GoreeCloud/music",
-    "GoreeCloud/network",
     "GoreeCloud/news-weather",
     "GoreeCloud/notebook",
     "GoreeCloud/notify",
