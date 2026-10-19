@@ -10,6 +10,7 @@ on:
       - 'examples/goreecloud.platform.v2.1*.yaml'
       - 'docs/PLATFORM_CONTRACT_2_1_GC_UI.md'
       - '.github/workflows/gc-ui-platform-contract-2-1.yml'
+      - '.github/workflows/reusable-platform-manifest-v2-1.yml'
   push:
     branches: [main]
     paths:
@@ -20,6 +21,7 @@ on:
       - 'examples/goreecloud.platform.v2.1*.yaml'
       - 'docs/PLATFORM_CONTRACT_2_1_GC_UI.md'
       - '.github/workflows/gc-ui-platform-contract-2-1.yml'
+      - '.github/workflows/reusable-platform-manifest-v2-1.yml'
   workflow_dispatch:
 
 permissions:
@@ -103,3 +105,9 @@ jobs:
               else: raise SystemExit(label+' unexpectedly accepted')
           print('All five negative compatibility and qualification controls held')
           PY
+
+  validate-through-reusable-contract:
+    name: Validate GC UI Contract 2.1 through shared consumer workflow
+    uses: ./.github/workflows/reusable-platform-manifest-v2-1.yml
+    with:
+      manifest-path: examples/goreecloud.platform.v2.1.example.yaml
