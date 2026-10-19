@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://goreecloud.com/schemas/goreecloud.conformance-result.schema.json",
+  "$id": "https://goreecloud.com/schemas/goreecloud.conformance-result.v2.1.schema.json",
   "title": "GoreeCloud Platform Conformance Result",
   "description": "Computed Platform Contract 2.0 repository conformance result bound to exact repository and evaluator revisions. Lifecycle, flags, deployment, qualification, and eligibility remain separate controls; aggregators may present this result but do not acquire authority over producer-owned facts.",
   "type": "object",
