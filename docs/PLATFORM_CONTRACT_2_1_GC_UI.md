@@ -28,6 +28,16 @@ This **separately versioned** 2.1 candidate provides an explicit replacement rat
 - [Application example](../examples/goreecloud.platform.v2.1.example.yaml), [shared-library example](../examples/goreecloud.platform.v2.1.shared-library.example.yaml), and [CI workflow](../.github/workflows/gc-ui-platform-contract-2-1.yml) verify truthful **nonconformant** source declarations and negative tests.
 - The existing Contract 2.0 schema, validator, evaluator, examples and reusable workflow are **not modified**; existing callers remain pinned to their evaluator revisions.
 
+## Opt-in, pinned consumer validation
+
+An independently versioned [reusable 2.1 workflow](../.github/workflows/reusable-platform-manifest-v2-1.yml) is provided for *explicit* adoption by authorized repository owners. It does **not** replace or modify the previous [2.0 reusable workflow](../.github/workflows/reusable-platform-manifest.yml).
+
+After the 2.1 workflow is merged and a specific evaluator commit is qualified, a consumer's dedicated platform job may call `GoreeCloud/GoreeCloud/.github/workflows/reusable-platform-manifest-v2-1.yml@<VERIFIED_40_CHARACTER_COMMIT_SHA>` with `manifest-path: goreecloud.platform.yaml`. Replace the placeholder with the immutable exact evaluator commit; **never use a floating branch or invent acceptance evidence**.
+
+The 2.1 reusable job checks out the **exact caller revision**, uses the **exact pinned workflow implementation**, validates the 2.1 manifest, evaluates conformance without promoting its lifecycle, validates result schema/provenance, and uploads a bounded evidence artifact. CI reports can succeed even when the product has `anchor_eligible: false`, provided that nonconformance is stated truthfully. A 0.4 or 2.0 manifest must continue to use its historical workflow until explicitly migrated.
+
+The [central candidate CI](../.github/workflows/gc-ui-platform-contract-2-1.yml) exercises the reusable job at the exact PR revision before this opt-in mechanism is considered qualified. Runtime GC UI, deployment, accessibility and production acceptance remain independent obligations.
+
 ## GC UI release and scope truth
 
 The GC UI development workspace is `0.2.0-alpha.1`; its scoped `foundations-v1.0.1` GitHub distribution covers semantic tokens, color engine and browser theme controller, **not** the full component catalog or native UI. Declaring that identifier as a target is not conformance and cannot silently certify experimental components, app-level UX, accessibility, privacy, native interaction, platform adapter, rollout, rollback, or production readiness.
