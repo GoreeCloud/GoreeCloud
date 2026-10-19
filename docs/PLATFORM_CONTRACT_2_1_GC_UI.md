@@ -1,6 +1,6 @@
 # Platform Contract 2.1 — GoreeCloud UI successor contract
 
-**Status:** Versioned candidate, October 19, 2026. **Implementation:** additive schema, validator, evaluator, examples, exact-head CI; not yet a deployed estate-wide contract. **Owner mandate:** GoreeCloud UI (GC UI) is the fifth of the existing **nine** Integral Platform Systems. Glaze and Glaze UI are permanently retired as active design authorities.
+**Status:** Versioned schema and tooling merged on October 19, 2026; ecosystem adoption remains candidate/pending. **Implementation:** additive schema, validator, evaluator, examples, exact-head CI; not yet a deployed estate-wide contract. **Owner mandate:** GoreeCloud UI (GC UI) is the fifth of the existing **nine** Integral Platform Systems. Glaze and Glaze UI are permanently retired as active design authorities.
 
 ## Motivation and exact authority
 
@@ -27,6 +27,22 @@ This **separately versioned** 2.1 candidate provides an explicit replacement rat
 - [2.1 evaluator](../scripts/evaluate_platform_conformance_v2_1.py) and [2.1 result schema](../schemas/goreecloud.conformance-result.v2.1.schema.json) retain producer provenance, source revision and independently evidenced eligibility.
 - [Application example](../examples/goreecloud.platform.v2.1.example.yaml), [shared-library example](../examples/goreecloud.platform.v2.1.shared-library.example.yaml), and [CI workflow](../.github/workflows/gc-ui-platform-contract-2-1.yml) verify truthful **nonconformant** source declarations and negative tests.
 - The existing Contract 2.0 schema, validator, evaluator, examples and reusable workflow are **not modified**; existing callers remain pinned to their evaluator revisions.
+
+## Consumer-callable, exact-revision CI
+
+The [versioned reusable validation workflow](../.github/workflows/reusable-platform-manifest-v2-1.yml) uses the same versioned 2.1 validator, evaluator and conformance-result schema. It checks out the **caller's exact pull-request head**, then checks out the **workflow's own pinned implementation revision**; it validates the caller path and evidence-provenance identities before reporting results.
+
+A migrated consumer may reference the new workflow **only after explicitly qualifying its 2.1 manifest and the selected evaluator revision**:
+
+```yaml
+jobs:
+  platform-contract-gc-ui:
+    uses: GoreeCloud/GoreeCloud/.github/workflows/reusable-platform-manifest-v2-1.yml@<verified-GoreeCloud-contract-commit>
+    with:
+      manifest-path: goreecloud.platform.yaml
+```
+
+Replace the placeholder with a **verified immutable 40-character commit SHA**; never pin an unverified ref or assume that changing the workflow automatically updates the consumer to GC UI. The old `reusable-platform-manifest.yml` continues to validate historical Contract 2.0 manifests at their own pinned revisions. Passing reusable validation means source declarations and schema provenance passed, **not** that GC UI is installed, the UI has migrated, or the product is production accepted.
 
 ## GC UI release and scope truth
 
