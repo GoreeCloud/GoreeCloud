@@ -24,7 +24,7 @@ INVENTORY_REPOSITORY_PATTERN = re.compile(
 )
 REQUIRED_PUBLIC_REPOSITORIES = {
     "GoreeCloud/GoreeCloud",
-    "GoreeCloud/glaze",
+    "GoreeCloud/gc-ui",
     "GoreeCloud/manager",
     "GoreeCloud/mesh",
     "GoreeCloud/identity",
