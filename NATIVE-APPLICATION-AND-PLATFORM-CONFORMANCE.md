@@ -6,6 +6,8 @@ All GoreeCloud applications and services must be original GoreeCloud-owned softw
 
 Narrow exceptions are permitted only for critical supporting foundations such as established cryptographic primitives, WireGuard and other standards/protocol foundations, platform interfaces, database engines, codecs, rendering/runtime components, and comparable dependencies where independent reimplementation would materially reduce security, interoperability, reliability, correctness, or maintainability. Every exception must remain limited to its minimum necessary role.
 
+> **Owner directive — October 19, 2026:** Integral Platform System #5 is now **GoreeCloud UI (GC UI)**, the permanent replacement for Glaze and Glaze UI. References to Glaze below are pre-succession historical context only, **not** active design/conformance authority. A [versioned Contract 2.1 GC UI candidate](docs/PLATFORM_CONTRACT_2_1_GC_UI.md) retains all nine systems while separating new `gc_ui` declarations from historical `glaze_ui` fields. All product acceptance and canonical Drive amendments still need separate verification.
+
 ## Integral Platform Systems
 
 Every GoreeCloud application and service must be evaluated against each of the nine Integral Platform Systems and implement every applicable responsibility:
@@ -14,7 +16,7 @@ Every GoreeCloud application and service must be evaluated against each of the n
 - **Privacy Shield** — consent, purpose limitation, minimization, retention, sharing, tracking/telemetry privacy, processing-boundary, and user privacy controls.
 - **Wardveil Security** — protection, integrity, trust, verification, threat handling, security evidence, defensive requirements, and applicable response controls.
 - **Everkeep** — resilience, backup, recovery, portability, preservation, continuity, migration readiness, succession, and long-term information survival.
-- **Glaze** — design language, interaction behavior, accessibility, responsive presentation, policy-decision states, operational-health states, evidence states, and visual conformance.
+- **GoreeCloud UI (GC UI)** — design language, interaction behavior, accessibility, responsive presentation, policy-decision states, operational-health states, evidence states, and visual conformance.
 - **GoreeCloud Mesh** — bounded first-party capability discovery, dependency/relationship awareness, coordination, governance, integration, event exchange, policy/observability capability discovery, and evidence routing where applicable.
 - **GoreeCloud Identity** — user, account, device, application, service, workload, credential, claim, session, authentication, authorization-integration, and trust boundaries where applicable.
 - **GoreeCloud Policy** — common policy representation, evaluation, decisions, distribution, enforcement coordination, explanation, precedence/composition, freshness, and policy evidence while preserving domain rule ownership.

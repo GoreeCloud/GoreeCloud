@@ -1,5 +1,7 @@
 # GoreeCloud Platform Contract
 
+> **OWNER SUCCESSION DIRECTIVE — October 19, 2026:** GoreeCloud UI (GC UI) is **Integral Platform System #5 of nine**, replacing Glaze and Glaze UI permanently as GoreeCloud's active design/experience authority. The historic **Contract 2.0** text and `glaze_ui` machine keys below document a pinned legacy schema; **they are not approval for current Glaze development or new design dependencies**. A [versioned GC UI Contract 2.1 candidate](docs/PLATFORM_CONTRACT_2_1_GC_UI.md) supplies `gc_ui` fields and a separate validator while preserving older verification evidence. Application migrations and higher-priority Drive governance updates remain independently gated.
+
 ## Status
 
 - Contract version: `2.0`

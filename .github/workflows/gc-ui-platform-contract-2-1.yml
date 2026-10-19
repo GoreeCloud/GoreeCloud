@@ -1,0 +1,105 @@
+name: GC UI Platform Contract 2.1 candidate validation
+
+on:
+  pull_request:
+    paths:
+      - 'schemas/goreecloud.platform.v2.1.schema.json'
+      - 'schemas/goreecloud.conformance-result.v2.1.schema.json'
+      - 'scripts/validate_platform_manifest_v2_1.py'
+      - 'scripts/evaluate_platform_conformance_v2_1.py'
+      - 'examples/goreecloud.platform.v2.1*.yaml'
+      - 'docs/PLATFORM_CONTRACT_2_1_GC_UI.md'
+      - '.github/workflows/gc-ui-platform-contract-2-1.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'schemas/goreecloud.platform.v2.1.schema.json'
+      - 'schemas/goreecloud.conformance-result.v2.1.schema.json'
+      - 'scripts/validate_platform_manifest_v2_1.py'
+      - 'scripts/evaluate_platform_conformance_v2_1.py'
+      - 'examples/goreecloud.platform.v2.1*.yaml'
+      - 'docs/PLATFORM_CONTRACT_2_1_GC_UI.md'
+      - '.github/workflows/gc-ui-platform-contract-2-1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-successor-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      EVALUATED_REVISION: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ env.EVALUATED_REVISION }}
+          persist-credentials: false
+      - name: Verify exact candidate revision
+        run: test "$(git rev-parse HEAD)" = "$EVALUATED_REVISION"
+      - name: Install pinned parser and schema validator
+        run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.2 jsonschema==4.25.1
+      - name: Preserve legacy 2.0 validation independently
+        run: |
+          python3 scripts/validate_platform_manifest.py examples/goreecloud.platform.example.yaml
+          python3 scripts/validate_platform_manifest.py examples/goreecloud.platform.shared-library.example.yaml
+      - name: Validate new GC UI 2.1 declarations
+        run: |
+          python3 -m py_compile scripts/validate_platform_manifest_v2_1.py scripts/evaluate_platform_conformance_v2_1.py
+          python3 scripts/validate_platform_manifest_v2_1.py examples/goreecloud.platform.v2.1.example.yaml
+          python3 scripts/validate_platform_manifest_v2_1.py examples/goreecloud.platform.v2.1.shared-library.example.yaml
+      - name: Verify versioned result schema and exact-revision provenance
+        run: |
+          python3 scripts/evaluate_platform_conformance_v2_1.py \
+            examples/goreecloud.platform.v2.1.example.yaml \
+            --revision "$EVALUATED_REVISION" --evaluator-revision "$EVALUATED_REVISION" \
+            --output /tmp/gc-ui-2-1-result.json
+          python3 - <<'PY'
+          import json,os
+          from jsonschema import Draft202012Validator
+          from pathlib import Path
+          s=json.loads(Path('schemas/goreecloud.conformance-result.v2.1.schema.json').read_text())
+          v=json.loads(Path('/tmp/gc-ui-2-1-result.json').read_text())
+          Draft202012Validator(s).validate(v)
+          assert v['evaluated_revision']==os.environ['EVALUATED_REVISION']
+          assert v['schema_version']=='2.1'
+          assert v['anchor_eligible'] is False
+          assert any(x['id']=='platform-system:gc_ui' for x in v['checks'])
+          assert all('glaze' not in x['id'].lower() for x in v['checks'])
+          print('GC UI 2.1 result is schema-valid and evidence-bounded')
+          PY
+      - name: Reject predecessor keys, active dependencies and unsupported Anchor
+        run: |
+          python3 - <<'PY'
+          import importlib.util,copy,pathlib,yaml,tempfile
+          p='scripts/validate_platform_manifest_v2_1.py'
+          spec=importlib.util.spec_from_file_location('gc_ui_validator',p)
+          v=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(v)
+          data=yaml.safe_load(pathlib.Path('examples/goreecloud.platform.v2.1.example.yaml').read_text())
+          cases=[]
+          t=copy.deepcopy(data)
+          t['platform_systems']['glaze_ui']=t['platform_systems'].pop('gc_ui')
+          cases.append(('legacy-key',t))
+          t=copy.deepcopy(data)
+          t['compatibility']['glaze_ui_required']=t['compatibility'].pop('gc_ui_required')
+          cases.append(('legacy-target',t))
+          t=copy.deepcopy(data)
+          t['compatibility']['requires'].append('glaze-ui==1.7.0')
+          cases.append(('legacy-dependency',t))
+          t=copy.deepcopy(data)
+          t['schema_version']='2.0'
+          cases.append(('old-version',t))
+          t=copy.deepcopy(data)
+          t['lifecycle']='anchor'
+          cases.append(('unqualified-anchor',t))
+          for label,case in cases:
+            with tempfile.TemporaryDirectory() as d:
+              path=pathlib.Path(d)/'manifest.yaml'
+              path.write_text(yaml.safe_dump(case))
+              try: v.validate_manifest(path)
+              except v.ValidationError: pass
+              else: raise SystemExit(label+' unexpectedly accepted')
+          print('All five negative compatibility and qualification controls held')
+          PY

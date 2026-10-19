@@ -16,7 +16,7 @@ REQUIRED_SYSTEMS = (
     "Privacy Shield",
     "Wardveil Security",
     "Everkeep",
-    "Glaze",
+    "GoreeCloud UI",
     "GoreeCloud Mesh",
     "GoreeCloud Identity",
     "GoreeCloud Policy",
@@ -41,7 +41,7 @@ REQUIRED_README_BOUNDARIES = (
     "applications, services, and shared platform components cohesive",
     "original, native, GoreeCloud-owned destination",
     "Existing complete-product forks or adopted implementations may remain temporarily",
-    "Required GoreeCloud Manager, Privacy Shield, Wardveil Security, Everkeep, Glaze, GoreeCloud Mesh, GoreeCloud Identity, GoreeCloud Policy, and GoreeCloud Observability integrations",
+    "Required GoreeCloud Manager, Privacy Shield, Wardveil Security, Everkeep, GoreeCloud UI, GoreeCloud Mesh, GoreeCloud Identity, GoreeCloud Policy, and GoreeCloud Observability integrations",
     "must not be presented as Anchor or production-ready merely because it builds successfully",
 )
 
@@ -168,7 +168,7 @@ def main() -> None:
 
     check_workflow_provenance()
     print("platform-conformance: nine-system native/platform baseline validated")
-    print("platform-conformance: Policy/Observability inclusion, Sync separation, and Glaze 1.7.0 target validated")
+    print("platform-conformance: Policy/Observability inclusion, Sync separation, and historical Contract 2.0 schema integrity validated")
     print("platform-conformance: exact PR-head workflow provenance validated")
     print("platform-conformance: shared-library Contract 2.0 applicability validated")
 
