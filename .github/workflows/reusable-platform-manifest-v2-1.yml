@@ -1,0 +1,104 @@
+name: Reusable GC UI Platform Contract 2.1 manifest validation
+
+on:
+  workflow_call:
+    inputs:
+      manifest-path:
+        description: Repository-relative path to the GoreeCloud platform manifest.
+        required: false
+        type: string
+        default: goreecloud.platform.yaml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-platform-manifest:
+    name: Validate GoreeCloud Platform Contract and conformance
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      MANIFEST_PATH: ${{ inputs.manifest-path }}
+      EVALUATED_REVISION: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+      EVALUATOR_REVISION: ${{ job.workflow_sha }}
+    steps:
+      - name: Checkout exact caller revision
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ env.EVALUATED_REVISION }}
+          persist-credentials: false
+
+      - name: Verify exact caller revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EVALUATED_REVISION"
+
+      - name: Checkout exact Platform Contract implementation
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          repository: ${{ job.workflow_repository }}
+          ref: ${{ job.workflow_sha }}
+          path: .goreecloud-platform-contract
+          persist-credentials: false
+
+      - name: Validate manifest path
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$MANIFEST_PATH" || "$MANIFEST_PATH" = /* || "$MANIFEST_PATH" == *".."* ]]; then
+            echo "Invalid repository-relative manifest path: $MANIFEST_PATH" >&2
+            exit 1
+          fi
+          test -f "$MANIFEST_PATH"
+
+      - name: Install contract validator dependencies
+        run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.2 jsonschema==4.25.1
+
+      - name: Validate GoreeCloud Platform Contract manifest
+        run: python3 .goreecloud-platform-contract/scripts/validate_platform_manifest_v2_1.py "$MANIFEST_PATH"
+
+      - name: Compute platform conformance result
+        run: |
+          python3 .goreecloud-platform-contract/scripts/evaluate_platform_conformance_v2_1.py \
+            "$MANIFEST_PATH" \
+            --revision "$EVALUATED_REVISION" \
+            --evaluator-revision "${{ job.workflow_sha }}" \
+            --output goreecloud.conformance-result.json
+
+      - name: Validate computed conformance result schema and provenance
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          from jsonschema import Draft202012Validator, FormatChecker
+
+          schema = json.loads(Path('.goreecloud-platform-contract/schemas/goreecloud.conformance-result.v2.1.schema.json').read_text())
+          result = json.loads(Path('goreecloud.conformance-result.json').read_text())
+          Draft202012Validator(schema, format_checker=FormatChecker()).validate(result)
+          expected_revision = os.environ['EVALUATED_REVISION']
+          if result['evaluated_revision'] != expected_revision:
+              raise SystemExit('computed result does not identify the exact checked-out caller revision')
+          if result['schema_version'] != '2.1' or result['manifest_schema_version'] != '2.1':
+              raise SystemExit('GC UI 2.1 result must preserve declared schema version')
+          if result['evaluator_revision'] != os.environ['EVALUATOR_REVISION']:
+              raise SystemExit('GC UI 2.1 result must identify the exact called workflow SHA')
+          if not any(check['id'] == 'platform-system:gc_ui' for check in result['checks']):
+              raise SystemExit('GC UI 2.1 result does not evaluate the new experience authority')
+          if any('glaze' in check['id'].lower() for check in result['checks']):
+              raise SystemExit('GC UI 2.1 result cannot advertise predecessor checks')
+          if 'anchor_eligible' not in result or 'stable_eligible' in result:
+              raise SystemExit('Contract 2.1 result must expose anchor_eligible and must not expose stable_eligible')
+          print('GC UI Contract 2.1: schema, lifecycle, and exact caller and evaluator revisions validated')
+          PY
+
+      - name: Upload platform conformance evidence
+        if: always() && hashFiles('goreecloud.conformance-result.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: goreecloud-platform-conformance-${{ env.EVALUATED_REVISION }}
+          path: goreecloud.conformance-result.json
+          if-no-files-found: error
+          retention-days: 30
