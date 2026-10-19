@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://goreecloud.com/schemas/goreecloud.platform.schema.json",
+  "$id": "https://goreecloud.com/schemas/goreecloud.platform.v2.1.schema.json",
   "title": "GoreeCloud Platform Contract 2.1 — GC UI Integral Platform System",
   "description": "Versioned GC UI successor to historical Contract 2.0. All nine Integral Platform Systems remain mandatory for evaluation; GC UI supersedes GoreeCloud UI and GoreeCloud UI UI, which are not valid new 2.1 platform keys.",
   "type": "object",
