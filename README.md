@@ -27,6 +27,8 @@ GoreeCloud is more than a homelab or a collection of self-hosted applications. I
 | **Recoverability** | Design systems so important information and services can be restored after failure. |
 | **Technology independence** | Keep applications, data, and infrastructure portable enough to replace vendors, software, or hardware when needed. |
 
+> **GoreeCloud UI succession (October 19, 2026):** GoreeCloud UI (GC UI), [GoreeCloud/gc-ui](https://github.com/GoreeCloud/gc-ui), is Integral Platform System **#5 of nine**, replacing Glaze and Glaze UI permanently as the ecosystem's shared experience/design authority. Existing Glaze-named contract fields and consumer assets are migration debt, not permitted new design dependencies. [Versioned GC UI Platform Contract 2.1 candidate](docs/PLATFORM_CONTRACT_2_1_GC_UI.md) has separately testable new machine keys; prior pinned 2.0 evidence remains historical and no product deployment migration is implied.
+
 ## Platform systems
 
 GoreeCloud uses nine Integral Platform Systems to keep applications, services, and shared platform components cohesive without making them unnecessarily dependent on one another. **GoreeCloud Suite** is the integrated user-facing product experience built across the ecosystem; it is distinct from the nine functional platform systems below.
