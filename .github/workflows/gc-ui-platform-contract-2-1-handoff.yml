@@ -1,0 +1,35 @@
+name: Exercise reusable GC UI Contract 2.1 handoff
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/reusable-platform-manifest-v2-1.yml'
+      - '.github/workflows/gc-ui-platform-contract-2-1-handoff.yml'
+      - 'scripts/validate_platform_manifest_v2_1.py'
+      - 'scripts/evaluate_platform_conformance_v2_1.py'
+      - 'schemas/goreecloud.platform.v2.1.schema.json'
+      - 'schemas/goreecloud.conformance-result.v2.1.schema.json'
+      - 'examples/goreecloud.platform.v2.1.example.yaml'
+      - 'examples/goreecloud.platform.v2.1.shared-library.example.yaml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/reusable-platform-manifest-v2-1.yml'
+      - '.github/workflows/gc-ui-platform-contract-2-1-handoff.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  application:
+    name: Evaluate nonconformant GC UI application without fabricated acceptance
+    uses: ./.github/workflows/reusable-platform-manifest-v2-1.yml
+    with:
+      manifest-path: examples/goreecloud.platform.v2.1.example.yaml
+
+  shared-library:
+    name: Evaluate nonconformant GC UI shared library without fabricated acceptance
+    uses: ./.github/workflows/reusable-platform-manifest-v2-1.yml
+    with:
+      manifest-path: examples/goreecloud.platform.v2.1.shared-library.example.yaml
