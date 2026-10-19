@@ -28,6 +28,14 @@ This **separately versioned** 2.1 candidate provides an explicit replacement rat
 - [Application example](../examples/goreecloud.platform.v2.1.example.yaml), [shared-library example](../examples/goreecloud.platform.v2.1.shared-library.example.yaml), and [CI workflow](../.github/workflows/gc-ui-platform-contract-2-1.yml) verify truthful **nonconformant** source declarations and negative tests.
 - The existing Contract 2.0 schema, validator, evaluator, examples and reusable workflow are **not modified**; existing callers remain pinned to their evaluator revisions.
 
+## Downstream reusable CI handoff
+
+A [separate reusable workflow](../.github/workflows/reusable-platform-manifest-v2-1.yml) accepts `manifest-path` and evaluates the **exact caller revision** using the pinned revision of the workflow's **own contract evaluator**. It verifies the 2.1 manifest and result schemas, preserves the source and evaluator SHA in conformance evidence, validates that `gc_ui` is evaluated, and publishes the computed result as a GitHub Actions artifact. Both [application and shared-library self-test call sites](../.github/workflows/gc-ui-platform-contract-2-1-handoff.yml) run through the real reusable-workflow path.
+
+Consumers should call `GoreeCloud/GoreeCloud/.github/workflows/reusable-platform-manifest-v2-1.yml@<VERIFIED_IMMUTABLE_COMMIT>` and use the `manifest-path` input. The placeholder **must be replaced with the verified, reviewed exact commit containing this workflow**; never reference an unreviewed floating branch or substitute the v2.0 workflow for a v2.1 manifest. Migration to v2.1 is opt-in per owning consumer after actual UI adoption and contractual evidence are ready.
+
+The workflow only checks declaration semantics and source-evidence metadata. It does **not** automatically certify actual GC UI component usage, web/native runtime, accessibility, security, reliability, rollout, or release qualification.
+
 ## GC UI release and scope truth
 
 The GC UI development workspace is `0.2.0-alpha.1`; its scoped `foundations-v1.0.1` GitHub distribution covers semantic tokens, color engine and browser theme controller, **not** the full component catalog or native UI. Declaring that identifier as a target is not conformance and cannot silently certify experimental components, app-level UX, accessibility, privacy, native interaction, platform adapter, rollout, rollback, or production readiness.
