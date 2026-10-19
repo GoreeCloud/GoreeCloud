@@ -8,8 +8,8 @@ This document records the current repository footprint owned by the `GoreeCloud`
 
 | Category | Count |
 | --- | ---: |
-| Total owned repositories | 97 |
-| Public repositories | 95 |
+| Total owned repositories | 96 |
+| Public repositories | 94 |
 | Private repositories | 2 |
 | Archived repositories | 0 |
 
@@ -17,7 +17,7 @@ Repository presence alone does not establish application completeness, lifecycle
 
 ## Public repositories
 
-The following **95 public repositories** were reconciled against current GitHub repository metadata on October 19, 2026. Repository availability does not imply a working product or GC UI migration.
+The following **94 public repositories** were reconciled against current GitHub repository metadata on October 19, 2026. Repository availability does not imply a working product or GC UI migration.
 
 1. [`GoreeCloud/.github`](https://github.com/GoreeCloud/.github)
 2. [`GoreeCloud/advanced-download-manager`](https://github.com/GoreeCloud/advanced-download-manager)
@@ -75,45 +75,44 @@ The following **95 public repositories** were reconciled against current GitHub 
 54. [`GoreeCloud/metrics`](https://github.com/GoreeCloud/metrics)
 55. [`GoreeCloud/monitor`](https://github.com/GoreeCloud/monitor)
 56. [`GoreeCloud/music`](https://github.com/GoreeCloud/music)
-57. [`GoreeCloud/network`](https://github.com/GoreeCloud/network)
-58. [`GoreeCloud/news-weather`](https://github.com/GoreeCloud/news-weather)
-59. [`GoreeCloud/notebook`](https://github.com/GoreeCloud/notebook)
-60. [`GoreeCloud/notify`](https://github.com/GoreeCloud/notify)
-61. [`GoreeCloud/observability`](https://github.com/GoreeCloud/observability)
-62. [`GoreeCloud/office`](https://github.com/GoreeCloud/office)
-63. [`GoreeCloud/os-desktop`](https://github.com/GoreeCloud/os-desktop)
-64. [`GoreeCloud/os-hypervisor`](https://github.com/GoreeCloud/os-hypervisor)
-65. [`GoreeCloud/os-mobile`](https://github.com/GoreeCloud/os-mobile)
-66. [`GoreeCloud/os-tv`](https://github.com/GoreeCloud/os-tv)
-67. [`GoreeCloud/pdf-manager`](https://github.com/GoreeCloud/pdf-manager)
-68. [`GoreeCloud/photos`](https://github.com/GoreeCloud/photos)
-69. [`GoreeCloud/plugin`](https://github.com/GoreeCloud/plugin)
-70. [`GoreeCloud/policy`](https://github.com/GoreeCloud/policy)
-71. [`GoreeCloud/privacy-center`](https://github.com/GoreeCloud/privacy-center)
-72. [`GoreeCloud/privacy-shield`](https://github.com/GoreeCloud/privacy-shield)
-73. [`GoreeCloud/privacy-VPN`](https://github.com/GoreeCloud/privacy-VPN)
-74. [`GoreeCloud/reader`](https://github.com/GoreeCloud/reader)
-75. [`GoreeCloud/remote-desktop-mcp`](https://github.com/GoreeCloud/remote-desktop-mcp)
-76. [`GoreeCloud/research-library`](https://github.com/GoreeCloud/research-library)
-77. [`GoreeCloud/router-os`](https://github.com/GoreeCloud/router-os)
-78. [`GoreeCloud/search`](https://github.com/GoreeCloud/search)
-79. [`GoreeCloud/security-center`](https://github.com/GoreeCloud/security-center)
-80. [`GoreeCloud/since`](https://github.com/GoreeCloud/since)
-81. [`GoreeCloud/social`](https://github.com/GoreeCloud/social)
-82. [`GoreeCloud/static-websites`](https://github.com/GoreeCloud/static-websites)
-83. [`GoreeCloud/swarm`](https://github.com/GoreeCloud/swarm)
-84. [`GoreeCloud/sync`](https://github.com/GoreeCloud/sync)
-85. [`GoreeCloud/tasks`](https://github.com/GoreeCloud/tasks)
-86. [`GoreeCloud/terminal`](https://github.com/GoreeCloud/terminal)
-87. [`GoreeCloud/tiktok-player`](https://github.com/GoreeCloud/tiktok-player)
-88. [`GoreeCloud/vault`](https://github.com/GoreeCloud/vault)
-89. [`GoreeCloud/video`](https://github.com/GoreeCloud/video)
-90. [`GoreeCloud/VPN`](https://github.com/GoreeCloud/VPN)
-91. [`GoreeCloud/wardveil`](https://github.com/GoreeCloud/wardveil)
-92. [`GoreeCloud/waypoint`](https://github.com/GoreeCloud/waypoint)
-93. [`GoreeCloud/workspace-ai`](https://github.com/GoreeCloud/workspace-ai)
-94. [`GoreeCloud/youtube-player`](https://github.com/GoreeCloud/youtube-player)
-95. [`GoreeCloud/zorin-os`](https://github.com/GoreeCloud/zorin-os)
+57. [`GoreeCloud/news-weather`](https://github.com/GoreeCloud/news-weather)
+58. [`GoreeCloud/notebook`](https://github.com/GoreeCloud/notebook)
+59. [`GoreeCloud/notify`](https://github.com/GoreeCloud/notify)
+60. [`GoreeCloud/observability`](https://github.com/GoreeCloud/observability)
+61. [`GoreeCloud/office`](https://github.com/GoreeCloud/office)
+62. [`GoreeCloud/os-desktop`](https://github.com/GoreeCloud/os-desktop)
+63. [`GoreeCloud/os-hypervisor`](https://github.com/GoreeCloud/os-hypervisor)
+64. [`GoreeCloud/os-mobile`](https://github.com/GoreeCloud/os-mobile)
+65. [`GoreeCloud/os-tv`](https://github.com/GoreeCloud/os-tv)
+66. [`GoreeCloud/pdf-manager`](https://github.com/GoreeCloud/pdf-manager)
+67. [`GoreeCloud/photos`](https://github.com/GoreeCloud/photos)
+68. [`GoreeCloud/plugin`](https://github.com/GoreeCloud/plugin)
+69. [`GoreeCloud/policy`](https://github.com/GoreeCloud/policy)
+70. [`GoreeCloud/privacy-center`](https://github.com/GoreeCloud/privacy-center)
+71. [`GoreeCloud/privacy-shield`](https://github.com/GoreeCloud/privacy-shield)
+72. [`GoreeCloud/privacy-VPN`](https://github.com/GoreeCloud/privacy-VPN)
+73. [`GoreeCloud/reader`](https://github.com/GoreeCloud/reader)
+74. [`GoreeCloud/remote-desktop-mcp`](https://github.com/GoreeCloud/remote-desktop-mcp)
+75. [`GoreeCloud/research-library`](https://github.com/GoreeCloud/research-library)
+76. [`GoreeCloud/router-os`](https://github.com/GoreeCloud/router-os)
+77. [`GoreeCloud/search`](https://github.com/GoreeCloud/search)
+78. [`GoreeCloud/security-center`](https://github.com/GoreeCloud/security-center)
+79. [`GoreeCloud/since`](https://github.com/GoreeCloud/since)
+80. [`GoreeCloud/social`](https://github.com/GoreeCloud/social)
+81. [`GoreeCloud/static-websites`](https://github.com/GoreeCloud/static-websites)
+82. [`GoreeCloud/swarm`](https://github.com/GoreeCloud/swarm)
+83. [`GoreeCloud/sync`](https://github.com/GoreeCloud/sync)
+84. [`GoreeCloud/tasks`](https://github.com/GoreeCloud/tasks)
+85. [`GoreeCloud/terminal`](https://github.com/GoreeCloud/terminal)
+86. [`GoreeCloud/tiktok-player`](https://github.com/GoreeCloud/tiktok-player)
+87. [`GoreeCloud/vault`](https://github.com/GoreeCloud/vault)
+88. [`GoreeCloud/video`](https://github.com/GoreeCloud/video)
+89. [`GoreeCloud/VPN`](https://github.com/GoreeCloud/VPN)
+90. [`GoreeCloud/wardveil`](https://github.com/GoreeCloud/wardveil)
+91. [`GoreeCloud/waypoint`](https://github.com/GoreeCloud/waypoint)
+92. [`GoreeCloud/workspace-ai`](https://github.com/GoreeCloud/workspace-ai)
+93. [`GoreeCloud/youtube-player`](https://github.com/GoreeCloud/youtube-player)
+94. [`GoreeCloud/zorin-os`](https://github.com/GoreeCloud/zorin-os)
 
 ## Private repositories
 
