@@ -19,7 +19,6 @@ jobs:
     timeout-minutes: 5
     env:
       MANIFEST_PATH: ${{ inputs.manifest-path }}
-      CONTRACT_WORKFLOW_SHA: ${{ job.workflow_sha }}
       EVALUATED_REVISION: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
     steps:
       - name: Checkout exact caller revision
@@ -68,6 +67,8 @@ jobs:
 
       - name: Validate computed conformance result schema and provenance
         shell: bash
+        env:
+          CONTRACT_WORKFLOW_SHA: ${{ job.workflow_sha }}
         run: |
           python3 - <<'PY'
           import json
