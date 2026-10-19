@@ -1,0 +1,151 @@
+schema_version: "2.1"
+
+component:
+  type: application
+  id: example-goreecloud-application
+  product_name: GoreeCloud Example Application
+  repository: GoreeCloud/example-goreecloud-application
+
+lifecycle: forge
+lifecycle_metadata:
+  flags:
+    - blocked
+    - migration-required
+  deployment_state: development
+  qualification_state: not-started
+  next_gate: weave
+  candidate_identity: null
+  last_transition: null
+  evidence: []
+version: 2.1.0-forge.1
+
+supported_platforms:
+  - web
+  - linux
+
+api:
+  versions:
+    - v1
+  endpoints:
+    - name: primary-api
+      url: https://example.invalid/api/v1
+      purpose: Non-production purpose-specific example endpoint for Platform Contract documentation.
+
+platform_systems:
+  manager:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; Manager operational visibility has not been accepted.
+  privacy_shield:
+    result: applicable-blocked
+    version: null
+    evidence:
+      - docs/privacy/example-evidence.md
+    notes: Example repository evidence exists, but accepted Privacy Shield integration is not claimed.
+  wardveil_security:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; Wardveil Security integration has not been accepted.
+  everkeep:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; Everkeep integration and restore acceptance have not been completed.
+  gc_ui:
+    result: applicable-migration-required
+    version: null
+    evidence: []
+    notes: "GC UI is Integral Platform System #5 of nine. This example has not integrated or accepted GC UI; Foundations 1.0.1 is a scoped release only, not full-UI or product acceptance."
+  mesh:
+    result: applicable-blocked
+    version: null
+    evidence:
+      - evidence/mesh/example-registration.json
+    notes: Example registration metadata exists, but runtime publication and acceptance are not claimed.
+    capabilities:
+      - example.read
+    dependencies:
+      - goreecloud-identity
+      - goreecloud-policy
+      - goreecloud-observability
+    published_events:
+      - example.item.updated.v1
+    consumed_events:
+      - identity.session.revoked.v1
+  identity:
+    result: applicable-blocked
+    version: null
+    evidence:
+      - evidence/identity/example-integration.json
+    notes: Example only; Identity runtime acceptance is incomplete.
+  policy:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; applicable policy contracts, decision interfaces, enforcement behavior, and policy evidence have not been accepted.
+  observability:
+    result: applicable-blocked
+    version: null
+    evidence: []
+    notes: Example only; operational-health, telemetry, freshness, diagnostics, and observability evidence have not been accepted.
+
+health:
+  health_endpoint: /health
+  readiness_endpoint: /ready
+
+continuity:
+  backup:
+    required: true
+    requirements:
+      - Persist application data in an Everkeep-compatible backup scope.
+  restore:
+    required: true
+    requirements:
+      - Validate restoration into a clean environment before Anchor acceptance.
+  export:
+    required: true
+    requirements:
+      - Provide a documented user-controlled export.
+  portability:
+    required: true
+    requirements:
+      - Use documented portable formats for durable user data where practical.
+
+external_dependencies:
+  - name: example-database
+    purpose: Example persistent data store.
+    required: true
+    version_constraint: ">=1.0"
+
+compatibility:
+  platform_contract: "2.1"
+  gc_ui_required: "foundations-v1.0.1"
+  requires:
+    - goreecloud-platform-contract==2.1
+  provides:
+    - example-api-v1
+
+evidence:
+  acceptance_tests: []
+  release: []
+
+conformance:
+  status: nonconformant
+  validated_at: null
+  evidence: []
+  blockers:
+    - GoreeCloud Manager integration remains blocked pending accepted operational visibility.
+    - Privacy Shield integration remains blocked pending accepted runtime evidence.
+    - Wardveil Security integration remains blocked pending accepted runtime evidence.
+    - Everkeep integration remains blocked pending backup and restore acceptance.
+    - GoreeCloud UI migration from implemented 1.3.0 to scoped current foundations-v1.0.1 remains required.
+    - GoreeCloud Mesh runtime publication and acceptance remain blocked.
+    - GoreeCloud Identity runtime acceptance remains blocked.
+    - GoreeCloud Policy applicability, decision, enforcement, and evidence acceptance remain blocked.
+    - GoreeCloud Observability operational-health, telemetry, and evidence acceptance remain blocked.
+    - Required Anchor acceptance-test and release evidence has not been produced for this Forge example.
+
+# GoreeCloud Sync remains a separate application/service capability and is intentionally
+# not represented as a tenth key under platform_systems.
