@@ -43,7 +43,11 @@ def check_file(path: Path, root: Path) -> list[str]:
     except (UnicodeError, OSError) as exc:
         return [f"{path}: unable to read UTF-8 text: {exc}"]
     for line, target in markdown_links(contents):
-        parsed = urlsplit(target)
+        try:
+            parsed = urlsplit(target)
+        except ValueError:
+            errors.append(f"{path}:{line}: malformed link target: {target!r}")
+            continue
         if parsed.scheme or parsed.netloc or target.startswith("#"):
             continue  # Remote destinations and same-page anchors are not checked.
         decoded_path = unquote(parsed.path)
