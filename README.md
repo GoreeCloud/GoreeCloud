@@ -44,6 +44,27 @@ I intend to develop original GoreeCloud applications and cohesive experiences ac
 
 I favor long-term control, privacy, security, maintainability, portability, and thoughtful integration. These are guiding intentions, not claims that every planned capability is already implemented or production-ready.
 
+## How the ecosystem fits together
+
+GoreeCloud is an umbrella for independently developed products and shared platform capabilities. These responsibilities are intentionally separate:
+
+| Area | Responsibility |
+| --- | --- |
+| **GoreeShield** | Privacy, consent, data minimization, retention, and sharing preferences. |
+| **Wardveil** | Cybersecurity, threat detection, defensive controls, and incident response. |
+| **GoreeCloud Mesh** | Connectivity, interoperability, and coordination between products, subject to privacy and security controls. |
+| **GoreeCloud UI** | Shared design language, accessible interaction patterns, and consistent experiences. |
+
+The target integrated platform also includes **GoreeCloud Identity** for identity and access control. These are architectural responsibilities, not a claim that every integration or product is deployed or complete.
+
+Explore the [GoreeCloud repositories](https://github.com/GoreeCloud) for individual applications, services, experiments, and their own implementation and licensing status. This repository is the project introduction, not a monorepo or a substitute for project-specific documentation.
+
+## Participate and report issues
+
+See [contribution guidance](CONTRIBUTING.md) for documentation improvements and scope, and [security reporting](SECURITY.md) for private vulnerability disclosure. Do not post credentials, family data, or private infrastructure information in public issues.
+
+Original content in this repository is available under the [MIT License](LICENSE). Other GoreeCloud repositories may have different licenses.
+
 ---
 
 *GoreeCloud is a personal, noncommercial hobby and learning project. Its scope and pace are determined by interest, usefulness, available time, and responsible stewardship—not a business model.*
