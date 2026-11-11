@@ -27,6 +27,23 @@ class DocumentationLinksTest(unittest.TestCase):
             readme.write_text("[Missing](absent.md)\n", encoding="utf-8")
             self.assertIn("missing local file", check_file(readme, root)[0])
 
+    def test_malformed_url_reports_error_without_crashing(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            readme = root / "README.md"
+            readme.write_text("[Bad](https://[broken)\n", encoding="utf-8")
+            messages = check_file(readme, root)
+            self.assertEqual(len(messages), 1)
+            self.assertIn("malformed link target", messages[0])
+
+    def test_encoded_traversal_is_rejected(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder) / "repo"
+            root.mkdir()
+            readme = root / "README.md"
+            readme.write_text("[Escape](%2e%2e/outside.md)\n", encoding="utf-8")
+            self.assertIn("escapes repository", check_file(readme, root)[0])
+
     def test_parent_escape_rejected(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder) / "repo"
